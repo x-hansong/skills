@@ -15,6 +15,7 @@ Keep design and orchestration in your session, and let [Paseo](https://paseo.sh)
 | [`paseo-routed`](skills/paseo-routed/paseo-routed/SKILL.md) | you or the agent | Any task: this session designs, the worker explores and implements, the reviewer reviews |
 | [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | you | An agreed plan, spec or single ticket, following `implement` |
 | [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | you | A spec with a dependency graph of tickets, following `implement-spec` |
+| [`paseo-watch`](skills/paseo-routed/paseo-watch/SKILL.md) | you | Many orchestrators running: a heartbeat reports what changed, rebuilds the background of each pending decision, and relays your answers |
 
 ### Requirements
 
@@ -29,7 +30,8 @@ Keep design and orchestration in your session, and let [Paseo](https://paseo.sh)
 ```bash
 npx skills add x-hansong/skills -g -a claude-code -a codex \
   --skill setup-paseo-routed --skill paseo-routed-guide \
-  --skill paseo-routed --skill implement-routed --skill implement-spec-routed
+  --skill paseo-routed --skill implement-routed --skill implement-spec-routed \
+  --skill paseo-watch
 ```
 
 Then, in Claude Code or Codex:

@@ -7,6 +7,7 @@
 | 一个任务、问题或粗略想法，还没有方案 | `/paseo-routed <任务>` | 主会话根据 worker 的探索结果定方案，再派发实现和审查 |
 | 已经定好的方案、一份 spec 或一张票据 | `/implement-routed <方案或票据>` | 按 `implement` 的流程走（先写测试、审查、提交），worker 实现，reviewer 审查 |
 | 拆成票据、带阻塞关系的 spec | `/implement-spec-routed <spec>` | 按 `implement-spec` 的流程走：就绪的票据在各自的 worktree 里并行实现，合到一条集成分支，最后统一审查 |
+| 同时跑着好几个编排者，记不住各自进展 | `/paseo-watch start` | Paseo heartbeat 定时巡检顶层编排者，只报变化，给每个待决策项重建背景，并转达你的决定。`/paseo-watch stop` 结束 |
 | 还没配置，或者某处坏了 | `/setup-paseo-routed` | 检测、出方案、你确认后写入、复检。`/setup-paseo-routed check` 只出报告 |
 
 做一个功能的常见路径：先讨论或 grill 想法 → `to-spec` → `to-tickets` → `/implement-spec-routed`。单个改动：在对话里定好方案 → `/implement-routed`。

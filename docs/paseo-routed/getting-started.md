@@ -7,7 +7,8 @@ Install Paseo and start its daemon (see [paseo.sh](https://paseo.sh/docs)), then
 ```bash
 npx skills add x-hansong/skills -g -a claude-code -a codex \
   --skill setup-paseo-routed --skill paseo-routed-guide \
-  --skill paseo-routed --skill implement-routed --skill implement-spec-routed
+  --skill paseo-routed --skill implement-routed --skill implement-spec-routed \
+  --skill paseo-watch
 ```
 
 ## 2. Run setup
