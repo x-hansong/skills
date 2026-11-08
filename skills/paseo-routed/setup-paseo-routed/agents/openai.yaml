@@ -1,0 +1,6 @@
+interface:
+  display_name: "Setup Paseo Routed"
+  short_description: "Detect, plan and complete the Paseo setup the routed skills need; rerun to check health"
+  default_prompt: "Use $setup-paseo-routed to check and complete my setup."
+policy:
+  allow_implicit_invocation: false

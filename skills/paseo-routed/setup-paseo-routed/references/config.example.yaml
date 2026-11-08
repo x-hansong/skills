@@ -1,0 +1,23 @@
+# ~/.paseo-routed/config.yaml
+# Read by paseo-routed, implement-routed and implement-spec-routed.
+# Profile names must match Paseo profiles exactly (paseo daemon config get daemon.agentProfiles).
+version: 1
+
+# Roster used when the task doesn't name one. Switch for one run with --roster <name>.
+default_roster: main
+
+rosters:
+  main:
+    worker: Builder        # explores, researches, implements, merges, fixes
+    reviewer: Critic       # read-only review and diagnosis
+  # alt:
+  #   worker: Builder-alt
+  #   reviewer: Critic-alt
+  #   compare: true        # log rework rounds and review findings to compare rosters
+
+# Shared notes live outside your repos, one subdirectory per task.
+notes_dir: ~/.paseo-routed/notes
+
+# Extra rules applied on every routed run, in your own words.
+# preferences: |
+#   Only interrupt me when a decision is needed or everything is done.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paseo Routed Guide"
+  short_description: "Which routed skill to use, how rosters work, and a guided first run"
+  default_prompt: "Use $paseo-routed-guide to show me how to get started."
