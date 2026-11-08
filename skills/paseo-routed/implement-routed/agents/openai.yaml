@@ -1,0 +1,6 @@
+interface:
+  display_name: "Implement (Routed)"
+  short_description: "Worker profile implements a task or plan via Paseo; reviewer profile reviews before acceptance"
+  default_prompt: "Use $implement-routed to implement the agreed plan."
+policy:
+  allow_implicit_invocation: false

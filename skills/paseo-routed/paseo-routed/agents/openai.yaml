@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paseo Routed"
+  short_description: "Orchestrate here; a worker profile implements and a reviewer profile reviews via Paseo"
+  default_prompt: "Use $paseo-routed to run this task with the default roster."

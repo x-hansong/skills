@@ -1,0 +1,10 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "groupings": [
+    {
+      "title": "Paseo Routed",
+      "description": "Orchestrate in your session; Paseo worker and reviewer agents, chosen by a switchable roster, do the work and the review.",
+      "skills": ["paseo-routed", "implement-routed", "implement-spec-routed", "setup-paseo-routed", "paseo-routed-guide"]
+    }
+  ]
+}
