@@ -1,6 +1,6 @@
 ---
 name: paseo-routed-guide
-description: "Guide to the paseo-routed skill set: which of paseo-routed, implement-routed or implement-spec-routed fits a situation, how worker/reviewer rosters work and how to switch them, and a guided first run. Use when the user asks how to use routed or Paseo delegation, which routed skill to pick, how to switch rosters or compare models, or is getting started."
+description: "Guide to the paseo-routed skill set: which of paseo-routed, implement-routed, implement-spec-routed or paseo-watch fits a situation, how worker/reviewer rosters work and how to switch them, and a guided first run. Use when the user asks how to use routed or Paseo delegation, which routed skill to pick, how to switch rosters or compare models, or is getting started."
 license: MIT
 compatibility: "Claude Code or Codex. Uses setup-paseo-routed for its readiness check."
 metadata:

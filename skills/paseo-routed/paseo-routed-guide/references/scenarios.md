@@ -7,6 +7,7 @@
 | A task, question or rough idea; no plan yet | `/paseo-routed <task>` | This session designs the plan from the worker's exploration, then dispatches implementation and review |
 | An agreed plan, a spec file, or one ticket | `/implement-routed <plan or ticket>` | Follows `implement` (tests first, review, commits) with the worker implementing and the reviewer reviewing |
 | A spec split into tickets with blocking edges | `/implement-spec-routed <spec>` | Follows `implement-spec`: works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
+| Several orchestrators running and you lose track of them | `/paseo-watch start` | A Paseo heartbeat patrols top-level orchestrators, reports only changes, rebuilds the background of each pending decision, and relays your answers. `/paseo-watch stop` ends it |
 | Nothing set up yet, or something stopped working | `/setup-paseo-routed` | Detects, plans, writes after you confirm, re-checks. `/setup-paseo-routed check` only reports |
 
 A typical path for a feature: grill or discuss the idea → `to-spec` → `to-tickets` → `/implement-spec-routed`. For a single change: agree on the plan in conversation → `/implement-routed`.

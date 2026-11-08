@@ -15,6 +15,7 @@
 | [`paseo-routed`](skills/paseo-routed/paseo-routed/SKILL.md) | 你或模型 | 任意任务：主会话定方案，worker 探索和实现，reviewer 审查 |
 | [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | 你 | 已定的方案、spec 或单张票据，按 `implement` 的流程走 |
 | [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | 你 | 带票据依赖图的 spec，按 `implement-spec` 的流程走 |
+| [`paseo-watch`](skills/paseo-routed/paseo-watch/SKILL.md) | 你 | 同时跑着很多编排者时用：heartbeat 定时汇报变化，给每个待决策项重建背景，再把你的决定转达回去 |
 
 ### 依赖
 
@@ -29,7 +30,8 @@
 ```bash
 npx skills add x-hansong/skills -g -a claude-code -a codex \
   --skill setup-paseo-routed --skill paseo-routed-guide \
-  --skill paseo-routed --skill implement-routed --skill implement-spec-routed
+  --skill paseo-routed --skill implement-routed --skill implement-spec-routed \
+  --skill paseo-watch
 ```
 
 装好后，在 Claude Code 或 Codex 里运行：
