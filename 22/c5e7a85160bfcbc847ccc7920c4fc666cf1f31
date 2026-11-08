@@ -1,0 +1,21 @@
+.gitignore
+  s_9ac76895a0890e::t_2ef5843a49d8b9 1-2
+LICENSE
+  s_9ac76895a0890e::t_9361ec9ae97e10 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "22c5e7a85160bfcbc847ccc7920c4fc666cf1f31",
+  "prompts": {},
+  "sessions": {
+    "s_9ac76895a0890e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f69cad64-5cb4-4da0-9628-f7263eab6daf",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
