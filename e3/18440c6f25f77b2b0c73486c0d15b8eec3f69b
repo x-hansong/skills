@@ -1,0 +1,45 @@
+docs/paseo-routed/getting-started.md
+  s_868c508baf5656::t_c15ac58d4454e4 10-11
+skills/paseo-routed/paseo-watch/SKILL.md
+  s_868c508baf5656::t_291393b8eea736 1-66
+skills/paseo-routed/paseo-watch/references/report.md
+  s_868c508baf5656::t_8dffab60a20fda 1-65
+skills/paseo-routed/paseo-watch/references/state.md
+  s_868c508baf5656::t_b104bf44a678eb 1-58
+CHANGELOG.md
+  s_868c508baf5656::t_c15ac58d4454e4 11
+skills/paseo-routed/paseo-watch/agents/openai.yaml
+  s_868c508baf5656::t_9be184ec88a43c 1-6
+skills/paseo-routed/paseo-watch/references/relay.md
+  s_868c508baf5656::t_5499502f6e03d3 1-53
+skills/paseo-routed/paseo-routed-guide/references/scenarios.md
+  s_868c508baf5656::t_c15ac58d4454e4 10
+skills/paseo-routed/paseo-routed-guide/references/scenarios.zh-CN.md
+  s_868c508baf5656::t_c15ac58d4454e4 10
+skills/paseo-routed/paseo-routed-guide/SKILL.md
+  s_868c508baf5656::t_c15ac58d4454e4 3
+docs/paseo-routed/getting-started.zh-CN.md
+  s_868c508baf5656::t_c15ac58d4454e4 10-11
+README.md
+  s_868c508baf5656::t_c15ac58d4454e4 18,33-34
+README.zh-CN.md
+  s_868c508baf5656::t_c15ac58d4454e4 18,33-34
+skills.sh.json
+  s_868c508baf5656::t_c15ac58d4454e4 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e318440c6f25f77b2b0c73486c0d15b8eec3f69b",
+  "prompts": {},
+  "sessions": {
+    "s_868c508baf5656": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42f1bd48-82d1-4aab-a9c3-e829930d0f67",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
