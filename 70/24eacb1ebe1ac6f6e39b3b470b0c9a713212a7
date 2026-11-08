@@ -1,0 +1,72 @@
+skills/paseo-routed/implement-routed/SKILL.md
+  s_9ac76895a0890e::t_689de1bd2eed85 1-41
+skills/paseo-routed/paseo-routed/references/roster.md
+  s_9ac76895a0890e::t_1d7557100dc612 1-45
+skills/paseo-routed/setup-paseo-routed/agents/openai.yaml
+  s_9ac76895a0890e::t_e9318fe5bcdf61 1-6
+skills/paseo-routed/paseo-routed-guide/SKILL.md
+  s_9ac76895a0890e::t_87fd93eb8479b2 1-34
+skills/paseo-routed/implement-spec-routed/SKILL.md
+  s_9ac76895a0890e::t_6f10783e46f479 1-47
+skills/paseo-routed/paseo-routed-guide/references/scenarios.md
+  s_9ac76895a0890e::t_2048695ff88e9e 1-49
+docs/paseo-routed/getting-started.md
+  s_9ac76895a0890e::t_e479d1a064875a 1-71
+AGENTS.md
+  s_9ac76895a0890e::t_2b7208e726d898 1-20
+skills/paseo-routed/setup-paseo-routed/scripts/profiles.mjs
+  s_9ac76895a0890e::t_c8446ab9b3c6be 136
+  s_9ac76895a0890e::t_9e595265e007f7 1-135,137-141
+scripts/check.sh
+  s_9ac76895a0890e::t_2b7208e726d898 1-62
+docs/paseo-routed/getting-started.zh-CN.md
+  s_9ac76895a0890e::t_e479d1a064875a 1-71
+README.zh-CN.md
+  s_9ac76895a0890e::t_1f16ef202859e6 1-60
+skills/paseo-routed/setup-paseo-routed/references/detect.md
+  s_9ac76895a0890e::t_bc27124cb48f36 1-34
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_9ac76895a0890e::t_3b082ce4d8f8ed 1-63
+skills/paseo-routed/paseo-routed-guide/agents/openai.yaml
+  s_9ac76895a0890e::t_e9318fe5bcdf61 1-4
+.github/workflows/check.yml
+  s_9ac76895a0890e::t_2b7208e726d898 1-22
+README.md
+  s_9ac76895a0890e::t_1f16ef202859e6 1-60
+skills/paseo-routed/implement-routed/agents/openai.yaml
+  s_9ac76895a0890e::t_e9318fe5bcdf61 1-6
+CHANGELOG.md
+  s_9ac76895a0890e::t_2b7208e726d898 1-11
+skills/paseo-routed/setup-paseo-routed/references/config.example.yaml
+  s_9ac76895a0890e::t_10e50911d56d4e 1-23
+skills/paseo-routed/paseo-routed/agents/openai.yaml
+  s_9ac76895a0890e::t_d15c0d9d6b0add 1-4
+skills/paseo-routed/setup-paseo-routed/SKILL.md
+  s_9ac76895a0890e::t_3e10fbbfe8d583 1-62
+skills/paseo-routed/paseo-routed-guide/references/scenarios.zh-CN.md
+  s_9ac76895a0890e::t_01484ba4e52bd6 1-49
+skills.sh.json
+  s_9ac76895a0890e::t_2b7208e726d898 1-10
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_9ac76895a0890e::t_68d9009139bda7 1-50
+skills/paseo-routed/implement-spec-routed/agents/openai.yaml
+  s_9ac76895a0890e::t_e9318fe5bcdf61 1-6
+CLAUDE.md
+  s_9ac76895a0890e::t_447f07783bc453 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7024eacb1ebe1ac6f6e39b3b470b0c9a713212a7",
+  "prompts": {},
+  "sessions": {
+    "s_9ac76895a0890e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f69cad64-5cb4-4da0-9628-f7263eab6daf",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
