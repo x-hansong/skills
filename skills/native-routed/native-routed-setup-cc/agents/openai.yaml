@@ -1,0 +1,6 @@
+interface:
+  display_name: "Setup Native Routed (Claude Code)"
+  short_description: "Detect, suggest models, and write the config the native-routed Claude Code skills use; rerun to check health"
+  default_prompt: "Use $native-routed-setup-cc to check and complete my setup."
+policy:
+  allow_implicit_invocation: false

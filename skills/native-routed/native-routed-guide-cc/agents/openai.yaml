@@ -1,0 +1,4 @@
+interface:
+  display_name: "Native Routed Guide (Claude Code)"
+  short_description: "Which native-routed skill to use, which models play each role, and a guided first run"
+  default_prompt: "Use $native-routed-guide-cc to show me how to get started."

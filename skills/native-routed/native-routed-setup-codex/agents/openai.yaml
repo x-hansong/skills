@@ -1,0 +1,6 @@
+interface:
+  display_name: "Setup Native Routed (Codex)"
+  short_description: "Detect, suggest models, and write the config the native-routed Codex skills use; rerun to check health"
+  default_prompt: "Use $native-routed-setup-codex to check and complete my setup."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Native Implement Routed (Codex)"
+  short_description: "Worker subagent implements a task or plan; reviewer subagent reviews before acceptance, no Paseo"
+  default_prompt: "Use $native-implement-routed-codex to implement the agreed plan."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Native Routed (Codex)"
+  short_description: "Orchestrate here; a worker subagent implements and a stronger reviewer subagent reviews, no Paseo"
+  default_prompt: "Use $native-routed-codex to run this task."

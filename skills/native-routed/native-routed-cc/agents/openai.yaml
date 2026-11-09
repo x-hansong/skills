@@ -1,0 +1,4 @@
+interface:
+  display_name: "Native Routed (Claude Code)"
+  short_description: "Orchestrate here; a worker subagent implements and a stronger reviewer subagent reviews, no Paseo"
+  default_prompt: "Use $native-routed-cc to run this task."

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Native Watch (Claude Code)"
+  short_description: "Patrol running native-routed sessions, rebuild context for pending decisions, relay answers"
+  default_prompt: "Use $native-watch-cc start to keep track of my routed sessions."
+policy:
+  allow_implicit_invocation: false
