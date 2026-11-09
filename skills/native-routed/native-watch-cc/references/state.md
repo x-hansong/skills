@@ -10,6 +10,7 @@
   "watcher": { "sessionId": "<this session's CLAUDE_CODE_SESSION_ID>", "sessionName": "<name from ListAgents>" },
   "cron": { "id": "<CronCreate job id>", "expr": "4,14,24,34,44,54 * * * *", "createdAt": "<ISO time>" },
   "lastTickAt": "<ISO time>",
+  "idle": { "stallMinutes": 30, "cacheTtlMinutes": 60, "cacheWarnMinutes": 10 },
   "runs": {
     "<topic>": {
       "sessionId": "<from session.json>",
@@ -18,6 +19,8 @@
       "heads": { "<repo or worktree path>": "<SHA>" },
       "notesSizes": { "<notes file>": 1234 },
       "transcriptOffset": 56789,
+      "contextTokens": 215000,
+      "stalledAt": null,
       "summary": "<one line: last known state>"
     }
   },
@@ -29,6 +32,7 @@
       "question": "<one line>",
       "background": { "task": "", "soFar": "", "stuckOn": "", "options": [{ "key": "a", "text": "", "recommended": true }], "ifNoAnswer": "" },
       "askedAt": "<ISO time>",
+      "cacheWarnedAt": null,
       "status": "open",
       "resolution": null
     }
@@ -45,6 +49,8 @@
 - `runs[].status` is the `ListAgents` status (`busy`, `idle`) or `ended` when the session is no longer listed.
 - `ignored` holds topics; `pinned` holds session names.
 - `decisions[].status` is `open`, `relayed` (the user answered, the answer was sent) or `closed` (the session moved past it, with or without an answer). Drop closed decisions older than 7 days.
+- `idle` holds the [idle](../SKILL.md#idle) thresholds in minutes. A missing `idle` or missing key takes the defaults shown. `cacheTtlMinutes: null` turns cache warnings off; set it to the provider's cache lifetime otherwise.
+- `runs[].stalledAt` is when the run was first reported stalled; clear it when the session takes a new turn. `contextTokens` is the last context size read.
 - Decision ids never get reused: always take `nextDecision`.
 - `runs` keeps only runs seen in the last 48 hours.
 
