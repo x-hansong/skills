@@ -8,7 +8,11 @@ A tick report is short when little changed and complete when a decision is waiti
 **Patrol HH:MM** · <n> orchestrators · <n> changed
 
 ### Needs you
+`D2` cache expires in ~8m (`<id>`, context 215k tokens): answering now avoids a full re-read
 <decision cards, oldest first>
+
+### Stalled
+- `<id>` <name>: idle 2h08m, said it would report when done; worker `<child id>` still running, last fact: <fact>
 
 ### Progress
 | ID | Name | Status | What changed since last patrol |
@@ -18,12 +22,13 @@ A tick report is short when little changed and complete when a decision is waiti
 - `<id>` <name>: <what is left and who has to act>
 
 ### Still open
-D2 (`<id>`, waiting 3h10m), D5 (`<id>`, waiting 40m)
+D2 (`<id>`, waiting 3h10m, cold), D5 (`<id>`, waiting 40m) · stalled: `<id>` (idle 2h08m)
 ```
 
 - Drop empty sections.
 - **Progress** lists only agents that changed since the last tick. One line each: the new fact (a commit, a test result, a deployment, a finding), not what the agent is "working on".
-- **Still open** lists earlier decisions that are still unanswered, one id each, with how long they have waited. Don't repeat their cards; the user asks "D2?" to see one again.
+- **Stalled** lists orchestrators the tick they cross the stall threshold. One line each: idle time, what it said it was waiting for, and what its children are doing. Then they move to **Still open**.
+- **Still open** lists earlier decisions that are still unanswered, one id each, with how long they have waited and `cold` once the cache has expired, then orchestrators still stalled with their idle time. Don't repeat their cards; the user asks "D2?" to see one again.
 - When nothing changed and nothing new is open: one line, e.g. `Patrol 14:20: no changes; D2, D5 still open.`
 - Errors go under **Needs you** as a decision card when the agent is stuck, otherwise under **Progress**.
 
@@ -46,7 +51,7 @@ Store the result in the decision's `background` field in state, so "D3?" later c
 ### Card format
 
 ```markdown
-**D3 · `c8fa548` Delivery (L/M)** · asked 13:05, waiting 2h10m
+**D3 · `c8fa548` Delivery (L/M)** · asked 13:05, waiting 2h10m, cache cold
 
 - **Task:** <one sentence: what the user originally asked this agent to do and why>
 - **So far:** <two or three facts that led here>
@@ -62,4 +67,5 @@ Reply `D3 a`, or say what you want instead.
 - Expand every internal name the first time it appears in a card: a unit letter, a ticket code, a script name, an error code. "Unit M (the change that gives the backtest runner a dedicated config bundle)" rather than "unit M".
 - Use the agent's recommendation when it gave one, and say it is the agent's. Add your own only when you have a reason, and give the reason.
 - When one agent asks several questions at once, give each its own id and card. Group them under one heading for that agent.
+- Add `cache cold` to the heading once the agent's cache has expired, so the user knows answering costs a full re-read.
 - Keep each card under about 12 lines. Link nothing; ids and file names in backticks are enough.

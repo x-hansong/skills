@@ -8,7 +8,11 @@ A tick report is short when little changed and complete when a decision is waiti
 **Patrol HH:MM** · <n> runs · <n> changed
 
 ### Needs you
+`D2` cache expires in ~8m (<topic>, context 215k tokens): answering now avoids a full re-read
 <decision cards, oldest first>
+
+### Stalled
+- <topic> `<session>`: idle 2h08m, said it would report when done; notes still growing, last fact: <fact>
 
 ### Progress
 | Run | Session | Status | What changed since last patrol |
@@ -18,12 +22,13 @@ A tick report is short when little changed and complete when a decision is waiti
 - <topic> `<session>`: <what is left and who has to act>
 
 ### Still open
-D2 (<topic>, waiting 3h10m), D5 (<topic>, waiting 40m)
+D2 (<topic>, waiting 3h10m, cold), D5 (<topic>, waiting 40m) · stalled: <topic> (idle 2h08m)
 ```
 
 - Drop empty sections.
 - **Progress** lists only runs that changed since the last tick. One line each: the new fact (a commit, a test result, a deployment, a finding), not what the session is "working on".
-- **Still open** lists earlier decisions that are still unanswered, one id each, with how long they have waited. Don't repeat their cards; the user asks "D2?" to see one again.
+- **Stalled** lists runs the tick they cross the stall threshold. One line each: idle time, what the session said it was waiting for, and what is still changing. Then they move to **Still open**.
+- **Still open** lists earlier decisions that are still unanswered, one id each, with how long they have waited and `cold` once the cache has expired, then runs still stalled with their idle time. Don't repeat their cards; the user asks "D2?" to see one again.
 - When nothing changed and nothing new is open: one line, e.g. `Patrol 14:20: no changes; D2, D5 still open.`
 - Errors go under **Needs you** as a decision card when the session is stuck, otherwise under **Progress**.
 
@@ -46,7 +51,7 @@ Store the result in the decision's `background` field in state, so "D3?" later c
 ### Card format
 
 ```markdown
-**D3 · delivery-flow `<session>`** · asked 13:05, waiting 2h10m
+**D3 · delivery-flow `<session>`** · asked 13:05, waiting 2h10m, cache cold
 
 - **Task:** <one sentence: what the user originally asked this run to do and why>
 - **So far:** <two or three facts that led here>
@@ -62,4 +67,5 @@ Reply `D3 a`, or say what you want instead.
 - Expand every internal name the first time it appears in a card: a unit letter, a ticket code, a script name, an error code. "Unit M (the change that gives the backtest runner a dedicated config bundle)" rather than "unit M".
 - Use the session's recommendation when it gave one, and say it is the session's. Add your own only when you have a reason, and give the reason.
 - When one session asks several questions at once, give each its own id and card. Group them under one heading for that run.
+- Add `cache cold` to the heading once the session's cache has expired, so the user knows answering costs a full re-read.
 - Keep each card under about 12 lines. Link nothing; ids and file names in backticks are enough.

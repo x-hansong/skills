@@ -15,7 +15,7 @@
 | [`paseo-routed`](skills/paseo-routed/paseo-routed/SKILL.md) | 你或模型 | 任意任务：主会话定方案，worker 探索和实现，reviewer 审查 |
 | [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | 你 | 已定的方案、spec 或单张票据，按 `implement` 的流程走 |
 | [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | 你 | 带票据依赖图的 spec，按 `implement-spec` 的流程走 |
-| [`paseo-watch`](skills/paseo-routed/paseo-watch/SKILL.md) | 你 | 同时跑着很多编排者时用：heartbeat 定时汇报变化，给每个待决策项重建背景，再把你的决定转达回去 |
+| [`paseo-watch`](skills/paseo-routed/paseo-watch/SKILL.md) | 你 | 同时跑着很多编排者时用：heartbeat 定时汇报变化，标出停摆的编排者和缓存快失效的待决策项，给每个待决策项重建背景，再把你的决定转达回去 |
 
 ### 依赖
 
@@ -68,7 +68,7 @@ notes_dir: ~/.paseo-routed/notes
 | [`native-routed-*`](skills/native-routed/native-routed-cc/SKILL.md) | 你或模型 | 任意任务：主会话定方案，worker 探索和实现，reviewer 审查 |
 | [`native-implement-routed-*`](skills/native-routed/native-implement-routed-cc/SKILL.md) | 你 | 已定的方案、spec 或单张票据，按 `implement` 的流程走 |
 | [`native-implement-spec-routed-*`](skills/native-routed/native-implement-spec-routed-cc/SKILL.md) | 你 | 带票据依赖图的 spec，按 `implement-spec` 的流程走 |
-| [`native-watch-*`](skills/native-routed/native-watch-cc/SKILL.md) | 你 | 同时跑着很多 routed 会话时用：汇报变化，给每个待决策项重建背景，再把你的决定转达回去 |
+| [`native-watch-*`](skills/native-routed/native-watch-cc/SKILL.md) | 你 | 同时跑着很多 routed 会话时用：汇报变化，标出停摆的会话和缓存快失效的待决策项，给每个待决策项重建背景，再把你的决定转达回去 |
 
 两个宿主的差别：
 
