@@ -1,0 +1,46 @@
+CHANGELOG.md
+  s_cbf4a9ddee0cf6::t_eb536b50b2634e 15
+README.md
+  s_cbf4a9ddee0cf6::t_eb536b50b2634e 18,71
+skills/native-routed/native-watch-codex/references/report.md
+  s_cbf4a9ddee0cf6::t_87234d905c2b11 11,14-16,25,30-31,54,70
+README.zh-CN.md
+  s_cbf4a9ddee0cf6::t_eb536b50b2634e 18,71
+skills/paseo-routed/paseo-watch/SKILL.md
+  s_cbf4a9ddee0cf6::t_9b19ca9240fefe 46,54,56,65-71
+  s_cbf4a9ddee0cf6::t_68921190961cf8 55
+  s_cbf4a9ddee0cf6::t_bfa600d05e4277 72
+skills/paseo-routed/paseo-watch/references/state.md
+  s_cbf4a9ddee0cf6::t_68921190961cf8 23,49
+  s_cbf4a9ddee0cf6::t_9b19ca9240fefe 14,21-22,34,48
+skills/native-routed/native-watch-cc/SKILL.md
+  s_cbf4a9ddee0cf6::t_87234d905c2b11 55,65,70,77-83
+  s_cbf4a9ddee0cf6::t_2781d74529b362 84
+skills/paseo-routed/paseo-watch/references/report.md
+  s_cbf4a9ddee0cf6::t_9b19ca9240fefe 11,14-16,25,30-31,54,70
+skills/native-routed/native-watch-cc/references/state.md
+  s_cbf4a9ddee0cf6::t_87234d905c2b11 13,22-23,35,52-53
+skills/native-routed/native-watch-codex/SKILL.md
+  s_cbf4a9ddee0cf6::t_87234d905c2b11 54,63,68,75-81
+  s_cbf4a9ddee0cf6::t_a4b6744bc5c707 82
+skills/native-routed/native-watch-codex/references/state.md
+  s_cbf4a9ddee0cf6::t_87234d905c2b11 13,22-23,35,51-52
+skills/native-routed/native-watch-cc/references/report.md
+  s_cbf4a9ddee0cf6::t_87234d905c2b11 11,14-16,25,30-31,54,70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bef0582867af9f9295192aea74127149f452d0df",
+  "prompts": {},
+  "sessions": {
+    "s_cbf4a9ddee0cf6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b3afa63c-acf0-464c-aac8-af13b699ae55",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
