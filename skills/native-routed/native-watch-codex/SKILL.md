@@ -30,7 +30,9 @@ Plus every thread id in `pinned`, even without a run directory. Runs from other 
 ## Hard rules
 
 - **Names, not links.** Name a run by its topic plus the first 8 characters of its thread id in backticks. Don't build links.
-- **Read-only by default.** Patrols and questions only read. The only writes are `codex queue` relays the user asked for, the state file, and the heartbeat automation.
+- **Read-only by default.** Patrols and questions only read. The only writes are `codex queue` relays the user asked for, the state file, and the heartbeat automation. [Probes](#probes) only read too.
+- **The user's language throughout.** Section headings, labels and fixed phrases in [report](references/report.md) are written in the user's language; no English headings in a report for a Chinese-speaking user.
+- **One clock.** Every time in a report is the user's local time; record that zone as `displayTimezone` in state. `ListAgents`, session transcripts, rollout files, commit times and checkpoint files may be UTC or carry their own offset; file mtimes are instants. Convert before printing: never paste a raw `Z` time into a report, and never put two zones in one line. A source whose zone can't be determined is reported by its age (`40m ago`, file mtime), not by a wall time. Compute idle, waiting and cache times by parsing both ends as instants, never by subtracting a wall-clock string from a UTC one.
 - **This host's scheduler only.** Scheduled patrols use the `automation_update` tool. If this session doesn't have it (the Codex CLI doesn't), say so at `start` and offer `now` for manual patrols; don't improvise another scheduler.
 - **Never relay more than the user said.** Push, deploy, merge and other remote writes are authorised only when the user said so for that item.
 
@@ -42,7 +44,7 @@ Plus every thread id in `pinned`, even without a run directory. Runs from other 
 | `stop` | Delete the stored automation with `automation_update`, clear `automation` in state, confirm. Open decisions stay in state |
 | `now` | Run one tick immediately |
 | `tick` | Sent by the heartbeat. Run one tick |
-| anything else | A question, a decision, a standing rule, an ignore/pin request, or new work. See [relay](references/relay.md) |
+| anything else | A question, a decision, a standing rule, an ignore/pin request, a probe to add or drop, or new work. See [relay](references/relay.md) |
 
 "Pause" means `stop`, "resume" or "continue reporting" means `start` with the stored cadence.
 
@@ -51,8 +53,9 @@ Plus every thread id in `pinned`, even without a run directory. Runs from other 
 1. Check for `automation_update` in this session's tools (search for it if tools are loaded on demand). Without it, tell the user scheduled patrols aren't available here, run one tick, and stop: `now` is the way to patrol.
 2. Show the plan and wait for confirmation:
    - state file path, and whether it will be created or reused (with its open decision count);
+   - what gets watched: only runs started by the native-routed skills (they register a `session.json`); a plain session is watched only after the user pins it;
    - idle thresholds (see [idle](#idle)): stall after 30 minutes, prompt cache assumed to expire after 60 minutes idle, warned 10 minutes before; the cache lifetime depends on the model provider, so ask the user to correct it or turn it off;
-   - a heartbeat automation on this thread: default every 10 minutes, and the prompt it sends: `$native-watch-codex tick`, so each tick reloads these instructions even after context compaction;
+   - a heartbeat automation on this thread: default every 10 minutes, and the prompt it sends: `$native-watch-codex tick`, so each tick reloads these instructions even after context compaction; reports use this machine's zone, stored as `displayTimezone`, which the user can correct;
    - an existing automation id in state will be deleted first.
 3. After confirmation: create `~/.native-routed/.watch/` if missing. Delete the old automation if one is stored. Create the new one with `automation_update`, following its schema. Name it `native-watch-codex`.
 4. Record watcher and automation in state, write it as [state](references/state.md) describes, read it back, then run the first tick.
@@ -60,26 +63,49 @@ Plus every thread id in `pinned`, even without a run directory. Runs from other 
 ## Tick
 
 1. Read state. Collect the watched runs (above).
-2. For each run, gather what changed since the last tick, cheapest first, and skip the rest when nothing did and it crossed no [idle](#idle) threshold:
+2. Work out every run's idle time and stall state (see [idle](#idle)), whether or not anything changed. This step is never skipped: unchanged files are exactly what a stall looks like. Then, for each run, gather what changed since the last tick, cheapest first, and skip the rest when nothing did and it isn't newly stalled:
    - the session's rollout file `~/.codex/sessions/**/rollout-*-<sessionId>.jsonl`: its size and modification time against state;
    - new commits: `git log` from the stored head in the repo and every worktree in `session.json`, plus `git status` for uncommitted work;
    - new lines in the run's notes files since the stored sizes;
    - the rollout read from the stored offset: the last user request, the last assistant message, whether the last turn completed, and any tool call still without a result.
-3. Classify each changed run: **progress**, **decision needed** (the last completed turn ends with a question or a request for confirmation), **stalled** (see [idle](#idle)), **wrap-up** (the run's work is finished but has uncommitted, unmerged or unconfirmed leftovers), or **error**. A rollout untouched for a long time with an unfinished turn is reported as "stalled or closed"; this host gives no live status, so say that it can't tell which.
-4. For each new decision, rebuild its background before reporting it. See [decision cards](references/report.md#decision-cards). Give it the next `D<n>` id.
-5. Close decisions whose session has moved past them; record how they resolved.
-6. If the user set standing rules and a session is visibly breaking one, relay the rule to it and mention it in the report.
-7. Report per [report](references/report.md). When nothing changed, reply with one line and nothing else.
-8. Update `runs`, `decisions` and `lastTickAt`; write state.
+3. Classify each changed run: **progress**, **decision needed** (the last completed turn ends with a question or a request for confirmation), **stalled** (see [idle](#idle)), **wrap-up** (the run's work is finished but has uncommitted, unmerged or unconfirmed leftovers), or **error**. A rollout untouched for a long time with an unfinished turn is reported as "stalled or closed"; this host gives no live status, so say that it can't tell which. Notes or commits written by a background subagent while the session stays idle are not the session's progress: report them only to explain why it is stalled or waiting. Every fact carries the time it happened; a fact from before the last tick is not progress. For a run seen for the first time, give its last known state with that time, and let the idle rules decide whether it is stalled.
+4. Run every [probe](#probes) in state.
+5. Sort out [new and quiet runs](#new-and-quiet-runs).
+6. For each new decision, rebuild its background before reporting it. See [decision cards](references/report.md#decision-cards). Give it the next `D<n>` id.
+7. Close decisions whose session has moved past them; record how they resolved.
+8. If the user set standing rules and a session is visibly breaking one, relay the rule to it and mention it in the report.
+9. Report per [report](references/report.md). When nothing changed, nothing is stalled or alerting, and nothing is new or quiet, reply with one line and nothing else.
+10. Update `runs`, `decisions`, `probes`, `declined` and `lastTickAt`; write state.
 
 ## Idle
 
 A run's idle time is now minus its rollout file's modification time, while its last turn has completed (an unfinished turn untouched for long is "stalled or closed", above). Unchanged files are not "nothing to report": they are how a stall looks. Thresholds come from `idle` in [state](references/state.md).
 
-- **Stalled.** A run whose `session.json` status is still `running`, idle for `stallMinutes` or longer, with no open decision: its last turn says it will continue or report back, or its notes or commits keep changing while the rollout stays still. Report it under **Stalled** the tick it crosses the threshold: how long it has been idle, what it is waiting on, and the latest fact from its notes or commits. Record `stalledAt`; after that, list it under **Still open** until it moves.
-- **Cache expiring.** Most providers drop a session's prompt cache after it has been idle for a while; the next turn then re-reads its whole context at full price. For a run with an open decision, when its remaining cache time (`cacheTtlMinutes` minus idle time) is less than `cacheWarnMinutes` or the patrol cadence, whichever is longer, put one line at the top of **Needs you**: the decision id, minutes left and context size (from the rollout's last token-count event; leave it out if there is none). Once per decision; record `cacheWarnedAt`. Past the TTL, mark the decision `cold` on its card and in **Still open**. Skip both when `cacheTtlMinutes` is `null`.
+- **Stalled.** A run whose `session.json` status is still `running`, idle for `stallMinutes` or longer, with no open decision: its last turn says it will continue or report back, or its notes or commits keep changing while the rollout stays still. Report it under **Stalled** the tick it is first found: how long it has been idle, what it is waiting on, and the latest fact from its notes or commits. Decide this afresh every tick; `stalledAt` only records when it was first reported. After that, list it under **Still open** on every tick until it moves, is ignored, or is resolved as superseded.
+- **Superseded.** A stalled run whose work another run has visibly taken over (the user opened a new session on the same task, or it names the same brief, notes or worktree). Raise it once as a decision: **a** wake it with what changed since it stopped, **b** stop watching it. A short card is enough: its task, which run took over and since when, how long it has been idle. Record `supersededBy`. Until answered it stays in **Still open** as "stalled, likely superseded by <topic>"; **b** adds its topic to `ignored`.
+- **Cache expiring.** Most providers drop a session's prompt cache after it has been idle for a while; the next turn then re-reads its whole context at full price. For a run with an open decision, when its remaining cache time (`cacheTtlMinutes` minus idle time) is less than `cacheWarnMinutes` or the patrol cadence, whichever is longer, put one line at the top of **Decisions**: the decision id, minutes left and context size (from the rollout's last token-count event; leave it out if there is none). Once per decision; record `cacheWarnedAt`. Past the TTL, mark the decision `cold` on its card and in **Still open**. Skip both when `cacheTtlMinutes` is `null`.
 - Never message a session just to keep its cache warm: that is a write the user didn't ask for.
+
+## New and quiet runs
+
+- **New.** A run not in state yet gets one line at the top of the report: its topic and session, what it was asked to do, and its last known state with the time. Record `firstSeenAt`.
+- **Quiet.** Suggest not watching a run any more when it is one of these:
+  - finished with nothing left over (no uncommitted, unpushed or unconfirmed work, no open decision, no probe it owns) and idle for 2 hours or more;
+  - a run whose session has ended and whose `session.json` status is no longer `running`, with nothing left over.
+
+  Collect them into one line per tick at most, each with its topic and a few words of reason, and only the ones not suggested before. Nothing is ignored until the user says so: their answer goes to `ignored`, the rest to `declined` so they aren't suggested again. A declined run that later moves and goes quiet again can be suggested once more.
+
+Runs not updated for 48 hours drop out on their own; don't suggest them.
+
+## Probes
+
+A run often idles on purpose while something outside it runs: an import job, a deployment, a background monitor that only writes files. When that thing stops, nothing wakes anyone, and the session's idle time says nothing about it. A probe watches the thing itself.
+
+- **Proposing.** When a run says it is waiting on such a job, propose a probe in the report: what to read, the stall condition, and the owner run. Add it to `probes` in state only after the user confirms. The user can also ask for one directly, or drop one.
+- **Read-only.** A probe reads a file, or runs a status query the owner run itself used to read the job's state. Nothing that resumes, retries, restarts or writes.
+- **Each tick.** Run every probe, compare with its `last` value, and update `last`. When the stall condition holds (for example "accepted unchanged for two ticks" or "status `interrupted`"), report it at the top of **Decisions** with the owner, the last good reading and when it was taken, and offer to wake the owner; waking is a relay the user has to approve. Once per stall: record `alertedAt`, clear it when the reading moves. A probe that can't be read is reported the same way after two ticks in a row.
+- **Ending.** When the job finishes or the owner run is ignored or ended, say so once and drop the probe.
 
 ## Everything else
 
-User decisions, standing rules, questions about runs, ignore/pin, and new work are covered in [relay](references/relay.md).
+User decisions, standing rules, questions about runs, ignore/pin, probes, and new work are covered in [relay](references/relay.md).

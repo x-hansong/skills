@@ -1,36 +1,61 @@
 # Report
 
-A tick report is short when little changed and complete when a decision is waiting. Write in the user's language.
+A tick report is short when little changed and complete when a decision is waiting.
+
+## Language
+
+Write the whole report in the user's language, headings and labels included. The layout below names sections in English only so this file can refer to them; never print those English names to a user who writes in another language. For Chinese:
+
+| Section | Heading |
+| --- | --- |
+| Patrol | 巡检 HH:MM（<zone>） · <n> 个任务 · <n> 个有变化 |
+| New | 新加入 |
+| Quiet | 可以不再盯 |
+| Decisions | 需要你决定 |
+| Stalled | 停摆 |
+| Progress | 进展 |
+| Wrap-up | 待收尾 |
+| Still open | 仍未解决 |
+
+The same goes for card labels (任务、进展、卡在、选项、没人回时), `cold` (缓存已失效), "recommended" (推荐) and the one-line reply when nothing changed.
 
 ## Layout
 
 ```markdown
-**Patrol HH:MM** · <n> runs · <n> changed
+**<Patrol> HH:MM (<zone>)** · <n> runs · <n> changed
 
-### Needs you
+<New>: <topic> `<session>`, <what it was asked to do>; last known state at HH:MM: <fact>
+<Quiet>: <topic> (finished 15:10, nothing left over), <topic> (session ended) — reply with the ones to stop watching, or `all`
+
+### <Decisions>
+Probe `P1` stalled: <what it watches>, last good reading <value> at HH:MM (<n>m ago), owner <topic>; wake the owner?
 `D2` cache expires in ~8m (<topic>, context 215k tokens): answering now avoids a full re-read
 <decision cards, oldest first>
 
-### Stalled
-- <topic> `<session>`: idle 2h08m, said it would report when done; notes still growing, last fact: <fact>
+### <Stalled>
+- <topic> `<session>`: idle 2h08m since HH:MM, said it would report when done; notes still growing, last fact at HH:MM: <fact>
 
-### Progress
+### <Progress>
 | Run | Session | Status | What changed since last patrol |
 | --- | --- | --- | --- |
+| <topic> | `<session>` | idle | HH:MM <fact> |
 
-### Wrap-up
+### <Wrap-up>
 - <topic> `<session>`: <what is left and who has to act>
 
-### Still open
-D2 (<topic>, waiting 3h10m, cold), D5 (<topic>, waiting 40m) · stalled: <topic> (idle 2h08m)
+### <Still open>
+D2 (<topic>, waiting 3h10m, cold), D5 (<topic>, waiting 40m) · stalled: <topic> (idle 2h08m), <topic> (idle 4h, likely superseded by <topic>) · probes: `P1` ok at HH:MM
 ```
 
 - Drop empty sections.
-- **Progress** lists only runs that changed since the last tick. One line each: the new fact (a commit, a test result, a deployment, a finding), not what the session is "working on".
-- **Stalled** lists runs the tick they cross the stall threshold. One line each: idle time, what the session said it was waiting for, and what is still changing. Then they move to **Still open**.
-- **Still open** lists earlier decisions that are still unanswered, one id each, with how long they have waited and `cold` once the cache has expired, then runs still stalled with their idle time. Don't repeat their cards; the user asks "D2?" to see one again.
-- When nothing changed and nothing new is open: one line, e.g. `Patrol 14:20: no changes; D2, D5 still open.`
-- Errors go under **Needs you** as a decision card when the session is stuck, otherwise under **Progress**.
+- **One clock.** Every HH:MM in the report is the user's local time, and the title names the zone once. Convert anything copied from a checkpoint, log, transcript, rollout or commit before printing; when quoting a source value, give its local equivalent (`11:31:45Z = 19:31`). If a source's zone is unknown, show its age instead (`40m ago`). Two zones never share a line.
+- **New** and **Quiet** are one line each, right under the title, only on the tick they apply. See [new and quiet runs](../SKILL.md#new-and-quiet-runs).
+- **Decisions** opens with probe alerts and cache warnings, one line each, then the cards.
+- **Progress** lists only runs that changed since the last tick. One line each: the new fact (a commit, a test result, a deployment, a finding) with the time it happened, not what the session is "working on". A fact from before the last tick is not progress.
+- **Stalled** lists runs the tick they are first found stalled. One line each: idle time and since when, what the session said it was waiting for, and what is still changing, with times. Then they move to **Still open**.
+- **Still open** lists earlier decisions that are still unanswered, one id each, with how long they have waited and `cold` once the cache has expired, then every run still stalled with its idle time, recomputed this tick. Don't repeat their cards; the user asks "D2?" to see one again.
+- When nothing changed, nothing is stalled and no probe alerts: one line, e.g. `Patrol 14:20 (<zone>): no changes; D2, D5 still open.` in the user's language.
+- Errors go under **Decisions** as a decision card when the session is stuck, otherwise under **Progress**.
 
 ## Decision cards
 

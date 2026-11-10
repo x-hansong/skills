@@ -10,6 +10,7 @@
   "watcher": { "sessionId": "<this session's CLAUDE_CODE_SESSION_ID>", "sessionName": "<name from ListAgents>" },
   "cron": { "id": "<CronCreate job id>", "expr": "4,14,24,34,44,54 * * * *", "createdAt": "<ISO time>" },
   "lastTickAt": "<ISO time>",
+  "displayTimezone": "<IANA zone: the user's local zone>",
   "idle": { "stallMinutes": 30, "cacheTtlMinutes": 60, "cacheWarnMinutes": 10 },
   "runs": {
     "<topic>": {
@@ -20,7 +21,9 @@
       "notesSizes": { "<notes file>": 1234 },
       "transcriptOffset": 56789,
       "contextTokens": 215000,
+      "firstSeenAt": "<ISO time>",
       "stalledAt": null,
+      "supersededBy": null,
       "summary": "<one line: last known state>"
     }
   },
@@ -41,7 +44,23 @@
   "rules": [
     { "text": "Run only tests related to the change, then push and deploy to pre-release", "since": "<ISO time>" }
   ],
+  "probes": [
+    {
+      "id": "P1",
+      "name": "<what it watches, one line>",
+      "owner": "<topic>",
+      "read": "<file and field, or the read-only status query the owner used>",
+      "stallWhen": "<condition, e.g. accepted unchanged for two ticks, or status interrupted>",
+      "last": { "at": "<ISO time>", "value": "<short reading>", "ok": true },
+      "unchangedTicks": 0,
+      "unreadableTicks": 0,
+      "alertedAt": null,
+      "since": "<ISO time>"
+    }
+  ],
+  "nextProbe": 2,
   "ignored": [],
+  "declined": [],
   "pinned": []
 }
 ```
@@ -50,8 +69,11 @@
 - `ignored` holds topics; `pinned` holds session names.
 - `decisions[].status` is `open`, `relayed` (the user answered, the answer was sent) or `closed` (the session moved past it, with or without an answer). Drop closed decisions older than 7 days.
 - `idle` holds the [idle](../SKILL.md#idle) thresholds in minutes. A missing `idle` or missing key takes the defaults shown. `cacheTtlMinutes: null` turns cache warnings off; set it to the provider's cache lifetime otherwise.
-- `runs[].stalledAt` is when the run was first reported stalled; clear it when the session takes a new turn. `contextTokens` is the last context size read.
-- Decision ids never get reused: always take `nextDecision`.
+- `displayTimezone` is the zone every reported time is shown in: the host's zone at `start`, corrected if the user says otherwise. The `cron` job's cadence only says when a tick fires and may differ. Store instants as ISO-8601 with an offset; a probe's raw reading may keep its source text, but the report converts it.
+- `runs[].stalledAt` is when the run was first reported stalled; clear it when the session takes a new turn. It never decides whether a run is stalled: each tick decides that afresh. `supersededBy` is the topic of the run that took over its work, set when the superseded decision is raised. `contextTokens` is the last context size read.
+- `declined` holds topics the user chose to keep watching when they were suggested as quiet, each as `{ "topic": "<topic>", "at": "<ISO time>" }`; drop an entry when that run moves again. `firstSeenAt` is when this watch first saw the run.
+- Decision ids never get reused: always take `nextDecision`. Probe ids likewise come from `nextProbe`.
+- `probes` holds only probes the user confirmed. `last` is the latest reading; `ok: false` when it couldn't be read. `unchangedTicks` and `unreadableTicks` count consecutive ticks, for conditions such as "unchanged for two ticks". `alertedAt` is set when a stall is reported and cleared when the reading moves. A probe's `read` must not hold tokens or credentials; if the query needs them, name where the owner gets them instead.
 - `runs` keeps only runs seen in the last 48 hours.
 
 ## Reading
