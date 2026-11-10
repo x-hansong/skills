@@ -43,8 +43,8 @@ paseo --home "$HOME/.paseo" run --help
 
 MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling. CLI `run --no-wait` has no such callback: run `paseo wait <agent-id>` in the background, then read `paseo logs <agent-id>`, its status and its artifacts. A CLI wait process is not an MCP notification.
 
-## Passing skills to agents
+## Passing methods to agents
 
-Name the skill the agent should use (`code-review`, `tdd`). An agent whose harness can't load skills by name needs the `SKILL.md` path on this host: resolve it from where the skill is installed (for example under `~/.agents/skills/` or `~/.claude/skills/`) and pass the absolute path, together with the full baseline SHA, project path and acceptance source.
+Agents get the test discipline and the review method as files: the copies in the shared notes directory, passed by path together with the full baseline SHA, project path and acceptance source. Never point an agent at a skill's install path, and never ask it to load a skill the user has to run by hand.
 
-`code-review` reviews on two axes, Standards and Spec. Without a ticket, the confirmed requirement or the shared acceptance notes are the Spec source.
+The review method reports two axes, Standards and Spec. Without a ticket, the confirmed requirement or the shared acceptance notes are the Spec source.

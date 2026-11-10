@@ -48,6 +48,13 @@ for pattern in "${patterns[@]}"; do
   fi
 done
 
+# Skills depend only on this repo and Paseo: no loading other skills, no reading another skill's SKILL.md.
+external='implement|implement-spec|tdd|code-review|to-spec|to-tickets|grilling'
+if matches=$(grep -rEin --include='*.md' -e "(load|loads|use|uses|call|calls) (the )?\`($external)\`( skill)?" \
+    -e "open its \`SKILL\.md\`" -e "SKILL\.md\` (path|from)" skills 2>/dev/null); then
+  fail "dependency on an external skill (inline the method in a reference instead):"$'\n'"$matches"
+fi
+
 # Extra private terms, one regex per line, kept out of the repo (e.g. your own hostnames or profile names).
 if [ -n "${CHECK_PRIVATE_TERMS:-}" ] && [ -f "$CHECK_PRIVATE_TERMS" ]; then
   while IFS= read -r term; do

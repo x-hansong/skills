@@ -5,8 +5,8 @@
 | You have | Use | What happens |
 | --- | --- | --- |
 | A task, question or rough idea; no plan yet | `/native-routed-cc <task>` | This session designs the plan from the worker's exploration, then dispatches implementation and review |
-| An agreed plan, a spec file, or one ticket | `/native-implement-routed-cc <plan or ticket>` | Follows `implement` (tests first, review, commits) with the worker implementing and the reviewer reviewing |
-| A spec split into tickets with blocking edges | `/native-implement-spec-routed-cc <spec>` | Follows `implement-spec`: works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
+| An agreed plan, a spec file, or one ticket | `/native-implement-routed-cc <plan or ticket>` | Tests first, review, commits, with the worker implementing and the reviewer reviewing |
+| A spec split into tickets with blocking edges | `/native-implement-spec-routed-cc <spec>` | Works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
 | Several routed sessions running and you lose track of them | `/native-watch-cc start` | A cron job in this session patrols the registered runs, reports only changes, rebuilds the background of each pending decision, and relays your answers. `/native-watch-cc stop` ends it |
 | Want other models, or something stopped working | `/native-routed-setup-cc` | Detects, suggests models, writes after you confirm, re-checks. `/native-routed-setup-cc check` only reports |
 

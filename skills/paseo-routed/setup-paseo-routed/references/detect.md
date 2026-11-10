@@ -22,9 +22,6 @@ Required skills and where they come from:
 | Skill | Needed by | Install |
 | --- | --- | --- |
 | `paseo`, `paseo-advisor`, `paseo-committee` | all routed skills | `npx skills add getpaseo/paseo` (or Paseo app: Settings → host → Agents → Orchestration skills) |
-| `code-review`, `tdd` | `implement-routed`, `implement-spec-routed`, reviews | `npx skills add mattpocock/skills --skill code-review --skill tdd` |
-| `implement` | `implement-routed` | `npx skills add mattpocock/skills --skill implement` |
-| `implement-spec` | `implement-spec-routed` | `npx skills add mattpocock/skills --skill implement-spec` |
 | `paseo-routed`, `implement-routed`, `implement-spec-routed`, `paseo-routed-guide` | this skill set | `npx skills add x-hansong/skills --skill <name>` |
 
 Look for `<skill>/SKILL.md` in each agent's skill directories, global and project: Claude Code `~/.claude/skills/` and `.claude/skills/`; Codex `~/.agents/skills/` and `.agents/skills/`. Report per agent. A skill present for only one of the user's agents is ⚠️. Skills in this session's available-skills list count as present for this agent.

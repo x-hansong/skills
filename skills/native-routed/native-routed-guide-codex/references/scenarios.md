@@ -5,8 +5,8 @@
 | You have | Use | What happens |
 | --- | --- | --- |
 | A task, question or rough idea; no plan yet | `$native-routed-codex <task>` | This session designs the plan from the worker's exploration, then dispatches implementation and review |
-| An agreed plan, a spec file, or one ticket | `$native-implement-routed-codex <plan or ticket>` | Follows `implement` (tests first, review, commits) with the worker implementing and the reviewer reviewing |
-| A spec split into tickets with blocking edges | `$native-implement-spec-routed-codex <spec>` | Follows `implement-spec`: works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
+| An agreed plan, a spec file, or one ticket | `$native-implement-routed-codex <plan or ticket>` | Tests first, review, commits, with the worker implementing and the reviewer reviewing |
+| A spec split into tickets with blocking edges | `$native-implement-spec-routed-codex <spec>` | Works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
 | Several routed sessions running and you lose track of them | `$native-watch-codex start` | A heartbeat automation (Codex app) or on-demand `now` patrols the registered runs, reports only changes, rebuilds the background of each pending decision, and relays your answers. `$native-watch-codex stop` ends it |
 | Want other models, or something stopped working | `$native-routed-setup-codex` | Detects, suggests models, writes after you confirm, re-checks. `$native-routed-setup-codex check` only reports |
 

@@ -4,7 +4,7 @@ description: "Implement a task description, agreed plan, spec or single ticket i
 argument-hint: "[--worker <model>] [--reviewer <model>] <task, plan or spec path, or ticket>"
 disable-model-invocation: true
 license: MIT
-compatibility: "Claude Code only. Requires everything native-routed-cc requires, plus the implement, tdd and code-review skills (npx skills add mattpocock/skills --skill implement --skill tdd --skill code-review)."
+compatibility: "Claude Code only. Requires everything native-routed-cc requires."
 metadata:
   author: x-hansong
 ---
@@ -13,27 +13,27 @@ metadata:
 
 **Task:** $ARGUMENTS
 
-Load the `implement` skill and keep its implementation, testing, review and commit requirements. Then load the `native-routed-cc` skill and apply its model resolution, dispatch, recovery and acceptance rules to this run. The overrides below win over `implement`. Pass `--worker` and `--reviewer` through to model resolution.
+Load the `native-routed-cc` skill and apply its model resolution, dispatch, recovery and acceptance rules, test discipline and review method to this run. Pass `--worker` and `--reviewer` through to model resolution. Reply in the user's language.
 
 ## Input and scope
 
-Accepts a free description, a plan agreed in conversation, a plan or spec path, or a single ticket. Without a ticket, the confirmed requirement and the scope notes are the source of truth. Multiple tickets with dependencies go to `native-implement-spec-routed-cc`.
+Accepts a free description, a plan agreed in conversation, a plan or spec path, or a single ticket. Given a ticket reference, fetch it from the project's tracker and state its title before starting; ask when the reference is ambiguous. Without a ticket, the confirmed requirement and the scope notes are the source of truth. Multiple tickets with dependencies go to `native-implement-spec-routed-cc`.
 
 Before starting, write the scope, checkable acceptance checks and the full baseline SHA to `~/.native-routed/notes/<topic>/`, with `session.json` as `native-routed-cc` describes. Track each work unit's status, commit SHA, test evidence and acceptance result there.
 
-## Role overrides
+## Roles
 
-| `implement` step or role | Here |
+| Step | Who |
 | --- | --- |
-| This session implements | This session orchestrates, dispatches and accepts; a worker subagent implements |
-| TDD | The worker uses the `tdd` skill within the agreed test boundary |
-| Final `code-review` | A fresh reviewer subagent on the reviewer model, read-only, baseline to candidate; pass this requirement and the acceptance notes |
+| Orchestration | This session orchestrates, dispatches and accepts; a worker subagent implements |
+| Tests | The worker follows the test discipline within the test boundary the brief sets: which seams get a test first, and which checks are relevant |
+| Final review | A fresh reviewer subagent on the reviewer model, read-only, baseline to candidate; pass this requirement and the acceptance notes |
 | Review fixes | A fresh worker, then re-check |
 | Merge | With several work units, another worker merges and re-runs the relevant checks |
 | Exploration | Read-only worker on demand; notes go to the notes directory |
 | Same failure a second time | The committee from `native-routed-cc` |
 
-A single unit, or units sharing files, run serially. Independent units with disjoint files may run in parallel, each in its own worktree. The notes are the progress log for ticket-less work.
+A single unit, or units sharing files, run serially. Each worker commits to its own branch, or to the current branch when it works in the main tree. Independent units with disjoint files may run in parallel, each in its own worktree. The notes are the progress log for ticket-less work.
 
 ## Project rules
 
