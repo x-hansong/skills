@@ -13,15 +13,14 @@ Keep design and orchestration in your session, and let [Paseo](https://paseo.sh)
 | [`setup-paseo-routed`](skills/paseo-routed/setup-paseo-routed/SKILL.md) | you | First-time setup and health checks: detects what you have, proposes only the missing pieces, writes after you confirm |
 | [`paseo-routed-guide`](skills/paseo-routed/paseo-routed-guide/SKILL.md) | you or the agent | Which skill to use, how rosters work, a guided first run |
 | [`paseo-routed`](skills/paseo-routed/paseo-routed/SKILL.md) | you or the agent | Any task: this session designs, the worker explores and implements, the reviewer reviews |
-| [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | you | An agreed plan, spec or single ticket, following `implement` |
-| [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | you | A spec with a dependency graph of tickets, following `implement-spec` |
+| [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | you | An agreed plan, spec or single ticket, tests first, then review and commits |
+| [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | you | A spec with a dependency graph of tickets: the ready frontier in parallel worktrees, one integration branch, one review at the end |
 | [`paseo-watch`](skills/paseo-routed/paseo-watch/SKILL.md) | you | Many orchestrators running: a heartbeat reports what changed, flags stalled orchestrators, stopped background jobs it was asked to probe, and decisions about to lose their prompt cache, rebuilds the background of each pending decision, and relays your answers |
 
 ### Requirements
 
 - [Paseo](https://paseo.sh) CLI with a running daemon: `npm install -g @getpaseo/cli`
 - Paseo's orchestration skills: `npx skills add getpaseo/paseo`
-- For the implement skills, from [mattpocock/skills](https://github.com/mattpocock/skills): `implement`, `implement-spec`, `tdd`, `code-review`
 
 `setup-paseo-routed` checks all of these and tells you what's missing.
 
@@ -66,8 +65,8 @@ The same division of labour without Paseo, built on each host's own subagents. O
 | [`native-routed-setup-*`](skills/native-routed/native-routed-setup-cc/SKILL.md) | you | Pick the models for worker, reviewer and committee; health checks. Required once for Codex |
 | [`native-routed-guide-*`](skills/native-routed/native-routed-guide-cc/SKILL.md) | you or the agent | Which skill to use, how models are chosen, a guided first run |
 | [`native-routed-*`](skills/native-routed/native-routed-cc/SKILL.md) | you or the agent | Any task: this session designs, the worker explores and implements, the reviewer reviews |
-| [`native-implement-routed-*`](skills/native-routed/native-implement-routed-cc/SKILL.md) | you | An agreed plan, spec or single ticket, following `implement` |
-| [`native-implement-spec-routed-*`](skills/native-routed/native-implement-spec-routed-cc/SKILL.md) | you | A spec with a dependency graph of tickets, following `implement-spec` |
+| [`native-implement-routed-*`](skills/native-routed/native-implement-routed-cc/SKILL.md) | you | An agreed plan, spec or single ticket, tests first, then review and commits |
+| [`native-implement-spec-routed-*`](skills/native-routed/native-implement-spec-routed-cc/SKILL.md) | you | A spec with a dependency graph of tickets: the ready frontier in parallel worktrees, one integration branch, one review at the end |
 | [`native-watch-*`](skills/native-routed/native-watch-cc/SKILL.md) | you | Many routed sessions running: reports what changed, flags stalled sessions, stopped background jobs it was asked to probe, and decisions about to lose their prompt cache, rebuilds the background of each pending decision, relays your answers |
 
 How the two hosts differ:
@@ -82,7 +81,6 @@ How the two hosts differ:
 ### Requirements
 
 - Claude Code, or Codex with the `multi_agent` feature on
-- From [mattpocock/skills](https://github.com/mattpocock/skills): `code-review`, and for the implement skills `implement`, `implement-spec`, `tdd`
 
 ### Install
 

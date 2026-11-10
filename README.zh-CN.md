@@ -13,15 +13,14 @@
 | [`setup-paseo-routed`](skills/paseo-routed/setup-paseo-routed/SKILL.md) | 你 | 首次配置和体检：检测已有配置，只补缺的部分，你确认后才写入 |
 | [`paseo-routed-guide`](skills/paseo-routed/paseo-routed-guide/SKILL.md) | 你或模型 | 该用哪个技能、roster 怎么用、带你跑第一次 |
 | [`paseo-routed`](skills/paseo-routed/paseo-routed/SKILL.md) | 你或模型 | 任意任务：主会话定方案，worker 探索和实现，reviewer 审查 |
-| [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | 你 | 已定的方案、spec 或单张票据，按 `implement` 的流程走 |
-| [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | 你 | 带票据依赖图的 spec，按 `implement-spec` 的流程走 |
+| [`implement-routed`](skills/paseo-routed/implement-routed/SKILL.md) | 你 | 已定的方案、spec 或单张票据，先写测试，再审查、提交 |
+| [`implement-spec-routed`](skills/paseo-routed/implement-spec-routed/SKILL.md) | 你 | 带票据依赖图的 spec：就绪的票据在各自的 worktree 里并行实现，合到一条集成分支，最后统一审查 |
 | [`paseo-watch`](skills/paseo-routed/paseo-watch/SKILL.md) | 你 | 同时跑着很多编排者时用：heartbeat 定时汇报变化，标出停摆的编排者、探针盯着的后台任务停了的情况，以及缓存快失效的待决策项，给每个待决策项重建背景，再把你的决定转达回去 |
 
 ### 依赖
 
 - [Paseo](https://paseo.sh) CLI，daemon 要在运行：`npm install -g @getpaseo/cli`
 - Paseo 自带的编排技能：`npx skills add getpaseo/paseo`
-- 两个 implement 技能还需要 [mattpocock/skills](https://github.com/mattpocock/skills) 里的 `implement`、`implement-spec`、`tdd`、`code-review`
 
 `setup-paseo-routed` 会逐项检查，并告诉你缺了什么。
 
@@ -66,8 +65,8 @@ notes_dir: ~/.paseo-routed/notes
 | [`native-routed-setup-*`](skills/native-routed/native-routed-setup-cc/SKILL.md) | 你 | 选 worker、reviewer、委员会用的模型，以及体检。Codex 必须先跑一次 |
 | [`native-routed-guide-*`](skills/native-routed/native-routed-guide-cc/SKILL.md) | 你或模型 | 该用哪个技能、模型怎么选、带你跑第一次 |
 | [`native-routed-*`](skills/native-routed/native-routed-cc/SKILL.md) | 你或模型 | 任意任务：主会话定方案，worker 探索和实现，reviewer 审查 |
-| [`native-implement-routed-*`](skills/native-routed/native-implement-routed-cc/SKILL.md) | 你 | 已定的方案、spec 或单张票据，按 `implement` 的流程走 |
-| [`native-implement-spec-routed-*`](skills/native-routed/native-implement-spec-routed-cc/SKILL.md) | 你 | 带票据依赖图的 spec，按 `implement-spec` 的流程走 |
+| [`native-implement-routed-*`](skills/native-routed/native-implement-routed-cc/SKILL.md) | 你 | 已定的方案、spec 或单张票据，先写测试，再审查、提交 |
+| [`native-implement-spec-routed-*`](skills/native-routed/native-implement-spec-routed-cc/SKILL.md) | 你 | 带票据依赖图的 spec：就绪的票据在各自的 worktree 里并行实现，合到一条集成分支，最后统一审查 |
 | [`native-watch-*`](skills/native-routed/native-watch-cc/SKILL.md) | 你 | 同时跑着很多 routed 会话时用：汇报变化，标出停摆的会话、探针盯着的后台任务停了的情况，以及缓存快失效的待决策项，给每个待决策项重建背景，再把你的决定转达回去 |
 
 两个宿主的差别：
@@ -82,7 +81,6 @@ notes_dir: ~/.paseo-routed/notes
 ### 依赖
 
 - Claude Code；或开启了 `multi_agent` 特性的 Codex
-- [mattpocock/skills](https://github.com/mattpocock/skills) 里的 `code-review`；两个 implement 技能还需要 `implement`、`implement-spec`、`tdd`
 
 ### 安装
 

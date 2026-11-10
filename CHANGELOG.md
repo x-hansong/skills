@@ -17,6 +17,7 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Fixed
 
+- The routed skills no longer depend on other skill sets, only on Paseo for the Paseo group. `implement`, `implement-spec` and `tdd` are manual-only skills a model can't load, so the implement skills stopped or worked around the block. Their flow now lives in the skills themselves, and `paseo-routed` and `native-routed-*` carry `references/tests.md` (test discipline) and `references/review.md` (two-axis review), copied into the run's notes so subagents read them by path. Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT). Setup no longer checks or installs `implement`, `implement-spec`, `tdd` or `code-review`, and `scripts/check.sh` rejects skills that load one of them.
 - `paseo-watch` and `native-watch-*` decide stall state afresh on every tick, so a stalled orchestrator stays listed until it moves instead of dropping out after the first report; facts carry their own time, and a stale one is no longer shown as progress. `paseo-watch` also reports a parent that missed its child's wake-up right away.
 - A stalled orchestrator whose work another one took over is raised once as a decision (wake it or stop watching it) instead of being reported, or skipped, forever.
 - Probes: on user confirmation the watch reads a background job's own state each tick (an import, a deployment, a monitor's output) and alerts when it stops, since an agent idling while it waits says nothing about the job.

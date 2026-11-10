@@ -5,8 +5,8 @@
 | 你手上有 | 用 | 会发生什么 |
 | --- | --- | --- |
 | 一个任务、问题或粗略想法，还没有方案 | `$native-routed-codex <任务>` | 主会话根据 worker 的探索结果定方案，再派发实现和审查 |
-| 已经定好的方案、一份 spec 或一张票据 | `$native-implement-routed-codex <方案或票据>` | 按 `implement` 的流程走（先写测试、审查、提交），worker 实现，reviewer 审查 |
-| 拆成票据、带阻塞关系的 spec | `$native-implement-spec-routed-codex <spec>` | 按 `implement-spec` 的流程走：就绪的票据在各自的 worktree 里并行实现，合到一条集成分支，最后统一审查 |
+| 已经定好的方案、一份 spec 或一张票据 | `$native-implement-routed-codex <方案或票据>` | 先写测试、审查、提交，worker 实现，reviewer 审查 |
+| 拆成票据、带阻塞关系的 spec | `$native-implement-spec-routed-codex <spec>` | 就绪的票据在各自的 worktree 里并行实现，合到一条集成分支，最后统一审查 |
 | 同时跑着好几个 routed 会话，记不住各自进展 | `$native-watch-codex start` | heartbeat 自动化（Codex 应用）或手动 `now` 巡检已登记的运行，只报变化，给每个待决策项重建背景，并转达你的决定。`$native-watch-codex stop` 结束 |
 | 想换模型，或者某处坏了 | `$native-routed-setup-codex` | 检测、给出模型建议、你确认后写入、复检。`$native-routed-setup-codex check` 只出报告 |
 

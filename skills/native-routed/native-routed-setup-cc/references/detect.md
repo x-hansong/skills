@@ -19,9 +19,6 @@ When the user wants proof that a model value really takes effect, offer to start
 
 | Skill | Needed by | Install |
 | --- | --- | --- |
-| `code-review` | all routed skills, for reviews | `npx skills add mattpocock/skills --skill code-review` |
-| `tdd` | `native-implement-routed-cc`, `native-implement-spec-routed-cc` | `npx skills add mattpocock/skills --skill tdd` |
-| `implement` | `native-implement-routed-cc` | `npx skills add mattpocock/skills --skill implement` |
-| `implement-spec` | `native-implement-spec-routed-cc` | `npx skills add mattpocock/skills --skill implement-spec` |
+| `native-routed-cc`, `native-implement-routed-cc`, `native-implement-spec-routed-cc`, `native-watch-cc`, `native-routed-guide-cc` | this skill set | `npx skills add x-hansong/skills --skill <name>` |
 
 A skill counts as present when it is in this session's available-skills list, or when `<skill>/SKILL.md` exists in Claude Code's global or project skill directory (`~/.claude/skills/`, `.claude/skills/`).

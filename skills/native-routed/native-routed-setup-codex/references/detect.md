@@ -18,9 +18,6 @@ Run these read-only checks in order. When a prerequisite fails, mark the checks 
 
 | Skill | Needed by | Install |
 | --- | --- | --- |
-| `code-review` | all routed skills, for reviews | `npx skills add mattpocock/skills --skill code-review` |
-| `tdd` | `native-implement-routed-codex`, `native-implement-spec-routed-codex` | `npx skills add mattpocock/skills --skill tdd` |
-| `implement` | `native-implement-routed-codex` | `npx skills add mattpocock/skills --skill implement` |
-| `implement-spec` | `native-implement-spec-routed-codex` | `npx skills add mattpocock/skills --skill implement-spec` |
+| `native-routed-codex`, `native-implement-routed-codex`, `native-implement-spec-routed-codex`, `native-watch-codex`, `native-routed-guide-codex` | this skill set | `npx skills add x-hansong/skills --skill <name>` |
 
 A skill counts as present when it is in this session's available-skills list, or when `<skill>/SKILL.md` exists in Codex's global or project skill directory (`~/.agents/skills/`, `.agents/skills/`).

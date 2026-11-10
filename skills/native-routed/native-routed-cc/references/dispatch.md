@@ -29,11 +29,11 @@ Background subagents notify this session when they finish. Wait for the notifica
 
 Reviewers, researchers and committee members get a brief that says read-only: no edits, no commits, no branch switches, no worktrees. To review a branch, they read it through git (`git diff <baseline>..<branch>`, `git show`) instead of checking it out. After each one finishes, run `git status` in every tree it could reach; any change is a finding to report, and is undone only with the user's agreement.
 
-## Passing skills
+## Passing methods
 
-Name the skill the agent should load (`code-review`, `tdd`). If a subagent reports it can't load a skill by name, resolve that skill's `SKILL.md` from this session's skill list and pass the absolute path instead.
+Subagents get the test discipline and the review method as files: the copies in `~/.native-routed/notes/<topic>/`, passed by path. Never point a subagent at a skill's install path, and never ask it to load a skill the user has to run by hand.
 
-`code-review` reviews on two axes, Standards and Spec. Without a ticket, the confirmed requirement and the scope notes are the Spec source.
+The review method reports two axes, Standards and Spec. Without a ticket, the confirmed requirement and the scope notes are the Spec source.
 
 ## Session record
 
