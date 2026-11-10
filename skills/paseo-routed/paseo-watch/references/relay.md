@@ -47,6 +47,20 @@ A rule that conflicts with a project's own rules (for example a repo that requir
 
 - "Stop watching `<id>`": add to `ignored`. Its open decisions get `closed` with resolution `ignored by user`.
 - "Also watch `<id>`": add to `pinned`, even if it is a child agent.
+- "Stop watching `<id>`" for the agent's probes too: drop the probes it owns, and say which.
+
+## Quiet suggestions
+
+The user answers a **Quiet** line with `all`, some of the ids, or "keep `<id>`".
+
+- The chosen ones go to `ignored`, as with "stop watching"; the ones not chosen go to `declined`. Confirm in one line.
+- An answer that leaves the line unaddressed (the user talks about something else) changes nothing; suggest them again next time one of them changes.
+
+## Probes
+
+- "Watch `<job>`" or a yes to a proposed probe: restate what will be read, the stall condition and the owner in one line, check that the read is read-only (see [probes](../SKILL.md#probes)), take one reading now, then add it with the next `P<n>` id.
+- "Drop `P1`" or "stop watching `<job>`": remove it and confirm.
+- "Wake the owner" after a probe alert: relay it like a decision. Give the probe's readings and times, and authorise only what the user said (for example "read-only diagnosis", or "resume once if the cause is a restart").
 
 ## New work
 
