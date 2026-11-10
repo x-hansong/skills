@@ -1,0 +1,84 @@
+skills/native-routed/native-implement-spec-routed-cc/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 7,16,20,22,25-28,32-37,41,43,45
+skills/paseo-routed/paseo-routed-guide/references/scenarios.zh-CN.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 8-9
+skills/native-routed/native-routed-codex/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 6,25,30,37,51
+skills/native-routed/native-routed-guide-codex/references/scenarios.zh-CN.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 8-9
+skills/paseo-routed/implement-routed/SKILL.md
+  s_db4c2d09db6474::t_2bc06c55671cb2 7,16,20,24,26,28-30,35
+skills/native-routed/native-routed-setup-cc/references/detect.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 22
+skills/native-routed/native-routed-guide-cc/references/scenarios.zh-CN.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 8-9
+skills/paseo-routed/paseo-routed/references/review.md
+  s_db4c2d09db6474::t_3cc1f8a0463a07 60-63
+  s_db4c2d09db6474::t_e2f3817c4d027a 1-59
+skills/native-routed/native-implement-routed-cc/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 7,16,20,24,26,28-30,36
+skills/native-routed/native-routed-guide-cc/references/scenarios.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 8-9
+skills/native-routed/native-routed-cc/references/dispatch.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 32,34,36
+skills/paseo-routed/paseo-routed/references/tests.md
+  s_db4c2d09db6474::t_3cc1f8a0463a07 30-33
+  s_db4c2d09db6474::t_298ef4bfddf624 1-29
+skills/native-routed/native-routed-cc/references/tests.md
+  s_db4c2d09db6474::t_c889c3711f45bc 1-29
+  s_db4c2d09db6474::t_3cc1f8a0463a07 30-33
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 30,37,51
+CHANGELOG.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 20
+skills/native-routed/native-implement-spec-routed-codex/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 7,16,20,22,25-28,32-37,41,43,45
+skills/native-routed/native-routed-setup-codex/references/detect.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 21
+scripts/check.sh
+  s_db4c2d09db6474::t_8c7c81eeaae7dc 53
+  s_db4c2d09db6474::t_b091ff8b4332ac 51-52,54-57
+skills/native-routed/native-routed-cc/references/review.md
+  s_db4c2d09db6474::t_3cc1f8a0463a07 60-63
+  s_db4c2d09db6474::t_c889c3711f45bc 1-59
+skills/native-routed/native-routed-codex/references/tests.md
+  s_db4c2d09db6474::t_3cc1f8a0463a07 30-33
+  s_db4c2d09db6474::t_c889c3711f45bc 1-29
+skills/native-routed/native-routed-guide-codex/references/scenarios.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 8-9
+skills/paseo-routed/paseo-routed-guide/references/scenarios.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 8-9
+README.zh-CN.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 16-17,68-69
+skills/paseo-routed/implement-spec-routed/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 7,16,20,22,25-28,32-37,41,43,45
+skills/native-routed/native-routed-cc/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 6,25,30,37,51
+skills/native-routed/native-implement-routed-codex/SKILL.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 7,16,20,24,26,28-30,36
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 46,48,50
+skills/native-routed/native-routed-codex/references/review.md
+  s_db4c2d09db6474::t_3cc1f8a0463a07 60-63
+  s_db4c2d09db6474::t_c889c3711f45bc 1-59
+README.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 16-17,68-69
+skills/native-routed/native-routed-codex/references/dispatch.md
+  s_db4c2d09db6474::t_b091ff8b4332ac 46,48,50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d8a924c1cc7c763cd0c6c6425f3e9d835a5666ea",
+  "prompts": {},
+  "sessions": {
+    "s_db4c2d09db6474": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "60dcc9a4-9c26-422a-8bfe-b40abb28cfcd",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
