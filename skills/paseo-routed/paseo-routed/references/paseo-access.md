@@ -45,6 +45,6 @@ MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling
 
 ## Passing methods to agents
 
-Agents get the test discipline and the review method as files: the copies in the shared notes directory, passed by path together with the full baseline SHA, project path and acceptance source. Never point an agent at a skill's install path, and never ask it to load a skill the user has to run by hand.
+Agents get the test discipline, the review method and the design principles as files: the copies in the shared notes directory, passed by path together with the full baseline SHA, project path and acceptance source. Never point an agent at a skill's install path, and never ask it to load a skill the user has to run by hand.
 
 The review method reports two axes, Standards and Spec. Without a ticket, the confirmed requirement or the shared acceptance notes are the Spec source.

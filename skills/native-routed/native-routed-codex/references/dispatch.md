@@ -45,7 +45,7 @@ Reviewers, researchers and committee members get a brief that says read-only: no
 
 ## Passing methods
 
-Subagents get the test discipline and the review method as files: the copies in `~/.native-routed/notes/<topic>/`, passed by path. Never point a subagent at a skill's install path, and never ask it to load a skill the user has to run by hand.
+Subagents get the test discipline, the review method and the design principles as files: the copies in `~/.native-routed/notes/<topic>/`, passed by path. Never point a subagent at a skill's install path, and never ask it to load a skill the user has to run by hand.
 
 The review method reports two axes, Standards and Spec. Without a ticket, the confirmed requirement and the scope notes are the Spec source.
 

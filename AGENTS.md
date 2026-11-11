@@ -13,7 +13,7 @@ Skills live in `skills/<group>/<skill>/SKILL.md`. A group directory never has it
 
 ## Rendered skills
 
-The `-cc` and `-codex` twins under `skills/native-routed/`, and the shared `review.md` and `tests.md` references, are rendered from `src/`. Edit `src/`, then run `scripts/render.sh`. In a template, `{host}` becomes `cc` or `codex`, and lines between `%% cc` (or `%% codex`) and `%% end` go to that host only. Keep host-specific blocks small; shared prose stays outside them.
+The `-cc` and `-codex` twins under `skills/native-routed/`, and the shared `review.md`, `tests.md` and `principles.md` references, are rendered from `src/`. Edit `src/`, then run `scripts/render.sh`. In a template, `{host}` becomes `cc` or `codex`, and lines between `%% cc` (or `%% codex`) and `%% end` go to that host only. Keep host-specific blocks small; shared prose stays outside them.
 
 ## Checks
 

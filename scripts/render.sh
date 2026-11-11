@@ -17,6 +17,9 @@ SHARED=(
   "routed/tests.md skills/paseo-routed/paseo-routed/references/tests.md"
   "routed/tests.md skills/native-routed/native-routed-cc/references/tests.md"
   "routed/tests.md skills/native-routed/native-routed-codex/references/tests.md"
+  "routed/principles.md skills/paseo-routed/paseo-routed/references/principles.md"
+  "routed/principles.md skills/native-routed/native-routed-cc/references/principles.md"
+  "routed/principles.md skills/native-routed/native-routed-codex/references/principles.md"
 )
 
 render_template() { # host template
