@@ -36,6 +36,8 @@ On top of them, apply this smell baseline (Fowler, _Refactoring_, ch. 3). A docu
 - **Middle Man**: a class or function that mostly delegates. Call the real target.
 - **Refused Bequest**: a subtype that ignores most of what it inherits. Use composition.
 
+Then apply the design principles copy in the notes (`principles.md`) as a second baseline, with the same rules: a documented project rule wins, every finding is a judgement call at P3, and it names the principle and quotes the hunk. A principle never raises a finding above P3; a defect it points to is ranked on its own evidence.
+
 ## 4. Review each axis
 
 Do the two passes one after the other and keep their notes apart.
