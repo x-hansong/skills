@@ -24,6 +24,16 @@
 
 `setup-paseo-routed` 会逐项检查，并告诉你缺了什么。
 
+装一个技能时，把它会加载的技能一起装上：
+
+| 技能 | 一起装 |
+| --- | --- |
+| `paseo-routed` | `paseo`、`paseo-advisor`、`paseo-committee`（Paseo 提供） |
+| `implement-routed` | `paseo-routed` 及其依赖 |
+| `implement-spec-routed` | `paseo-routed` 及其依赖 |
+| `paseo-routed-guide` | `setup-paseo-routed`、`paseo-routed` |
+| `setup-paseo-routed`、`paseo-watch` | 无 |
+
 ### 安装
 
 ```bash
@@ -82,6 +92,16 @@ notes_dir: ~/.paseo-routed/notes
 
 - Claude Code；或开启了 `multi_agent` 特性的 Codex
 
+装一个技能时，把它会加载的技能一起装上，且只用同一宿主的那套：
+
+| 技能（`-cc` / `-codex`） | 一起装 |
+| --- | --- |
+| `native-implement-routed-*`、`native-implement-spec-routed-*` | `native-routed-*` |
+| `native-routed-guide-*` | `native-routed-setup-*`、`native-routed-*` |
+| `native-routed-*` | 无；Codex 要先用 `native-routed-setup-codex` 写好配置 |
+| `native-watch-*` | 无；它盯的是 `native-routed-*` 和 implement 技能发起的运行 |
+| `native-routed-setup-*` | 无 |
+
 ### 安装
 
 每套只装到自己的宿主：
@@ -107,6 +127,7 @@ npx skills add x-hansong/skills -g -a codex \
 ```yaml
 version: 1
 cc:
+  budget: medium            # 可选：small | medium | large | unlimited
   reviewer: opus
   committee: [opus, fable]
 codex:
@@ -116,7 +137,7 @@ codex:
     - { model: <other-strong-model>, effort: high }
 ```
 
-`--reviewer <模型>`（Codex 写成 `<模型>/<effort>`）只对这一次运行生效。
+`budget` 统一设定没单独写 effort 的角色的推理强度；`committee` 列表有几项就起几个成员。`--reviewer <模型>[/<effort>]` 和 `--budget <档位>` 只对这一次运行生效。运行中模型起不来时按固定顺序降级，报告里会写明。
 
 ## 许可
 

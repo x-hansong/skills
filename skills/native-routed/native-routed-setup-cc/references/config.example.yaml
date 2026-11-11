@@ -3,13 +3,15 @@
 version: 1
 
 cc:
-  # Values the Claude Code Agent tool accepts for `model`.
-  # worker: sonnet          # optional; omit to inherit the subagent default
-  reviewer: opus
-  committee: [opus, fable]  # exactly two entries
+  # Values the Claude Code Agent tool accepts for `model` and `effort`, or `inherit`.
+  # budget: medium          # optional: small | medium | large | unlimited
+  # worker: sonnet          # optional; omit or `inherit` for the subagent default
+  reviewer: opus            # or { model: opus, effort: xhigh }
+  committee: [opus, fable]  # two or more entries, one member each
 
 codex:
   # Written by native-routed-setup-codex. Model names come from that host's spawn_agent.
+  # budget: medium
   # worker: { effort: medium }
   # reviewer: { model: <strong-model>, effort: high }
   # committee:

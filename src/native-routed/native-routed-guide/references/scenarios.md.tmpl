@@ -1,0 +1,84 @@
+# Scenarios
+
+## Which skill
+
+| You have | Use | What happens |
+| --- | --- | --- |
+%% cc
+| A task, question or rough idea; no plan yet | `/native-routed-{host} <task>` | This session designs the plan from the worker's exploration, then dispatches implementation and review |
+| An agreed plan, a spec file, or one ticket | `/native-implement-routed-{host} <plan or ticket>` | Tests first, review, commits, with the worker implementing and the reviewer reviewing |
+| A spec split into tickets with blocking edges | `/native-implement-spec-routed-{host} <spec>` | Works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
+| Several routed sessions running and you lose track of them | `/native-watch-{host} start` | A cron job in this session patrols the registered runs, reports only changes, rebuilds the background of each pending decision, and relays your answers. `/native-watch-{host} stop` ends it |
+| Want other models, or something stopped working | `/native-routed-setup-{host}` | Detects, suggests models, writes after you confirm, re-checks. `/native-routed-setup-{host} check` only reports |
+%% codex
+| A task, question or rough idea; no plan yet | `$native-routed-{host} <task>` | This session designs the plan from the worker's exploration, then dispatches implementation and review |
+| An agreed plan, a spec file, or one ticket | `$native-implement-routed-{host} <plan or ticket>` | Tests first, review, commits, with the worker implementing and the reviewer reviewing |
+| A spec split into tickets with blocking edges | `$native-implement-spec-routed-{host} <spec>` | Works the ready frontier in parallel worktrees, merges onto one integration branch, reviews once at the end |
+| Several routed sessions running and you lose track of them | `$native-watch-{host} start` | A heartbeat automation (Codex app) or on-demand `now` patrols the registered runs, reports only changes, rebuilds the background of each pending decision, and relays your answers. `$native-watch-{host} stop` ends it |
+| Want other models, or something stopped working | `$native-routed-setup-{host}` | Detects, suggests models, writes after you confirm, re-checks. `$native-routed-setup-{host} check` only reports |
+%% end
+
+%% cc
+A typical path for a feature: grill or discuss the idea → `to-spec` → `to-tickets` → `/native-implement-spec-routed-{host}`. For a single change: agree on the plan in conversation → `/native-implement-routed-{host}`.
+%% codex
+A typical path for a feature: grill or discuss the idea → `to-spec` → `to-tickets` → `$native-implement-spec-routed-{host}`. For a single change: agree on the plan in conversation → `$native-implement-routed-{host}`.
+%% end
+
+## Roles
+
+- **This session** designs and orchestrates. It never explores, researches or implements the task itself, and never hands the design to another agent.
+- **worker** explores, researches, implements, merges and fixes review findings.
+- **reviewer** reviews read-only and diagnoses hard failures. It never reviews work it wrote.
+- **committee**: read-only subagents called when the same failure happens twice, one per entry in the `committee` list (two by default); they alternate between digging for the root cause and challenging the approach.
+
+%% cc
+All of them are subagents started with Claude Code's Agent tool.
+%% codex
+All of them are subagents started with Codex's `spawn_agent`, without this conversation's history.
+%% end
+
+## Models
+
+| Role | Default | Change it |
+| --- | --- | --- |
+%% cc
+| worker | the host's subagent default (`CLAUDE_CODE_SUBAGENT_MODEL` when set) | `cc.worker` in the config, or `--worker <model>[/<effort>]` |
+| reviewer | `opus` | `cc.reviewer`, or `--reviewer <model>[/<effort>]` |
+| committee | `opus` and `fable` | `cc.committee` |
+%% codex
+| worker | this session's model | `codex.worker` in the config, or `--worker <model>[/<effort>]` |
+| reviewer | none: set by setup | `codex.reviewer`, or `--reviewer <model>[/<effort>]` |
+| committee | none: set by setup | `codex.committee` |
+%% end
+
+%% cc
+The config is `~/.native-routed/config.yaml`, written by `/native-routed-setup-{host}`. Values are whatever the Agent tool accepts for `model`. An explicit `model` overrides `CLAUDE_CODE_SUBAGENT_MODEL`, which is how the reviewer ends up on a stronger model than the worker.
+%% codex
+The config is `~/.native-routed/config.yaml`, written by `$native-routed-setup-{host}`. Model names differ between machines and accounts, so the skills ship none: setup reads the models `spawn_agent` offers and suggests a strong one for the reviewer and two for the committee. Without that config the routed skills stop and point to setup.
+%% end
+
+`budget` (`small`, `medium`, `large`, `unlimited`) sets the reasoning effort of every role without its own, and `--budget <budget>` changes it for one run. `inherit` as a role's model means no model parameter. If a configured model fails to start mid-run, the run falls back in a fixed order and lists the fallback in its report.
+
+## Common questions
+
+%% cc
+**How is this different from paseo-routed?** No Paseo daemon, profiles or rosters: roles are Claude Code subagents, and models come from one small config. In exchange, subagents end with this session and can't use another harness for review.
+%% codex
+**How is this different from paseo-routed?** No Paseo daemon, profiles or rosters: roles are Codex subagents, and models come from one small config. In exchange, subagents end with this session and can't use another harness for review.
+%% end
+
+**Where do notes go?** `~/.native-routed/notes/<topic>/`, outside the repo, so every subagent can read them and they never get committed. `session.json` there lets `native-watch-{host}` find the run.
+
+**Can the reviewer write files?** The tool allows it. Review briefs state read-only, and the orchestrator checks `git status` after every review.
+
+**A run stopped halfway.** Say "continue". Subagents don't survive a restart, so the orchestrator reads the notes and checks each worktree's `git log` and `git status`, then re-dispatches what's unfinished.
+
+**The same failure keeps happening.** On its second occurrence the orchestrator calls the committee for an independent root-cause analysis instead of retrying.
+
+%% cc
+**The watch stopped reporting.** Its cron job lives only in the watching session, fires only while that session is idle, and expires after 7 days. Run `/native-watch-{host} start` again.
+%% codex
+**The watch doesn't patrol on its own.** Scheduled patrols need the `automation_update` tool, which the Codex app has and the CLI doesn't. In the CLI, run `$native-watch-{host} now` when you want a report.
+
+**A relayed decision didn't run.** Relays use `codex queue` without `--resume`, so the message waits until you open that session. Ask the watch to resume it if you want it to run unattended.
+%% end

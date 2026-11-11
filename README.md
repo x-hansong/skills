@@ -24,6 +24,16 @@ Keep design and orchestration in your session, and let [Paseo](https://paseo.sh)
 
 `setup-paseo-routed` checks all of these and tells you what's missing.
 
+Install a skill together with the skills it loads:
+
+| Skill | Also install |
+| --- | --- |
+| `paseo-routed` | `paseo`, `paseo-advisor`, `paseo-committee` (from Paseo) |
+| `implement-routed` | `paseo-routed` and what it needs |
+| `implement-spec-routed` | `paseo-routed` and what it needs |
+| `paseo-routed-guide` | `setup-paseo-routed`, `paseo-routed` |
+| `setup-paseo-routed`, `paseo-watch` | nothing |
+
 ### Install
 
 ```bash
@@ -82,6 +92,16 @@ How the two hosts differ:
 
 - Claude Code, or Codex with the `multi_agent` feature on
 
+Install a skill together with the skills it loads, all from the same host's set:
+
+| Skill (`-cc` / `-codex`) | Also install |
+| --- | --- |
+| `native-implement-routed-*`, `native-implement-spec-routed-*` | `native-routed-*` |
+| `native-routed-guide-*` | `native-routed-setup-*`, `native-routed-*` |
+| `native-routed-*` | nothing; Codex needs a config from `native-routed-setup-codex` first |
+| `native-watch-*` | nothing; it watches runs started by `native-routed-*` and the implement skills |
+| `native-routed-setup-*` | nothing |
+
 ### Install
 
 Install each set only for its own host:
@@ -107,6 +127,7 @@ Then run `/native-routed-setup-cc` in Claude Code, or `$native-routed-setup-code
 ```yaml
 version: 1
 cc:
+  budget: medium            # optional: small | medium | large | unlimited
   reviewer: opus
   committee: [opus, fable]
 codex:
@@ -116,7 +137,7 @@ codex:
     - { model: <other-strong-model>, effort: high }
 ```
 
-`--reviewer <model>` (Codex: `<model>/<effort>`) overrides it for one run.
+`budget` sets the reasoning effort of every role without its own; `committee` runs one member per entry. `--reviewer <model>[/<effort>]` and `--budget <budget>` override the config for one run. A model that fails to start mid-run falls back in a fixed order, and the report says so.
 
 ## License
 

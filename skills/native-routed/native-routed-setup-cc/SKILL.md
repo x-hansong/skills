@@ -1,7 +1,7 @@
 ---
 name: native-routed-setup-cc
-description: "Set up, or health-check, what the native-routed Claude Code skills need: the cc section of ~/.native-routed/config.yaml (which model plays worker, reviewer and committee), the notes directory, the host tools the skills use, and the skills they depend on. Detects what exists, suggests defaults, writes only after confirmation, and re-checks. Safe to rerun; rerunning is the health check."
-argument-hint: "[check | <role>=<model> ...]"
+description: "Set up, or health-check, what the native-routed Claude Code skills need: the cc section of ~/.native-routed/config.yaml (budget, and which model and effort play worker, reviewer and committee), the notes directory, the host tools the skills use, and the skills they depend on. Detects what exists, suggests defaults, writes only after confirmation, and re-checks. Safe to rerun; rerunning is the health check."
+argument-hint: "[check | budget=<budget> | <role>=<model>[/<effort>] ...]"
 disable-model-invocation: true
 license: MIT
 compatibility: "Claude Code only, on macOS or Linux. No Paseo needed."
@@ -18,7 +18,7 @@ The routed skills run without a config: they fall back to the defaults in their 
 Explore read-only, present what you found, propose a plan, confirm with the user, then write and re-check.
 
 - `check`: stop after the report, and write nothing.
-- `<role>=<model>` arguments (`worker=sonnet`, `reviewer=opus`, `committee=opus,fable`): skip the suggestions and plan exactly these changes; still confirm before writing.
+- `budget=<budget>` and `<role>=<model>[/<effort>]` arguments (`budget=medium`, `worker=inherit`, `reviewer=opus/xhigh`, `committee=opus,fable`): skip the suggestions and plan exactly these changes; still confirm before writing.
 
 ## 1. Detect (read-only)
 
@@ -37,9 +37,10 @@ For every ⚠️ and ❌, and for any role the user wants changed, propose the s
 - **Models.** Suggest one value per role from the models the Agent tool accepts (check 2), with one sentence of reasoning each:
   - `worker`: leave unset, so it inherits the subagent default, unless the user wants a specific model;
   - `reviewer`: the strongest reasoning model available, ideally a different model from the one the worker resolves to;
-  - `committee`: two strong models, different from each other when possible.
+  - `committee`: two strong models, different from each other when possible; each extra entry adds one more member to every committee run.
 
   Use check 3 to say which real model each alias resolves to here. Never suggest a value the Agent tool doesn't accept, and never a model name from memory. The user can edit any line.
+- **Budget.** Ask which budget to use, with the structured-question tool when there is one: `small` (medium effort), `medium` (high), `large` (xhigh), `unlimited` (max), or none to keep the host's default effort. Name the current budget when the config has one. A role with its own `effort` keeps it. The mapping is in the `native-routed-cc` model reference.
 - **Fill gaps only.** Never remove an existing key. Changing an existing value needs its own line in the plan with the old and new value. Leave the `codex:` section and any other section untouched.
 - **Skills.** Missing skills are installed with `npx skills add … -a claude-code`; ask once for scope (`-g` global or project).
 

@@ -11,6 +11,10 @@ Skills live in `skills/<group>/<skill>/SKILL.md`. A group directory never has it
 - A skill users run on purpose sets `disable-model-invocation: true` and, in `agents/openai.yaml`, `policy.allow_implicit_invocation: false`.
 - Anything that writes user config shows a plan, waits for confirmation, backs up, and verifies after writing.
 
+## Rendered skills
+
+The `-cc` and `-codex` twins under `skills/native-routed/`, and the shared `review.md` and `tests.md` references, are rendered from `src/`. Edit `src/`, then run `scripts/render.sh`. In a template, `{host}` becomes `cc` or `codex`, and lines between `%% cc` (or `%% codex`) and `%% end` go to that host only. Keep host-specific blocks small; shared prose stays outside them.
+
 ## Checks
 
 Run `scripts/check.sh` before committing. CI runs the same script.

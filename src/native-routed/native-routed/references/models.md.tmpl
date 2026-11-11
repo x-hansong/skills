@@ -1,0 +1,112 @@
+# Model resolution
+
+%% cc
+Each role runs on a model the Agent tool accepts in its `model` parameter (aliases such as `opus`, `sonnet`, `haiku`, `fable`; check this session's Agent tool schema for the exact list) and, optionally, an effort its `effort` parameter accepts.
+%% codex
+Each role runs on a model and reasoning effort that `spawn_agent` accepts in its `model` and `reasoning_effort` parameters. Check this session's `spawn_agent` schema for the exact lists; model names differ between machines and accounts, so this skill ships none.
+%% end
+
+## Sources, first match wins
+
+%% cc
+1. Arguments: `--worker <model>[/<effort>]`, `--reviewer <model>[/<effort>]`, `--budget <budget>` (remove them from the task text).
+2. The `cc:` section of `~/.native-routed/config.yaml`, written by `native-routed-setup-{host}`.
+3. Defaults:
+%% codex
+1. Arguments: `--worker <model>[/<effort>]`, `--reviewer <model>[/<effort>]`, `--budget <budget>` (remove them from the task text).
+2. The `codex:` section of `~/.native-routed/config.yaml`, written by `native-routed-setup-{host}`.
+%% end
+
+%% cc
+| Role | Default | Why |
+| --- | --- | --- |
+| `worker` | `inherit` | Inherits this host's subagent default |
+| `reviewer` | `opus` | Reviews and diagnosis go to a strong reasoning model |
+| `committee` | `opus` and `fable` | Two strong models, so the two diagnoses are independent |
+
+When `CLAUDE_CODE_SUBAGENT_MODEL` is set, a subagent started without `model` runs on it; an explicit `model` overrides it. So `inherit` follows that variable and an explicit model doesn't.
+%% codex
+There are no built-in defaults for `reviewer` and `committee`. If the config file or its `codex:` section is missing, stop and tell the user to run `native-routed-setup-{host}`. Don't pick a model yourself.
+%% end
+
+## Values
+
+A role is a model, `inherit`, or `{ model: <model or inherit>, effort: <effort> }`. `committee` is a list of these.
+
+%% cc
+- `inherit` means no `model` parameter, so the subagent runs on the host's subagent default.
+%% codex
+- `inherit` means no `model` parameter, so the subagent runs on this session's model.
+%% end
+- `committee` has two or more entries, one member per entry, so its length sets how many members run.
+- Effort: the role's own `effort` wins; otherwise the budget's effort; with neither, leave the effort parameter out.
+
+## Budget
+
+`budget` sets the effort of every role that doesn't set its own:
+
+| Budget | Effort |
+| --- | --- |
+| `small` | `medium` |
+| `medium` | `high` |
+| `large` | `xhigh` |
+| `unlimited` | `max` |
+
+The ladder is `max` > `xhigh` > `high` > `medium` > `low`. When the host doesn't accept the budget's effort, use the highest effort it accepts below that one, and record the substitution.
+
+## Config file
+
+%% cc
+```yaml
+version: 1
+cc:
+  budget: medium            # optional
+  worker: sonnet            # optional; omit or `inherit` for the subagent default
+  reviewer: { model: opus, effort: xhigh }
+  committee: [opus, fable]  # two or more entries
+codex:
+  # written by native-routed-setup-codex; this skill ignores it
+```
+%% codex
+```yaml
+version: 1
+codex:
+  budget: medium                             # optional
+  worker: { effort: medium }                 # optional; without model, the worker uses this session's model
+  reviewer: { model: <strong-model>, effort: high }
+  committee:                                 # two or more entries, ideally different models
+    - { model: <strong-model>, effort: high }
+    - { model: <other-strong-model>, effort: high }
+cc:
+  # written by native-routed-setup-cc; this skill ignores it
+```
+%% end
+
+%% cc
+- A missing file or a missing `cc:` section means the defaults apply.
+- A file that doesn't parse, or `version` other than `1`: stop and tell the user the path and the error. Suggest `native-routed-setup-{host} check`.
+- A model or effort the Agent tool doesn't accept, an unknown `budget`, or a `committee` with fewer than two entries: stop and name the bad key. Don't substitute another value.
+%% codex
+- `worker` is optional; without it the worker is `inherit`.
+- `reviewer` and `committee` are required.
+- A file that doesn't parse, or `version` other than `1`: stop and tell the user the path and the error.
+- A model or effort that `spawn_agent` doesn't accept, an unknown `budget`, or a `committee` with fewer than two entries: stop and name the bad key. Suggest `native-routed-setup-{host} check`. Don't substitute another value.
+%% end
+
+## Model rejected mid-run
+
+A value that passed these checks can still fail when a subagent starts, for example when the model is withdrawn or over quota. Then fall back in this order, skipping any value that already failed in this run:
+
+%% cc
+1. the role's default from the table above, when it differs from the failed value;
+2. `inherit`.
+%% codex
+1. for a committee member or the reviewer, another committee entry; for the worker, `inherit`;
+2. `inherit`.
+%% end
+
+Never fall back silently. Record each fallback (role, configured value, value used, the error) in `scope.md` and list it in the final report. When the reviewer falls back to the worker's model, say that the review is no longer independent.
+
+## Record
+
+Write each role's resolved model and effort, and where they came from (argument, config, budget or default), to the run's `scope.md`.

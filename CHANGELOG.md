@@ -15,6 +15,14 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 - `paseo-watch` and `native-watch-*` track idle time: an orchestrator idle past `stallMinutes` (default 30) with unfinished work is reported as stalled even when nothing else changed, and a child's progress is no longer reported as the parent's; a pending decision whose agent is about to lose its prompt cache (`cacheTtlMinutes`, default 60, provider-dependent, `null` to turn off) gets a warning, and is marked `cold` after.
 - `native-watch-*` finds runs through `session.json` in `~/.native-routed/notes/<topic>/`; Claude Code patrols with `CronCreate` and relays with `SendMessage`, Codex patrols with a heartbeat automation where available (on demand otherwise) and relays with `codex queue`.
 
+### Changed
+
+- Review findings need proof. A P0–P2 behaviour or Spec finding carries the command that shows it, the output it printed and the output required; the orchestrator reruns it before handing it to a fixer, and the fix is done when the same commands print the required output. Findings without a run are listed as Unproven for the user. Applies to `paseo-routed` and `native-routed-*`.
+- Acceptance checks get one verdict each: verified, not verified or inconclusive; inconclusive is not a pass. The routed skills open by restating the goal, and the final report labels each claim as measured, inferred or a guess.
+- `native-routed-*` models: a `budget` (`small`, `medium`, `large`, `unlimited`) sets the effort of every role without its own; roles take `inherit` or `{ model, effort }`; `committee` takes two or more entries, one member each; `--budget` overrides for one run. A model that fails to start mid-run falls back in a fixed order, and the fallback is recorded and reported.
+- The `-cc` and `-codex` twins, and the review and test references shared with `paseo-routed`, are rendered from `src/` by `scripts/render.sh`; `scripts/check.sh` fails when the rendered files drift, when a twin is missing, or when a routed skill loses a section the other skills rely on.
+- README lists which skills to install together.
+
 ### Fixed
 
 - The routed skills no longer depend on other skill sets, only on Paseo for the Paseo group. `implement`, `implement-spec` and `tdd` are manual-only skills a model can't load, so the implement skills stopped or worked around the block. Their flow now lives in the skills themselves, and `paseo-routed` and `native-routed-*` carry `references/tests.md` (test discipline) and `references/review.md` (two-axis review), copied into the run's notes so subagents read them by path. Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT). Setup no longer checks or installs `implement`, `implement-spec`, `tdd` or `code-review`, and `scripts/check.sh` rejects skills that load one of them.

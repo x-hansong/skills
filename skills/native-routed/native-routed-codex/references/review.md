@@ -43,7 +43,16 @@ Do the two passes one after the other and keep their notes apart.
 - **Standards**: per file or hunk, every breach of a documented rule (cite the file and the rule) and every baseline smell (name it, quote the hunk). Mark which findings are hard breaches and which are judgement calls.
 - **Spec**: requirements missing or partial; behaviour nobody asked for (scope creep); requirements that look implemented but are implemented wrong. Quote the spec line for each.
 
-## 5. Severity
+## 5. Prove each finding
+
+A defect finding counts only when a run shows it. For every behaviour or Spec finding you would rank P0–P2, run something against the real code that shows the wrong behaviour: an existing test, a new test or repro script, or a plain command. Keep the review read-only: put new tests and scripts in the notes directory or a temp directory, never in the repo, and point them at the candidate. Record the exact command, the output it printed and the output the requirement needs.
+
+- A breach of a hard documented rule (Standards P2) is proven by quoting the rule and the hunk; it needs no run.
+- A defect you suspect but could not show with a run goes under **Unproven**, with what you tried. It gets no severity and is never fixed automatically.
+- Leave out risks that matter only after some future change.
+- No findings is a valid result.
+
+## 6. Severity
 
 | Severity | Meaning |
 | --- | --- |
@@ -54,9 +63,9 @@ Do the two passes one after the other and keep their notes apart.
 
 Every baseline smell is P3. A documented-rule breach is P2 only when the rule is hard; otherwise P3.
 
-## 6. Report
+## 7. Report
 
-Under `## Standards` and `## Spec`, each finding with its severity, location and evidence, under 400 words per axis. Don't merge or rerank findings across axes. End with one line: the number of findings per axis and the worst one within each axis.
+Under `## Standards` and `## Spec`, each finding with its severity, location and evidence, under 400 words per axis; a P0–P2 behaviour or Spec finding's evidence is its command, the output it printed and the output required. Then `## Unproven`, one line each. Don't merge or rerank findings across axes. End with one line: the number of findings per axis and the worst one within each axis.
 
 ---
 

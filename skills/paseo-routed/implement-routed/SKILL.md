@@ -13,7 +13,7 @@ metadata:
 
 **Task:** $ARGUMENTS
 
-Load the `paseo-routed` skill and apply its roster resolution, dispatch, recovery and acceptance rules, test discipline and review method to this run. Pass `--roster` through to roster resolution. Reply in the user's language.
+Load the `paseo-routed` skill and apply its roster resolution, dispatch, recovery, acceptance and report rules, test discipline and review method to this run. Pass `--roster` through to roster resolution. Reply in the user's language.
 
 ## Input and scope
 

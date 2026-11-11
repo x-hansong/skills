@@ -1,7 +1,7 @@
 ---
 name: native-implement-spec-routed-codex
 description: "Implement a spec and its dependency graph of tickets in Codex without Paseo: this session orchestrates the ready frontier, worker subagents implement and merge each ticket, a reviewer subagent on a stronger model reviews and diagnoses. Follows the current project's integration, testing and delivery rules."
-argument-hint: "[--worker <model>[/<effort>]] [--reviewer <model>[/<effort>]] <spec path or ticket source>"
+argument-hint: "[--worker <model>[/<effort>]] [--reviewer <model>[/<effort>]] [--budget <budget>] <spec path or ticket source>"
 disable-model-invocation: true
 license: MIT
 compatibility: "Codex only. Requires everything native-routed-codex requires."
@@ -13,7 +13,7 @@ metadata:
 
 **Spec:** $ARGUMENTS
 
-Load the `native-routed-codex` skill and apply its model resolution, dispatch, recovery and acceptance rules, test discipline and review method to this run. Pass `--worker` and `--reviewer` through to model resolution. Reply in the user's language.
+Load the `native-routed-codex` skill and apply its model resolution, dispatch, recovery, acceptance and report rules, test discipline and review method to this run. Pass `--worker`, `--reviewer` and `--budget` through to model resolution. Reply in the user's language.
 
 The input is a spec, its tickets and how they are tracked. Without a ticket graph, when the user just wants a task or plan carried out, use `native-implement-routed-codex`. When tickets really must be closed, first settle where they live and how they are closed.
 

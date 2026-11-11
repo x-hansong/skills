@@ -1,0 +1,11 @@
+interface:
+%% cc
+  display_name: "Setup Native Routed (Claude Code)"
+  short_description: "Detect, suggest models, and write the config the native-routed Claude Code skills use; rerun to check health"
+%% codex
+  display_name: "Setup Native Routed (Codex)"
+  short_description: "Detect, suggest models, and write the config the native-routed Codex skills use; rerun to check health"
+%% end
+  default_prompt: "Use $native-routed-setup-{host} to check and complete my setup."
+policy:
+  allow_implicit_invocation: false

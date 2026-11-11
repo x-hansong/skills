@@ -17,7 +17,7 @@
 - **主会话**负责设计和编排。它不自己探索、调研或实现任务，也不把方案设计交给别的代理。
 - **worker** 负责探索、调研、实现、合并，以及修复审查发现的问题。
 - **reviewer** 只读审查，诊断疑难失败。它不审查自己写的代码。
-- **委员会**：同一个失败出现第二次时召集的两个只读子代理，一个深挖根因，一个质疑现有方案。
+- **委员会**：同一个失败出现第二次时召集的只读子代理，`committee` 列表里有几项就起几个（默认两个），轮流分工：一个深挖根因，下一个质疑现有方案。
 
 这些角色都是用 Claude Code 的 Agent 工具起的子代理。
 
@@ -25,11 +25,13 @@
 
 | 角色 | 默认 | 怎么改 |
 | --- | --- | --- |
-| worker | 宿主的子代理默认模型（设了 `CLAUDE_CODE_SUBAGENT_MODEL` 就用它） | 配置里的 `cc.worker`，或 `--worker <模型>` |
-| reviewer | `opus` | `cc.reviewer`，或 `--reviewer <模型>` |
+| worker | 宿主的子代理默认模型（设了 `CLAUDE_CODE_SUBAGENT_MODEL` 就用它） | 配置里的 `cc.worker`，或 `--worker <模型>[/<effort>]` |
+| reviewer | `opus` | `cc.reviewer`，或 `--reviewer <模型>[/<effort>]` |
 | 委员会 | `opus` 和 `fable` | `cc.committee` |
 
 配置文件是 `~/.native-routed/config.yaml`，由 `/native-routed-setup-cc` 写入。取值是 Agent 工具的 `model` 参数接受的值。显式传的 `model` 会覆盖 `CLAUDE_CODE_SUBAGENT_MODEL`，reviewer 就是靠这一点用上比 worker 更强的模型。
+
+`budget`（`small`、`medium`、`large`、`unlimited`）统一设定没单独写 effort 的角色用多大推理强度，`--budget <档位>` 只改这一次运行。角色的模型写 `inherit` 表示不传模型参数。运行中如果某个已配置的模型起不来，会按固定顺序降级，并在报告里列出来。
 
 ## 常见问题
 

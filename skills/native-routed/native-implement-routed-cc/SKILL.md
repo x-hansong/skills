@@ -1,7 +1,7 @@
 ---
 name: native-implement-routed-cc
 description: "Implement a task description, agreed plan, spec or single ticket in Claude Code without Paseo: this session orchestrates, a worker subagent implements and merges, a reviewer subagent on a stronger model reviews. No tickets needed; for a dependency graph of tickets use native-implement-spec-routed-cc."
-argument-hint: "[--worker <model>] [--reviewer <model>] <task, plan or spec path, or ticket>"
+argument-hint: "[--worker <model>[/<effort>]] [--reviewer <model>[/<effort>]] [--budget <budget>] <task, plan or spec path, or ticket>"
 disable-model-invocation: true
 license: MIT
 compatibility: "Claude Code only. Requires everything native-routed-cc requires."
@@ -13,7 +13,7 @@ metadata:
 
 **Task:** $ARGUMENTS
 
-Load the `native-routed-cc` skill and apply its model resolution, dispatch, recovery and acceptance rules, test discipline and review method to this run. Pass `--worker` and `--reviewer` through to model resolution. Reply in the user's language.
+Load the `native-routed-cc` skill and apply its model resolution, dispatch, recovery, acceptance and report rules, test discipline and review method to this run. Pass `--worker`, `--reviewer` and `--budget` through to model resolution. Reply in the user's language.
 
 ## Input and scope
 

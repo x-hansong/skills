@@ -1,0 +1,10 @@
+interface:
+%% cc
+  display_name: "Native Implement Spec Routed (Claude Code)"
+%% codex
+  display_name: "Native Implement Spec Routed (Codex)"
+%% end
+  short_description: "Worker subagents implement a ticket graph; reviewer subagent reviews the integration branch, no Paseo"
+  default_prompt: "Use $native-implement-spec-routed-{host} to deliver this spec and its tickets."
+policy:
+  allow_implicit_invocation: false

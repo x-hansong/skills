@@ -1,0 +1,10 @@
+interface:
+%% cc
+  display_name: "Native Implement Routed (Claude Code)"
+%% codex
+  display_name: "Native Implement Routed (Codex)"
+%% end
+  short_description: "Worker subagent implements a task or plan; reviewer subagent reviews before acceptance, no Paseo"
+  default_prompt: "Use $native-implement-routed-{host} to implement the agreed plan."
+policy:
+  allow_implicit_invocation: false

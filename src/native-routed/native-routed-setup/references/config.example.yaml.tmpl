@@ -1,0 +1,23 @@
+# ~/.native-routed/config.yaml
+# Read by the native-routed skills. Each host's setup skill edits only its own section.
+version: 1
+
+cc:
+  # Values the Claude Code Agent tool accepts for `model` and `effort`, or `inherit`.
+  # budget: medium          # optional: small | medium | large | unlimited
+  # worker: sonnet          # optional; omit or `inherit` for the subagent default
+  reviewer: opus            # or { model: opus, effort: xhigh }
+  committee: [opus, fable]  # two or more entries, one member each
+
+codex:
+%% cc
+  # Written by native-routed-setup-codex. Model names come from that host's spawn_agent.
+%% codex
+  # Written by native-routed-setup-{host}. Model names come from that host's spawn_agent.
+%% end
+  # budget: medium
+  # worker: { effort: medium }
+  # reviewer: { model: <strong-model>, effort: high }
+  # committee:
+  #   - { model: <strong-model>, effort: high }
+  #   - { model: <other-strong-model>, effort: high }

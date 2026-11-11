@@ -1,0 +1,120 @@
+# Dispatch and waiting
+
+%% cc
+All agents are subagents started with the Agent tool. They see none of this conversation: everything they need is in the brief or in files the brief names.
+%% codex
+All agents are subagents started with `spawn_agent`. They see none of this conversation: everything they need is in the brief or in files the brief names.
+%% end
+
+## Starting a subagent
+
+| Parameter | Value |
+| --- | --- |
+%% cc
+| `subagent_type` | `general-purpose` for every role; it has the tools to read, edit, run tests and commit |
+| `description` | Role and unit, e.g. `worker: unit B parser` |
+| `model` | The role's resolved model; omit it for a worker that inherits the default |
+| `prompt` | The brief. Long briefs go to a file under the notes directory and the prompt points to it |
+| `isolation` | `"worktree"` for an independent unit that runs in parallel; omit for serial units, reviews, research and the committee |
+| `run_in_background` | Leave the default (background) |
+%% codex
+| `task_name` | Role and unit, e.g. `worker-unit-b` |
+| `message` | The brief. Long briefs go to a file under the notes directory and the message points to it |
+| `model`, `reasoning_effort` | The role's resolved values; omit a value the config leaves out |
+| `fork_turns` | Always `"none"`. The default copies this whole conversation into the agent, which defeats a clean brief |
+%% end
+
+%% cc
+Start parallel units with several Agent calls in one message.
+%% codex
+Subagents can start subagents of their own. Every brief forbids it: all dispatching stays in this session.
+%% end
+
+%% cc
+A worktree subagent reports where its worktree and branch are. Record both in `session.json` before dispatching anything that depends on them. A worktree left unchanged is removed automatically; one with commits stays until this session removes it with `git worktree remove <path>`. Afterwards delete the parent worktrees directory the host created inside the repo (for example `.claude/worktrees/`) if it is empty, so no stray directory is left behind.
+%% codex
+## Worktrees
+
+`spawn_agent` has no isolation option; this session creates the worktree before dispatch:
+
+```bash
+git worktree add -b <branch> <path> <full baseline SHA>
+```
+
+- Follow the project's worktree conventions (`AGENTS.md`, `CLAUDE.md`) when it has them. Otherwise use `~/.native-routed/worktrees/<topic>/<unit>` and a branch named `<topic>/<unit>`.
+- If the project needs setup steps in a new worktree (install, registration, restore), run them on create and on resume.
+- The brief names the absolute worktree path and says to run every command there and touch nothing outside it except the notes.
+- Record each worktree in `session.json` before dispatching to it.
+- Remove a worktree with `git worktree remove <path>`, then delete `~/.native-routed/worktrees/<topic>/` once it is empty.
+%% end
+
+## Waiting
+
+%% cc
+Background subagents notify this session when they finish. Wait for the notification; don't poll, and don't describe a result before it arrives. While agents run, keep to orchestration work that doesn't depend on them, or tell the user what is running and stop.
+%% codex
+This session isn't woken in the background, so it waits actively: call `wait_agent` with a long timeout (up to 3,600,000 ms) and repeat until every agent it waits on has finished. On each timeout, read the notes for progress and tell the user in one line what is still running. Don't describe a result before the agent returns it.
+%% end
+
+%% cc
+## Follow-ups
+%% codex
+## Follow-ups and stopping
+%% end
+
+%% cc
+`SendMessage` to a running or finished subagent continues it with its context. Use it for clarifying questions and missing information. Review fixes always go to a fresh worker, never back to the author.
+%% codex
+- `followup_task` sends a message and starts a turn: use it for clarifying questions and missing information.
+- `send_message` queues a message without starting a turn.
+- `interrupt_agent` stops a runaway turn.
+
+Review fixes always go to a fresh worker, never back to the author.
+%% end
+
+## Read-only agents
+
+Reviewers, researchers and committee members get a brief that says read-only: no edits, no commits, no branch switches, no worktrees. To review a branch, they read it through git (`git diff <baseline>..<branch>`, `git show`) instead of checking it out. After each one finishes, run `git status` in every tree it could reach; any change is a finding to report, and is undone only with the user's agreement.
+
+## Passing methods
+
+Subagents get the test discipline and the review method as files: the copies in `~/.native-routed/notes/<topic>/`, passed by path. Never point a subagent at a skill's install path, and never ask it to load a skill the user has to run by hand.
+
+The review method reports two axes, Standards and Spec. Without a ticket, the confirmed requirement and the scope notes are the Spec source.
+
+## Session record
+
+`~/.native-routed/notes/<topic>/session.json` tells `native-watch-{host}` which session runs this topic and where its work lives:
+
+```json
+{
+  "version": 1,
+%% cc
+  "host": "claude-code",
+%% codex
+  "host": "codex",
+%% end
+  "skill": "native-routed-{host}",
+  "topic": "<topic>",
+%% cc
+  "sessionId": "<value of CLAUDE_CODE_SESSION_ID>",
+  "sessionName": "<this session's name from ListAgents>",
+%% codex
+  "sessionId": "<value of CODEX_THREAD_ID>",
+%% end
+  "repo": "<git rev-parse --show-toplevel>",
+  "baseline": "<full SHA>",
+  "worktrees": [{ "path": "<absolute path>", "branch": "<branch>" }],
+  "status": "running",
+  "startedAt": "<ISO time>",
+  "updatedAt": "<ISO time>"
+}
+```
+
+%% cc
+- `sessionName` is the name `ListAgents` reports for this session ("This session is …"). If `ListAgents` isn't available, write `null`; the watch can then report on the run but not relay to it.
+%% codex
+- Take the id from `CODEX_THREAD_ID` only. Other session variables in the environment, such as `CLAUDE_CODE_SESSION_ID`, can be inherited from a parent process and don't identify this session. If `CODEX_THREAD_ID` is unset, write `null`; the watch can then report on the run but not relay to it.
+%% end
+- Update `worktrees` as they are created and removed, and set `status` to `done` or `stopped` at wrap-up.
+- Write the whole file to `session.json.tmp`, then rename it over `session.json`.

@@ -26,6 +26,12 @@ while IFS= read -r skill_md; do
   fi
 done < <(find skills -name SKILL.md | sort)
 
+# Twin skills come in pairs: every -cc skill has a -codex twin and the reverse.
+for dir in skills/native-routed/*-cc skills/native-routed/*-codex; do
+  base=${dir%-cc}; base=${base%-codex}
+  [ -d "$base-cc" ] && [ -d "$base-codex" ] || fail "$dir has no twin"
+done
+
 # Group directories must not contain a SKILL.md of their own.
 for group in skills/*/; do
   [ ! -f "${group}SKILL.md" ] || fail "${group}SKILL.md shadows the skills below it"
@@ -54,6 +60,22 @@ if matches=$(grep -rEin --include='*.md' -e "(load|loads|use|uses|call|calls) (t
     -e "open its \`SKILL\.md\`" -e "SKILL\.md\` (path|from)" skills 2>/dev/null); then
   fail "dependency on an external skill (inline the method in a reference instead):"$'\n'"$matches"
 fi
+
+# Twin skills are rendered from src/; a hand edit under skills/ would be lost on the next render.
+scripts/render.sh --check || fail "rendered skills differ from src/"
+
+# Routed skills keep the sections other skills and the watch rely on.
+for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
+  for required in '| Network or transport error' '## Acceptance' '## Report' 'rerun its command yourself' '**inconclusive**'; do
+    grep -qF -- "$required" "$skill_md" || fail "$skill_md: missing '$required'"
+  done
+done
+for skill_md in skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
+  grep -qF 'session.json' "$skill_md" || fail "$skill_md: missing 'session.json'"
+done
+for review in skills/paseo-routed/paseo-routed/references/review.md skills/native-routed/native-routed-{cc,codex}/references/review.md; do
+  grep -qF '## 5. Prove each finding' "$review" || fail "$review: missing the proof step"
+done
 
 # Extra private terms, one regex per line, kept out of the repo (e.g. your own hostnames or profile names).
 if [ -n "${CHECK_PRIVATE_TERMS:-}" ] && [ -f "$CHECK_PRIVATE_TERMS" ]; then

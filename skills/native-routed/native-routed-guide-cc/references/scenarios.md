@@ -17,7 +17,7 @@ A typical path for a feature: grill or discuss the idea → `to-spec` → `to-ti
 - **This session** designs and orchestrates. It never explores, researches or implements the task itself, and never hands the design to another agent.
 - **worker** explores, researches, implements, merges and fixes review findings.
 - **reviewer** reviews read-only and diagnoses hard failures. It never reviews work it wrote.
-- **committee**: two read-only subagents called when the same failure happens twice; one digs for the root cause, the other challenges the approach.
+- **committee**: read-only subagents called when the same failure happens twice, one per entry in the `committee` list (two by default); they alternate between digging for the root cause and challenging the approach.
 
 All of them are subagents started with Claude Code's Agent tool.
 
@@ -25,11 +25,13 @@ All of them are subagents started with Claude Code's Agent tool.
 
 | Role | Default | Change it |
 | --- | --- | --- |
-| worker | the host's subagent default (`CLAUDE_CODE_SUBAGENT_MODEL` when set) | `cc.worker` in the config, or `--worker <model>` |
-| reviewer | `opus` | `cc.reviewer`, or `--reviewer <model>` |
+| worker | the host's subagent default (`CLAUDE_CODE_SUBAGENT_MODEL` when set) | `cc.worker` in the config, or `--worker <model>[/<effort>]` |
+| reviewer | `opus` | `cc.reviewer`, or `--reviewer <model>[/<effort>]` |
 | committee | `opus` and `fable` | `cc.committee` |
 
 The config is `~/.native-routed/config.yaml`, written by `/native-routed-setup-cc`. Values are whatever the Agent tool accepts for `model`. An explicit `model` overrides `CLAUDE_CODE_SUBAGENT_MODEL`, which is how the reviewer ends up on a stronger model than the worker.
+
+`budget` (`small`, `medium`, `large`, `unlimited`) sets the reasoning effort of every role without its own, and `--budget <budget>` changes it for one run. `inherit` as a role's model means no model parameter. If a configured model fails to start mid-run, the run falls back in a fixed order and lists the fallback in its report.
 
 ## Common questions
 
