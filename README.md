@@ -139,6 +139,93 @@ codex:
 
 `budget` sets the reasoning effort of every role without its own; `committee` runs one member per entry. `--reviewer <model>[/<effort>]` and `--budget <budget>` override the config for one run. A model that fails to start mid-run falls back in a fixed order, and the report says so.
 
+## Usage
+
+The examples use the Paseo command names. For the native sets, swap in the matching name; in Codex, start with `$` instead of `/`:
+
+| To | Paseo | Claude Code native | Codex native |
+| --- | --- | --- | --- |
+| Run any task | `/paseo-routed` | `/native-routed-cc` | `$native-routed-codex` |
+| Implement a settled plan | `/implement-routed` | `/native-implement-routed-cc` | `$native-implement-routed-codex` |
+| Implement a spec and its tickets in parallel | `/implement-spec-routed` | `/native-implement-spec-routed-cc` | `$native-implement-spec-routed-codex` |
+| Watch several runs | `/paseo-watch` | `/native-watch-cc` | `$native-watch-codex` |
+
+Size the work first. If it fits one branch and a commit or two, and its acceptance fits in a sentence or two, it is small. If it splits into several tickets that depend on each other, spans several modules, or needs shared terms and recorded design decisions first, treat it as large.
+
+### Small work
+
+With no plan yet, use `/paseo-routed`. This session has a worker explore the code, settles the plan from what it finds, then dispatches implementation and review:
+
+```text
+/paseo-routed Explain how config loading works in this repo and where its tests are
+/paseo-routed Non-ASCII column names come out garbled in CSV export; find the cause, fix it, add a regression test
+```
+
+With a plan already agreed in the conversation, or a single ticket, use `/implement-routed`. It writes tests first, then implements, reviews and commits:
+
+```text
+/implement-routed Add --dry-run to the sync command as we just agreed: list the files it would change, write nothing
+/implement-routed #123
+```
+
+When the requirement is still fuzzy, let `grilling` question you first, then hand the result to `/implement-routed`. To use other models for one run only, pass a flag:
+
+```text
+/implement-routed --roster alt #123
+/native-implement-routed-cc --reviewer fable #123
+```
+
+### Large work
+
+Large work usually goes like this, every step in the same repo:
+
+1. `/grill-with-docs <idea>`: an interview that settles the plan question by question, writing terms to the glossary and key decisions to ADRs. Use `grilling` when you don't need the docs.
+2. `/to-spec`: turn the discussion into a spec on the project's issue tracker.
+3. `/to-tickets`: split the spec into tickets, each naming the tickets that block it. Nothing is published until you approve the split.
+4. `/implement-spec-routed <spec and ticket location>`: unblocked tickets are implemented in parallel, each in its own worktree, merged into one integration branch and reviewed together at the end.
+5. With several such runs going, run `/paseo-watch start` in another session. It reports only what changed and relays your decisions back.
+6. When it is done, run `/retro` to turn what went wrong into checks, navigation pointers or review rules.
+
+For example, adding a plugin system to a CLI, with a local-file tracker:
+
+```text
+/grill-with-docs Add plugins to the CLI: third-party packages register subcommands, loaded on demand at startup
+(answer a few rounds of questions: when plugins load, version compatibility, what happens on errors)
+/to-spec
+(the spec goes to .scratch/plugin-system/spec.md)
+/to-tickets .scratch/plugin-system/spec.md
+(after you approve the split, tickets go to .scratch/plugin-system/issues/01-*.md and so on)
+/implement-spec-routed .scratch/plugin-system/spec.md, tickets in .scratch/plugin-system/issues/
+/retro
+```
+
+With a GitHub tracker, pass the issue number in steps 3 and 4, for example `/to-tickets #45` and `/implement-spec-routed #45`.
+
+If a run stops, say "continue" in the same session. This session checks the agents still running and each worktree's git state before going on.
+
+### Companion skills
+
+`grilling`, `grill-with-docs`, `to-spec`, `to-tickets` and `retro` above come from [mattpocock/skills](https://github.com/mattpocock/skills). They are optional; the routed skills run without them.
+
+| Skill | Use |
+| --- | --- |
+| `grilling` | Stress-test the plan question by question before any work starts |
+| `grill-with-docs` | The same interview, writing terms to the glossary and decisions to ADRs as it goes |
+| `to-spec` | Turn the discussion into a spec on the project's issue tracker |
+| `to-tickets` | Split a spec into tickets with blocking edges, ready for `implement-spec-routed` or `native-implement-spec-routed-*` |
+| `retro` | Review a finished run and improve `CLAUDE.md`/`AGENTS.md`, checks and skills |
+
+The command also installs three dependencies: `grill-with-docs` loads `grilling` and `domain-modeling`, `to-spec` and `to-tickets` need `setup-matt-pocock-skills` to configure the issue tracker and labels, and `retro` loads `writing-for-agents`.
+
+```bash
+npx skills add mattpocock/skills -g -a claude-code -a codex \
+  --skill grilling --skill grill-with-docs --skill to-spec --skill to-tickets \
+  --skill retro --skill domain-modeling --skill setup-matt-pocock-skills \
+  --skill writing-for-agents
+```
+
+Then run `/setup-matt-pocock-skills` once in each repo where you use them and pick a tracker (GitHub, GitLab or local `.scratch/` files). Apart from `grilling` and `domain-modeling`, these skills are manual-only.
+
 ## License
 
 [MIT](LICENSE)

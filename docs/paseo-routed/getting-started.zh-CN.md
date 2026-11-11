@@ -26,7 +26,7 @@ npx skills add x-hansong/skills -g -a claude-code -a codex \
 | Provider、profile | 有没有能担任 `worker` 和 `reviewer` 的 profile |
 | Roster 配置、roster 里的 profile | `~/.paseo-routed/config.yaml` 是否合法，里面写的 profile 是否都存在 |
 | 笔记目录 | 是否存在、能否写入 |
-| 技能 | Paseo 自带技能、`mattpocock/skills` 里的依赖、这套技能本身，按你用的每个代理分别检查 |
+| 技能 | Paseo 自带技能和这套技能本身，按你用的每个代理分别检查 |
 
 接着，它会针对没打 ✅ 的项给出方案。已有的 profile 合适就直接用；需要新建时，它会列出你的 provider 实际能用的模型让你挑。你确认之前它什么都不写。写入前会先备份 Paseo 配置，profile 通过脚本写入，脚本会核对其它 profile 一个不少。
 

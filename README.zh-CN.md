@@ -139,6 +139,93 @@ codex:
 
 `budget` 统一设定没单独写 effort 的角色的推理强度；`committee` 列表有几项就起几个成员。`--reviewer <模型>[/<effort>]` 和 `--budget <档位>` 只对这一次运行生效。运行中模型起不来时按固定顺序降级，报告里会写明。
 
+## 使用方法
+
+下面的例子用 Paseo 版的命令名。用原生版时换成对应名字，Codex 里把开头的 `/` 换成 `$`：
+
+| 做什么 | Paseo | Claude Code 原生 | Codex 原生 |
+| --- | --- | --- | --- |
+| 任意任务 | `/paseo-routed` | `/native-routed-cc` | `$native-routed-codex` |
+| 按定好的方案实现 | `/implement-routed` | `/native-implement-routed-cc` | `$native-implement-routed-codex` |
+| 按 spec 和票据并行实现 | `/implement-spec-routed` | `/native-implement-spec-routed-cc` | `$native-implement-spec-routed-codex` |
+| 盯多个运行 | `/paseo-watch` | `/native-watch-cc` | `$native-watch-codex` |
+
+先判断需求大小。一个分支、一两次提交能做完，验收标准一两句话说得清，就是小需求。要拆成几张有先后关系的票据、涉及好几个模块，或者需要先统一术语、留下设计决策，就按大需求走。
+
+### 小需求
+
+还没方案时用 `/paseo-routed`。主会话先派 worker 探索代码，据此定方案，再派发实现和审查：
+
+```text
+/paseo-routed 解释一下这个仓库的配置加载是怎么工作的，测试在哪里
+/paseo-routed 导出 CSV 时中文列名乱码，查出原因并修掉，补一个回归测试
+```
+
+在对话里已经把方案谈定，或者手上有一张票据，就用 `/implement-routed`。它会先写测试，再实现、审查、提交：
+
+```text
+/implement-routed 按刚才定的方案给 sync 命令加 --dry-run：只列出要改的文件，不写盘
+/implement-routed #123
+```
+
+需求还模糊，可以先让 `grilling` 追问几轮，问清楚了再交给 `/implement-routed`。只想在这一次换个模型，就加参数：
+
+```text
+/implement-routed --roster alt #123
+/native-implement-routed-cc --reviewer fable #123
+```
+
+### 大需求
+
+大需求通常按下面的顺序走，每一步都在同一个仓库里执行：
+
+1. `/grill-with-docs <想法>`：逐条追问方案，术语写进 glossary，关键决策记成 ADR。不需要留文档时用 `grilling`。
+2. `/to-spec`：把讨论结果整理成 spec，发到项目的 issue tracker。
+3. `/to-tickets`：把 spec 拆成票据，每张写明被哪些票据阻塞。拆分方案你确认后才发布。
+4. `/implement-spec-routed <spec 和票据位置>`：没有阻塞的票据各开一个 worktree 并行实现，合进一条集成分支，最后统一审查。
+5. 同时跑着几个这样的运行时，另开一个会话执行 `/paseo-watch start`，它只汇报变化，你的决定由它转达回去。
+6. 做完后执行 `/retro`，把这次暴露的问题落实成检查脚本、导航指引或审查规则。
+
+以给 CLI 加插件机制为例，tracker 用本地文件：
+
+```text
+/grill-with-docs 给 CLI 加插件机制：第三方包注册子命令，主程序启动时按需加载
+（回答几轮追问，定下加载时机、版本兼容和出错时的行为）
+/to-spec
+（spec 写到 .scratch/plugin-system/spec.md）
+/to-tickets .scratch/plugin-system/spec.md
+（确认拆分后，票据写到 .scratch/plugin-system/issues/01-*.md 等文件）
+/implement-spec-routed .scratch/plugin-system/spec.md，票据在 .scratch/plugin-system/issues/
+/retro
+```
+
+tracker 用 GitHub 时，第 3、4 步传 issue 号，比如 `/to-tickets #45`、`/implement-spec-routed #45`。
+
+运行中断了，回到原会话说"继续"即可。主会话会先检查还在跑的代理和各个 worktree 的 git 状态，再接着做。
+
+### 搭配技能
+
+上面用到的 `grilling`、`grill-with-docs`、`to-spec`、`to-tickets`、`retro` 来自 [mattpocock/skills](https://github.com/mattpocock/skills)。它们是可选的，没装也不影响 routed 技能运行。
+
+| 技能 | 用法 |
+| --- | --- |
+| `grilling` | 动手前逐条追问方案，把需求问清楚 |
+| `grill-with-docs` | 同样逐条追问，边问边把术语写进 glossary、把决策记成 ADR |
+| `to-spec` | 把讨论结果整理成 spec，发到项目的 issue tracker |
+| `to-tickets` | 把 spec 拆成带阻塞关系的票据，交给 `implement-spec-routed` 或 `native-implement-spec-routed-*` 执行 |
+| `retro` | 跑完一次复盘，改进 `CLAUDE.md`/`AGENTS.md`、检查脚本和技能 |
+
+命令里另外三个是依赖：`grill-with-docs` 会加载 `grilling` 和 `domain-modeling`，`to-spec` 和 `to-tickets` 要先用 `setup-matt-pocock-skills` 配置 issue tracker 和标签，`retro` 会加载 `writing-for-agents`。
+
+```bash
+npx skills add mattpocock/skills -g -a claude-code -a codex \
+  --skill grilling --skill grill-with-docs --skill to-spec --skill to-tickets \
+  --skill retro --skill domain-modeling --skill setup-matt-pocock-skills \
+  --skill writing-for-agents
+```
+
+装好后，在每个要用的仓库里先运行一次 `/setup-matt-pocock-skills`，选 tracker（GitHub、GitLab 或本地 `.scratch/` 文件）。除 `grilling` 和 `domain-modeling` 外，这几个技能都只能手动调用。
+
 ## 许可
 
 [MIT](LICENSE)

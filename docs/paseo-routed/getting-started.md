@@ -26,7 +26,7 @@ It checks ten things read-only and shows a table:
 | Providers, profiles | Something can play `worker` and `reviewer` |
 | Roster config, roster profiles | `~/.paseo-routed/config.yaml` is valid and every profile it names exists |
 | Notes directory | Exists and is writable |
-| Skills | Paseo's skills, the `mattpocock/skills` dependencies, and this set, for each agent you use |
+| Skills | Paseo's skills and this set, for each agent you use |
 
 Then it proposes a plan for whatever isn't ✅. It reuses profiles you already have where they fit; when it has to create one, it lists the models your providers actually offer and lets you pick. Nothing is written until you confirm. Paseo's config is backed up first, and profiles are written through a script that checks every other profile survived.
 
