@@ -1,0 +1,32 @@
+README.zh-CN.md
+  s_62c0a726011e40::t_e48c50c1eb1c70 213,218,222-224
+  s_62c0a726011e40::t_2658968e36bee3 143,145,210-212,214,217,219-221,225-226,228
+  s_62c0a726011e40::t_d9ed2ff1537753 180,187
+  s_62c0a726011e40::t_e5578c4866561b 142,144,146-179,181-186,188-209,215-216,227
+CHANGELOG.md
+  s_62c0a726011e40::t_e5578c4866561b 20
+docs/paseo-routed/getting-started.zh-CN.md
+  s_62c0a726011e40::t_ac95cbda4bad4b 29
+README.md
+  s_62c0a726011e40::t_2658968e36bee3 143,145,210-212,214-215,217,219-221,225-226,228
+  s_62c0a726011e40::t_e48c50c1eb1c70 213,218,222-224
+  s_62c0a726011e40::t_e5578c4866561b 142,144,146-209,216,227
+docs/paseo-routed/getting-started.md
+  s_62c0a726011e40::t_ac95cbda4bad4b 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5c99637118096c1bca63fdc69ca51acaba79dd82",
+  "prompts": {},
+  "sessions": {
+    "s_62c0a726011e40": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0240ea6e-6970-4192-a4d6-db72fdf349d1",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
