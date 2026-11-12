@@ -1,0 +1,19 @@
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_41a77f799c6724::t_fdcbad53a9f6e5 65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a4c6079dd6d30240b808ea93a34fde20389ab2ce",
+  "prompts": {},
+  "sessions": {
+    "s_41a77f799c6724": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8c79930a-d1f2-4b2c-bfc2-aa506dde7071",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
