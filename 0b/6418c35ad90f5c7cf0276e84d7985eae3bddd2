@@ -1,0 +1,25 @@
+CHANGELOG.md
+  s_574c444aafca51::t_a448471abe2696 20
+skills/native-routed/native-routed-cc/SKILL.md
+  s_574c444aafca51::t_2be3185f5a79a6 61
+skills/native-routed/native-routed-codex/SKILL.md
+  s_574c444aafca51::t_94c4d207dce6cf 61
+src/native-routed/native-routed/SKILL.md.tmpl
+  s_574c444aafca51::t_2618c57036c1e9 87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0b6418c35ad90f5c7cf0276e84d7985eae3bddd2",
+  "prompts": {},
+  "sessions": {
+    "s_574c444aafca51": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "724de3cc-242e-464a-9ba7-a9b340031c29",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
