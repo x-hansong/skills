@@ -62,7 +62,7 @@ Wait on `notifyOnFinish` notifications; no heartbeat by default. Only when this 
 
 ## Acceptance
 
-Don't accept an agent's summary on its own word. For exploration and research, check sources, whether the evidence supports the conclusions, the acceptance checks and open questions. For implementation, check that the commits exist, the acceptance checks pass, the test log exits 0, and the diff matches the brief. Send back work that drifts past the brief: keep only what blocks this task and record the rest in the notes as follow-ups. A review verdict covers one head SHA; a later commit needs a new verdict. Clean up the worktrees this task created.
+Don't accept an agent's summary on its own word. For exploration and research, check sources, whether the evidence supports the conclusions, the acceptance checks and open questions. For implementation, check that the commits exist, the acceptance checks pass, the test log exits 0, and the diff matches the brief. Send back work that drifts past the brief: keep only what blocks this task and record the rest in the notes as follow-ups. A review verdict covers one head SHA; a later commit needs a new verdict. Clean up the worktrees this task created. Before removing one, list what `git status --ignored` shows there that this task produced (run outputs, baselines, private data) and copy it to the main checkout or the notes directory; removing a worktree deletes its ignored files too.
 
 Give every acceptance check one verdict: **verified** (you saw the evidence on the real artifact), **not verified** (the evidence shows it fails) or **inconclusive** (no evidence, or evidence from the wrong surface). Inconclusive is not a pass.
 
