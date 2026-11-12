@@ -17,6 +17,7 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed skills (`paseo-routed`, `native-routed-*`): before removing a worktree, copy the ignored files this task produced (run outputs, baselines, private data) to the main checkout or the notes directory.
 - README has a usage section: a command-name table across the Paseo and native sets, a small-work path (`paseo-routed`, `implement-routed`) and a large-work path (`grill-with-docs` → `to-spec` → `to-tickets` → `implement-spec-routed` → `retro`), each with examples. It lists optional companions from mattpocock/skills (`grilling`, `grill-with-docs`, `to-spec`, `to-tickets`, `retro`) with their dependencies `domain-modeling`, `setup-matt-pocock-skills` and `writing-for-agents`. The getting-started guide no longer says setup checks mattpocock/skills dependencies.
 - Review findings need proof. A P0–P2 behaviour or Spec finding carries the command that shows it, the output it printed and the output required; the orchestrator reruns it before handing it to a fixer, and the fix is done when the same commands print the required output. Findings without a run are listed as Unproven for the user. Applies to `paseo-routed` and `native-routed-*`.
 - Acceptance checks get one verdict each: verified, not verified or inconclusive; inconclusive is not a pass. The routed skills open by restating the goal, and the final report labels each claim as measured, inferred or a guess.
