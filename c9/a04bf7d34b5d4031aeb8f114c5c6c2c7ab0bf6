@@ -1,0 +1,31 @@
+CHANGELOG.md
+  s_6e45f84d89e211::t_47574703f2ca95 20
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_860a25461bca45::t_b0fe4d83d92335 41-42,67
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_6e45f84d89e211::t_530269a2be06f8 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c9a04bf7d34b5d4031aeb8f114c5c6c2c7ab0bf6",
+  "prompts": {},
+  "sessions": {
+    "s_6e45f84d89e211": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9238a4c4-0444-45e8-83db-db2932882dcf",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    },
+    "s_860a25461bca45": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6f48392-a877-4f29-8c81-296abbd541d7",
+        "model": "group/deepseek-4.1"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
