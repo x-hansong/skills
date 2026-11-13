@@ -1,0 +1,27 @@
+skills/native-routed/native-routed-cc/SKILL.md
+  s_7624d1e4493448::t_d5c8e6cd5ecedf 37,42
+skills/native-routed/native-routed-codex/SKILL.md
+  s_7624d1e4493448::t_4a9e53b973e081 37,42
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_7624d1e4493448::t_3f6fc625767432 37,42
+src/native-routed/native-routed/SKILL.md.tmpl
+  s_7624d1e4493448::t_78890b19f08166 59,62,68
+CHANGELOG.md
+  s_7624d1e4493448::t_78d60a3ac55365 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "197b841920654c343303881fc31ae0eaa3a6aa0d",
+  "prompts": {},
+  "sessions": {
+    "s_7624d1e4493448": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "95189330-7518-4dd3-8b72-f72db463540e",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
