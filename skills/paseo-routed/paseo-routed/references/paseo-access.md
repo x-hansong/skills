@@ -39,6 +39,8 @@ paseo --home "$HOME/.paseo" run --help
 
 `paseo run` takes `--workspace`, the profile's `--provider`, `--mode`, `--thinking`, and `--no-wait --json` for long tasks to get the agent id. Pass the prompt as one safely quoted argument; keep long briefs in a shared file and pass its path.
 
+Follow-ups to a running agent go through `paseo send`, which waits for the agent's turn to finish unless you pass `--no-wait`. Write a long or multi-line message to a file and pass `--prompt-file <path>`. When you write that file with a heredoc, pick a delimiter that never appears as a line in the message.
+
 ## Completion
 
 MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling. CLI `run --no-wait` has no such callback: run `paseo wait <agent-id>` in the background, then read `paseo logs <agent-id>`, its status and its artifacts. A CLI wait process is not an MCP notification.
