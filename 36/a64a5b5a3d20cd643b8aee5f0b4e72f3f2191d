@@ -1,0 +1,37 @@
+skills/native-routed/native-routed-cc/SKILL.md
+  s_4b3af4cb2f025c::t_0caa253bfa5398 41-42,63
+skills/native-routed/native-routed-cc/references/review.md
+  s_4b3af4cb2f025c::t_916b23c13d7270 46
+skills/native-routed/native-routed-codex/SKILL.md
+  s_4b3af4cb2f025c::t_4264f36ba45ca3 41-42,63
+skills/native-routed/native-routed-codex/references/review.md
+  s_4b3af4cb2f025c::t_49ce0efb8dd721 46
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_4b3af4cb2f025c::t_e1c9caea6ac743 41-42,67
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_4b3af4cb2f025c::t_bce149b6e12821 42-43,46
+skills/paseo-routed/paseo-routed/references/review.md
+  s_4b3af4cb2f025c::t_5b070f39d83255 46
+src/native-routed/native-routed/SKILL.md.tmpl
+  s_4b3af4cb2f025c::t_d1f01da716aede 67-68,89
+src/shared/routed/review.md
+  s_4b3af4cb2f025c::t_6f94aea9d4ccd9 46
+CHANGELOG.md
+  s_4b3af4cb2f025c::t_6028dd5d9d77a5 21-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "36a64a5b5a3d20cd643b8aee5f0b4e72f3f2191d",
+  "prompts": {},
+  "sessions": {
+    "s_4b3af4cb2f025c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b60ac1f-a3d9-4907-bad0-e140ec20f211",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
