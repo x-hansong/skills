@@ -1,0 +1,45 @@
+CHANGELOG.md
+  s_860a25461bca45::t_054d6f9b63c9c1 20-21
+skills/native-routed/native-routed-cc/references/review.md
+  s_e6157918b7067f::t_db1c30ba6d6d4d 46
+skills/native-routed/native-routed-codex/references/review.md
+  s_e6157918b7067f::t_02de237429d6ce 46
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_860a25461bca45::t_b25c67c8b3be72 42-43
+skills/paseo-routed/paseo-routed/references/review.md
+  s_e6157918b7067f::t_137d483614878d 46
+src/shared/routed/review.md
+  s_6e45f84d89e211::t_cdc0ee13e514a1 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b7db36105183ba59448927573b4c5f17ba3fedff",
+  "prompts": {},
+  "sessions": {
+    "s_6e45f84d89e211": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9238a4c4-0444-45e8-83db-db2932882dcf",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    },
+    "s_860a25461bca45": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e6f48392-a877-4f29-8c81-296abbd541d7",
+        "model": "group/deepseek-4.1"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    },
+    "s_e6157918b7067f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "150f4809-c4ae-43ff-893e-f20c5facd7ba",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
