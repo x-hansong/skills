@@ -17,7 +17,7 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
-- `paseo-routed`: every brief states a positive write scope (where the agent may write, what done leaves behind); agents reply done only when the deliverable exists, after their own subagents and background jobs finish; the orchestrator checks the deliverable on each finish notification. `paseo-access` notes that MCP agent tools take full agent ids.
+- Routed skills (`paseo-routed`, `native-routed-*`): every brief states a positive write scope (where the agent may write, what done leaves behind); agents reply done only when the deliverable exists, after their own subagents and background jobs finish; the orchestrator checks the deliverable on each finish. `paseo-routed`'s `paseo-access` notes that MCP agent tools take full agent ids.
 - Routed review: a claim that a path is connected (dry run, precheck, adapter or contract test) needs a check that hands the real output to the real downstream consumer; a check of the change's own format alone is a Spec finding. Applies to `paseo-routed` and `native-routed-*`.
 - `paseo-routed`: follow-up messages use `paseo send --no-wait`, since `send` otherwise blocks until the agent's turn ends; long messages go through `--prompt-file`.
 - Routed skills (`paseo-routed`, `native-routed-*`): before removing a worktree, copy the ignored files this task produced (run outputs, baselines, private data) to the main checkout or the notes directory.
