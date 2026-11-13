@@ -43,7 +43,7 @@ Follow-ups to a running agent go through `paseo send`, which waits for the agent
 
 ## Completion
 
-MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling. CLI `run --no-wait` has no such callback: run `paseo wait <agent-id>` in the background, then read `paseo logs <agent-id>`, its status and its artifacts. A CLI wait process is not an MCP notification.
+MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling. MCP agent tools resolve only the full agent id, never a short prefix; record full ids in `progress.md`. CLI `run --no-wait` has no such callback: run `paseo wait <agent-id>` in the background, then read `paseo logs <agent-id>`, its status and its artifacts. A CLI wait process is not an MCP notification.
 
 ## Passing methods to agents
 
