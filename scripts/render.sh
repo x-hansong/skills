@@ -20,6 +20,8 @@ SHARED=(
   "routed/principles.md skills/paseo-routed/paseo-routed/references/principles.md"
   "routed/principles.md skills/native-routed/native-routed-cc/references/principles.md"
   "routed/principles.md skills/native-routed/native-routed-codex/references/principles.md"
+  "claude/explore-model.md skills/paseo-routed/setup-paseo-routed/references/explore-model.md"
+  "claude/explore-model.md skills/native-routed/native-routed-setup-cc/references/explore-model.md"
 )
 
 render_template() { # host template

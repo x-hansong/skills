@@ -12,6 +12,7 @@ Run these read-only checks in order. When a prerequisite fails, mark the checks 
 | 6 | Config values | Each value in `cc:` against check 2 | Every model and effort is accepted, or is `inherit`; `budget` is `small`, `medium`, `large` or `unlimited`; `committee` has two or more entries. Each bad value is a problem |
 | 7 | Notes directory | `~/.native-routed/notes/` | Exists and is writable, or doesn't exist yet (⚠️, created on write) |
 | 8 | Skills | See below | All present for Claude Code |
+| 9 | Explore subagent model | See [Explore model](explore-model.md) | Explore runs on `CLAUDE_CODE_SUBAGENT_MODEL` when that is set |
 
 When the user wants proof that a model value really takes effect, offer to start one subagent per distinct value with a one-line prompt asking it to report its exact model id. It costs a few tokens; run it only when the user agrees, and report the results in row 3.
 

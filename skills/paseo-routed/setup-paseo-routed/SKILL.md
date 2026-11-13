@@ -1,6 +1,6 @@
 ---
 name: setup-paseo-routed
-description: "Set up, or health-check, everything the paseo-routed skills need: the Paseo CLI and daemon, MCP injection, worker and reviewer profiles, the roster config at ~/.paseo-routed/config.yaml, and the skills they depend on. Detects what already exists, proposes a plan that only fills the gaps, and writes after confirmation. Safe to rerun; rerunning is the health check."
+description: "Set up, or health-check, everything the paseo-routed skills need: the Paseo CLI and daemon, MCP injection, worker and reviewer profiles, the roster config at ~/.paseo-routed/config.yaml, the skills they depend on, and, with Claude Code, an Explore subagent that follows CLAUDE_CODE_SUBAGENT_MODEL. Detects what already exists, proposes a plan that only fills the gaps, and writes after confirmation. Safe to rerun; rerunning is the health check."
 argument-hint: "[check]"
 disable-model-invocation: true
 license: MIT
@@ -21,7 +21,7 @@ Run every check in [detection](references/detect.md) and keep the raw results. D
 
 ## 2. Report
 
-Show one table, one row per check: ✅ ready, ⚠️ partial, ❌ missing, with the evidence in a few words. Then summarise in one line, for example "3 of 9 ready, 2 partial, 4 missing".
+Show one table, one row per check: ✅ ready, ⚠️ partial, ❌ missing, with the evidence in a few words. Then summarise in one line, for example "4 of 11 ready, 2 partial, 5 missing".
 
 If everything is ✅, say so and stop. That is the health-check result.
 
@@ -34,6 +34,7 @@ For every ⚠️ and ❌, propose the smallest change that fixes it: the exact c
 - **New profile notes** describe the role in one or two sentences, for example "Worker for paseo-routed: exploration, research, implementation, merging, review fixes. Not for reviewing its own work." and "Reviewer for paseo-routed: read-only review and hard diagnosis. Briefs must state read-only."
 - **Rosters.** One roster per working worker/reviewer pair. If several pairs exist (for example the same models through two different harnesses), propose one roster each and ask which is `default_roster`.
 - **Skills.** Missing skills are installed with `npx skills add`; ask for scope (`-g` global or project) and target agents (`-a claude-code`, `-a codex`) once for all of them.
+- **Explore model.** For check 11, follow the plan section of [Explore model](references/explore-model.md).
 
 Show the whole plan, then ask the user to confirm or edit it. Don't write until they confirm.
 
@@ -54,6 +55,7 @@ Apply the confirmed plan in this order, stopping at the first failure and report
 4. **Roster config:** create or edit `~/.paseo-routed/config.yaml` from the [template](references/config.example.yaml). Keep existing rosters and preferences.
 5. **Notes directory:** create `notes_dir`.
 6. **Skills:** run the confirmed `npx skills add` commands.
+7. **Explore model:** write the confirmed `Explore.md` as described in [Explore model](references/explore-model.md).
 
 ## 5. Re-check
 

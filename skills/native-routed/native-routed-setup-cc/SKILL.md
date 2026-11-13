@@ -1,6 +1,6 @@
 ---
 name: native-routed-setup-cc
-description: "Set up, or health-check, what the native-routed Claude Code skills need: the cc section of ~/.native-routed/config.yaml (budget, and which model and effort play worker, reviewer and committee), the notes directory, the host tools the skills use, and the skills they depend on. Detects what exists, suggests defaults, writes only after confirmation, and re-checks. Safe to rerun; rerunning is the health check."
+description: "Set up, or health-check, what the native-routed Claude Code skills need: the cc section of ~/.native-routed/config.yaml (budget, and which model and effort play worker, reviewer and committee), the notes directory, the host tools the skills use, and the skills they depend on, and an Explore subagent that follows CLAUDE_CODE_SUBAGENT_MODEL. Detects what exists, suggests defaults, writes only after confirmation, and re-checks. Safe to rerun; rerunning is the health check."
 argument-hint: "[check | budget=<budget> | <role>=<model>[/<effort>] ...]"
 disable-model-invocation: true
 license: MIT
@@ -26,7 +26,7 @@ Run every check in [detection](references/detect.md) and keep the raw results. D
 
 ## 2. Report
 
-Show one table, one row per check: ✅ ready, ⚠️ partial, ❌ missing, with the evidence in a few words. Then summarise in one line, for example "6 of 8 ready, 1 partial, 1 missing".
+Show one table, one row per check: ✅ ready, ⚠️ partial, ❌ missing, with the evidence in a few words. Then summarise in one line, for example "7 of 9 ready, 1 partial, 1 missing".
 
 If everything is ✅ and the user asked for nothing else, say so and stop. That is the health-check result.
 
@@ -43,6 +43,7 @@ For every ⚠️ and ❌, and for any role the user wants changed, propose the s
 - **Budget.** Ask which budget to use, with the structured-question tool when there is one: `small` (medium effort), `medium` (high), `large` (xhigh), `unlimited` (max), or none to keep the host's default effort. Name the current budget when the config has one. A role with its own `effort` keeps it. The mapping is in the `native-routed-cc` model reference.
 - **Fill gaps only.** Never remove an existing key. Changing an existing value needs its own line in the plan with the old and new value. Leave the `codex:` section and any other section untouched.
 - **Skills.** Missing skills are installed with `npx skills add … -a claude-code`; ask once for scope (`-g` global or project).
+- **Explore model.** For check 9, follow the plan section of [Explore model](references/explore-model.md).
 
 Show the whole plan, then ask the user to confirm or edit it. Don't write until they confirm.
 
@@ -54,6 +55,7 @@ Apply the confirmed plan in this order, stopping at the first failure and report
 2. **Config:** write the new file to `config.yaml.tmp`, then rename it over `config.yaml`. The shape is in [config example](references/config.example.yaml). A new file gets `version: 1`.
 3. **Notes directory:** create `~/.native-routed/notes/` if missing.
 4. **Skills:** run the confirmed `npx skills add` commands.
+5. **Explore model:** write the confirmed `Explore.md` as described in [Explore model](references/explore-model.md).
 
 ## 5. Re-check
 

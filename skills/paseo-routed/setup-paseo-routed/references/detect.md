@@ -14,6 +14,7 @@ Run these read-only checks in order. Pass `--home "$HOME/.paseo"` to every `pase
 | 8 | Roster profiles exist | Each roster's `worker` and `reviewer` against check 6 | Every name matches a profile exactly. Each unmatched name is a problem |
 | 9 | Notes directory | `notes_dir` from the config, default `~/.paseo-routed/notes` | Exists and is writable |
 | 10 | Skills | See below | All present for every agent the user uses |
+| 11 | Explore subagent model | Claude Code only; see [Explore model](explore-model.md) | Explore runs on `CLAUDE_CODE_SUBAGENT_MODEL` when that is set. Not applicable without Claude Code |
 
 ## Skills check
 
