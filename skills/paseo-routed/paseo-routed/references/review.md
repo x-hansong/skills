@@ -43,7 +43,7 @@ Then apply the design principles copy in the notes (`principles.md`) as a second
 Do the two passes one after the other and keep their notes apart.
 
 - **Standards**: per file or hunk, every breach of a documented rule (cite the file and the rule) and every baseline smell (name it, quote the hunk). Mark which findings are hard breaches and which are judgement calls.
-- **Spec**: requirements missing or partial; behaviour nobody asked for (scope creep); requirements that look implemented but are implemented wrong. Quote the spec line for each.
+- **Spec**: requirements missing or partial; behaviour nobody asked for (scope creep); requirements that look implemented but are implemented wrong. Quote the spec line for each. A claim that a path is connected (a dry run, precheck, adapter or contract test passes) holds only when its check hands the real output to the real downstream consumer; a check that validates only the change's own format is a Spec finding.
 
 ## 5. Prove each finding
 
