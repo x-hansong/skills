@@ -9,7 +9,7 @@ Implementation workers follow this. The orchestrator copies the file into the ru
 3. **Write the failing test first.** Encode the intended behaviour, not the current implementation.
 4. **Run it before changing production code.** Confirm it fails for the intended reason. If it passes, or fails for an unrelated reason, fix the test or the reproduction first.
 5. **Make the smallest change** that satisfies the behaviour and keeps nearby contracts.
-6. **Rerun** the new test, then the relevant tests, before each commit. Run typechecks and single test files as you go and the project's full suite once at the end.
+6. **Rerun** the new test, then the affected tests (the changed code's direct tests and the new tests) and the static checks on the changed files, before each commit. Don't run the project's full suite or wait on CI unless the brief asks for it; say in the report that the full suite was not run.
 
 ## When a failing test is impractical
 

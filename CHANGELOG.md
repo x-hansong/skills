@@ -17,6 +17,7 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed test discipline (`paseo-routed`, `native-routed-*`): workers run the affected tests and the changed files' static checks before each commit, and no longer run the full suite at the end or wait on CI unless the brief asks; the report says the full suite was not run.
 - `setup-paseo-routed` and `native-routed-setup-cc` check the Explore subagent's model. The built-in `Explore` and `Plan` are `model: inherit`, so they skip `CLAUDE_CODE_SUBAGENT_MODEL` and run on the session model. When that variable is set and no override exists, setup offers a read-only `Explore.md` override with the variable's model, backs up any existing file, and can prove the result with one `claude -p` run.
 - Routed skills (`paseo-routed`, `native-routed-*`): every brief states a positive write scope (where the agent may write, what done leaves behind); agents reply done only when the deliverable exists, after their own subagents and background jobs finish; the orchestrator checks the deliverable on each finish. `paseo-routed`'s `paseo-access` notes that MCP agent tools take full agent ids.
 - Routed review: a claim that a path is connected (dry run, precheck, adapter or contract test) needs a check that hands the real output to the real downstream consumer; a check of the change's own format alone is a Spec finding. Applies to `paseo-routed` and `native-routed-*`.
