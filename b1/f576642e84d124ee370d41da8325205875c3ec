@@ -1,0 +1,35 @@
+CHANGELOG.md
+  s_9b8892d153513e::t_16de1f3f4a93c5 20
+skills/native-routed/native-routed-cc/references/tests.md
+  s_f4af6a6d349cd8::t_4926cc39b37b55 12
+skills/native-routed/native-routed-codex/references/tests.md
+  s_f4af6a6d349cd8::t_fc30f92ffec326 12
+skills/paseo-routed/paseo-routed/references/tests.md
+  s_f4af6a6d349cd8::t_d3ae24dd9d43ea 12
+src/shared/routed/tests.md
+  s_9b8892d153513e::t_a6565dd34633af 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b1f576642e84d124ee370d41da8325205875c3ec",
+  "prompts": {},
+  "sessions": {
+    "s_9b8892d153513e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "93d38f2e-e516-411b-93d4-c115c17a21ce",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    },
+    "s_f4af6a6d349cd8": {
+      "agent_id": {
+        "tool": "droid",
+        "id": "39e1a896-487e-4c20-b14b-48867d042c4d",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
