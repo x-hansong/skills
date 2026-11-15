@@ -1,0 +1,21 @@
+scripts/check.sh
+  s_f398236fd206fc::t_b65b09abc01f83 52,84
+CHANGELOG.md
+  s_f398236fd206fc::t_e7976e2234ca3f 39-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3ad919a13aef5766473b7d5701227e4f028f6d79",
+  "prompts": {},
+  "sessions": {
+    "s_f398236fd206fc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9dc5766f-1889-4fee-a673-7fbc4cef4226",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
