@@ -1,0 +1,32 @@
+scripts/test-wait-job.sh
+  s_bc9744e137fcef::t_7a307af41be174 28
+  s_bc9744e137fcef::t_e4b6e860970925 36-78
+CHANGELOG.md
+  s_bc9744e137fcef::t_9c5f9320b80c1c 43-44
+src/shared/routed/wait-job.sh
+  s_bc9744e137fcef::t_790b4b9de0a655 10,12,16-18
+  s_bc9744e137fcef::t_f630e1011def6a 55-56
+  s_bc9744e137fcef::t_7f7d5ca61461e4 72
+skills/native-routed/native-routed-cc/scripts/wait-job.sh
+  s_bc9744e137fcef::t_0357bb7ec10a7b 10,12,16-18,55-56,72
+skills/native-routed/native-routed-codex/scripts/wait-job.sh
+  s_bc9744e137fcef::t_6718b5653d8078 10,12,16-18,55-56,72
+skills/paseo-routed/paseo-routed/scripts/wait-job.sh
+  s_bc9744e137fcef::t_5f3572319f0215 10,12,16-18,55-56,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a782d99bd1c3e3555a6d850dae38fc376b330e4e",
+  "prompts": {},
+  "sessions": {
+    "s_bc9744e137fcef": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cd3248f-b0ce-4968-b7b4-e391f5b49cbf",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
