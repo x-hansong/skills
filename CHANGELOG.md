@@ -4,6 +4,10 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ## Unreleased
 
+### Changed
+
+- Routed orchestrators: `scope.md` opens with a keyword line; done-conditions name the surface the user checks; `progress.md` stays under 40 lines, is rewritten only by the orchestrator, and lists deferred project gates; agents append to `log.md`. Worktree cleanup copies outputs that a main-checkout tool reads back to the main checkout instead of only to the notes.
+
 ### Added
 
 - Routed skills ship `scripts/wait-job.sh` for bounded waits on a PID or completion command, with log tails and a retryable exit code while the job is still running.
