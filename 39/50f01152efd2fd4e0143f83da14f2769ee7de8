@@ -1,0 +1,51 @@
+src/shared/routed/wait-job.sh
+  s_f398236fd206fc::t_7da5ac74f3a3f0 1-75
+src/native-routed/native-implement-spec-routed/SKILL.md.tmpl
+  s_f398236fd206fc::t_1ee926bb51825e 58
+scripts/render.sh
+  s_f398236fd206fc::t_2cd80f530c80e3 14-16
+CHANGELOG.md
+  s_f398236fd206fc::t_5c58932ff0df63 9-10
+  s_f398236fd206fc::t_903be74b4a0e0e 22-23
+scripts/test-wait-job.sh
+  s_f398236fd206fc::t_94c6224cb955bd 47-48
+  s_f398236fd206fc::t_ba33708d8eec11 1-46,49-50
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_f398236fd206fc::t_2eaba14f55d902 41
+  s_f398236fd206fc::t_fbce617c81fa67 44
+scripts/check.sh
+  s_f398236fd206fc::t_8e497e01da1cce 67-68
+src/native-routed/native-routed/SKILL.md.tmpl
+  s_f398236fd206fc::t_8d91f4060d41a1 67
+  s_f398236fd206fc::t_148e95439ae65b 70
+skills/native-routed/native-implement-spec-routed-cc/SKILL.md
+  s_f398236fd206fc::t_c2955962af8d7c 41
+skills/native-routed/native-implement-spec-routed-codex/SKILL.md
+  s_f398236fd206fc::t_20fca6991eef88 41
+skills/native-routed/native-routed-cc/SKILL.md
+  s_f398236fd206fc::t_9ca39acc237d98 41,44
+skills/native-routed/native-routed-cc/scripts/wait-job.sh
+  s_f398236fd206fc::t_ec4e62b8900986 1-75
+skills/native-routed/native-routed-codex/SKILL.md
+  s_f398236fd206fc::t_9fce07154e5e77 41,44
+skills/native-routed/native-routed-codex/scripts/wait-job.sh
+  s_f398236fd206fc::t_0de5572be31dff 1-75
+skills/paseo-routed/paseo-routed/scripts/wait-job.sh
+  s_f398236fd206fc::t_90b76aedd43d47 1-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3950f01152efd2fd4e0143f83da14f2769ee7de8",
+  "prompts": {},
+  "sessions": {
+    "s_f398236fd206fc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9dc5766f-1889-4fee-a673-7fbc4cef4226",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
