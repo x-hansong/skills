@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Added
 
+- Routed skills ship `scripts/wait-job.sh` for bounded waits on a PID or completion command, with log tails and a retryable exit code while the job is still running.
+
 - Paseo Routed group: `paseo-routed`, `implement-routed`, `implement-spec-routed`, `setup-paseo-routed`, `paseo-routed-guide`.
 - Rosters in `~/.paseo-routed/config.yaml` map the `worker` and `reviewer` roles to Paseo profiles; switch per run with `--roster <name>`.
 - `paseo-watch`: a Paseo heartbeat patrols top-level orchestrator agents and reports only what changed; every pending decision comes with its background rebuilt (task, path so far, blocker, options, what happens without an answer) and a stable `D<n>` id; answers and standing rules are relayed with explicit authorised / not-authorised scope; state persists in `~/.paseo-routed/.watch/state.json`.
@@ -16,6 +18,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 - `native-watch-*` finds runs through `session.json` in `~/.native-routed/notes/<topic>/`; Claude Code patrols with `CronCreate` and relays with `SendMessage`, Codex patrols with a heartbeat automation where available (on demand otherwise) and relays with `codex queue`.
 
 ### Changed
+
+- Routed briefs name an absolute worktree path for every writable repository, including the orchestrator's workspace, and keep main checkouts read-only. Workers start long jobs with logs and call the bundled wait script repeatedly in the same turn until the job finishes.
 
 - Routed test discipline (`paseo-routed`, `native-routed-*`): workers run the affected tests and the changed files' static checks before each commit, and no longer run the full suite at the end or wait on CI unless the brief asks; the report says the full suite was not run.
 - `setup-paseo-routed` and `native-routed-setup-cc` check the Explore subagent's model. The built-in `Explore` and `Plan` are `model: inherit`, so they skip `CLAUDE_CODE_SUBAGENT_MODEL` and run on the session model. When that variable is set and no override exists, setup offers a read-only `Explore.md` override with the variable's model, backs up any existing file, and can prove the result with one `claude -p` run.

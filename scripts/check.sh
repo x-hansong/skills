@@ -64,6 +64,8 @@ fi
 # Twin skills are rendered from src/; a hand edit under skills/ would be lost on the next render.
 scripts/render.sh --check || fail "rendered skills differ from src/"
 
+scripts/test-wait-job.sh || fail "wait-job tests failed"
+
 # Routed skills keep the sections other skills and the watch rely on.
 for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
   for required in '| Network or transport error' '## Acceptance' '## Report' 'rerun its command yourself' '**inconclusive**' 'progress.md' 'Retry a failed agent by cause' 'consolidated brief' 'the decided design' 'references/principles.md'; do

@@ -11,6 +11,9 @@ cd "$(dirname "$0")/.."
 
 hosts=(cc codex)
 SHARED=(
+  "routed/wait-job.sh skills/paseo-routed/paseo-routed/scripts/wait-job.sh"
+  "routed/wait-job.sh skills/native-routed/native-routed-cc/scripts/wait-job.sh"
+  "routed/wait-job.sh skills/native-routed/native-routed-codex/scripts/wait-job.sh"
   "routed/review.md skills/paseo-routed/paseo-routed/references/review.md"
   "routed/review.md skills/native-routed/native-routed-cc/references/review.md"
   "routed/review.md skills/native-routed/native-routed-codex/references/review.md"
