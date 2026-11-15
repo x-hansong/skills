@@ -49,7 +49,7 @@ patterns=(
   'BEGIN [A-Z ]*PRIVATE KEY'
 )
 for pattern in "${patterns[@]}"; do
-  if matches=$(grep -rEn --exclude-dir=.git --exclude=check.sh -- "$pattern" . 2>/dev/null); then
+  if matches=$(grep -rEn --exclude-dir=.git --exclude=.git --exclude=check.sh -- "$pattern" . 2>/dev/null); then
     fail "forbidden pattern '$pattern':"$'\n'"$matches"
   fi
 done
@@ -81,7 +81,7 @@ done
 if [ -n "${CHECK_PRIVATE_TERMS:-}" ] && [ -f "$CHECK_PRIVATE_TERMS" ]; then
   while IFS= read -r term; do
     [ -n "$term" ] || continue
-    if matches=$(grep -rEn --exclude-dir=.git -- "$term" . 2>/dev/null); then
+    if matches=$(grep -rEn --exclude-dir=.git --exclude=.git -- "$term" . 2>/dev/null); then
       fail "private term matched:"$'\n'"$matches"
     fi
   done < "$CHECK_PRIVATE_TERMS"
