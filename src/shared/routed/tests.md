@@ -21,6 +21,7 @@ When a test would need broad harness setup, brittle mocks, slow end-to-end infra
 - Don't weaken an assertion unless the expected behaviour really changed, and say why.
 - Keep the test on the behaviour in the ticket; no unrelated coverage.
 - Make a flaky case deterministic where possible, and name the signal it locks down.
+- Run static checks with the project's pinned tool. When it isn't installed, run it through an isolated runner (for Python, `uvx ruff check` and `uvx ruff format --check`) instead of skipping; a check you could not run is reported as not run.
 
 ## Report
 
