@@ -7,12 +7,15 @@ log=
 pid=
 check_pid=
 
-finish() {
+cleanup_check() {
   if [ -n "$check_pid" ]; then
-    kill -KILL "$check_pid" 2>/dev/null || :
+    kill -KILL -- "-$check_pid" 2>/dev/null || :
     wait "$check_pid" 2>/dev/null || :
     check_pid=
   fi
+}
+finish() {
+  cleanup_check
   if [ -n "$log" ]; then tail -n 5 -- "$log" || :; fi
   exit "$1"
 }
@@ -49,6 +52,8 @@ if [ -n "$pid" ]; then
 else
   [ "$#" -gt 0 ] || usage
 fi
+# Give each check its own process group, including on macOS Bash 3.2.
+[ -n "$pid" ] || set -m
 trap 'finish 75' HUP INT TERM
 SECONDS=0
 while :; do
@@ -64,7 +69,7 @@ while :; do
     done
     result=0
     wait "$check_pid" || result=$?
-    check_pid=
+    cleanup_check
     [ "$result" -ne 0 ] || finish 0
   fi
   remaining=$((max - SECONDS))

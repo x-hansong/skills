@@ -25,6 +25,7 @@ for script in skills/paseo-routed/paseo-routed/scripts/wait-job.sh \
   expect 75 "$script" --max 1 --interval 60 --log "$tmp/job log" --pid "$job"
   printf 'two\nthree\nfour\nfive\nsix\n' > "$tmp/expected"
   cmp "$tmp/expected" "$tmp/output"
+  kill -0 "$job"
   kill "$job"
   wait "$job" 2>/dev/null || :
   expect 0 "$script" --max 1 --pid "$job"
@@ -32,6 +33,49 @@ for script in skills/paseo-routed/paseo-routed/scripts/wait-job.sh \
   expect 0 "$script" --max 2 --interval 1 -- test 'literal; argument' = 'literal; argument'
   expect 75 "$script" --max 1 --interval 1 -- false
   expect 75 "$script" --max 1 -- sleep 30
+  # Shell wrappers must not leave descendants holding captured output open.
+  python3 -I - "$script" "$tmp" <<'PY'
+import os
+from pathlib import Path
+import signal
+import subprocess
+import sys
+
+script, directory = sys.argv[1:]
+for mode, status, expected in [('timeout', 'wait', 75), ('success', 'exit 0', 0),
+                               ('pending', 'exit 1', 75)]:
+    childfile = Path(directory) / 'child'
+    childfile.unlink(missing_ok=True)
+    process = subprocess.Popen(
+        ['/bin/bash', script, '--max', '1', '--', '/bin/bash', '-c',
+         'sleep 30 & printf "%s" "$!" > "$1"; ' + status,
+         'check', str(childfile)],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True,
+    )
+    try:
+        result = process.wait(timeout=4)
+        child = int(childfile.read_text())
+        alive = subprocess.run(['kill', '-0', str(child)], capture_output=True).returncode == 0
+        print(f'{mode}: rc={result}, CHECK_CMD descendant alive={alive}', flush=True)
+        try:
+            process.communicate(timeout=1)
+            closed = True
+        except subprocess.TimeoutExpired:
+            closed = False
+        print(f'capture pipes closed={closed}', flush=True)
+        assert result == expected and not alive and closed, 'CHECK_CMD cleanup failed'
+    finally:
+        if childfile.exists():
+            try:
+                os.kill(int(childfile.read_text()), signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        process.communicate(timeout=3)
+PY
   expect 2 "$script" --max 571 -- true
   expect 2 "$script" --max 0 -- true
   expect 2 "$script" --interval 0 -- true
