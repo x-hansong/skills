@@ -1,0 +1,47 @@
+CHANGELOG.md
+  s_332a6cbd849724::t_3773d2db4110ea 7-10,13-14,27,47-50
+scripts/check.sh
+  s_332a6cbd849724::t_76e87b8786d734 52,67-68,86
+scripts/render.sh
+  s_332a6cbd849724::t_0f63bdd2022531 14-16
+scripts/test-wait-job.sh
+  s_332a6cbd849724::t_5068d7cd6153bf 1-94
+skills/native-routed/native-implement-spec-routed-cc/SKILL.md
+  s_332a6cbd849724::t_f4cdcf6141bc83 41
+skills/native-routed/native-implement-spec-routed-codex/SKILL.md
+  s_332a6cbd849724::t_58ba635270a139 41
+skills/native-routed/native-routed-cc/SKILL.md
+  s_332a6cbd849724::t_5b26be40c41723 30,41,43-44,63
+skills/native-routed/native-routed-cc/scripts/wait-job.sh
+  s_332a6cbd849724::t_691a3c8c8f272a 1-80
+skills/native-routed/native-routed-codex/SKILL.md
+  s_332a6cbd849724::t_62c889aa418b2d 30,41,43-44,63
+skills/native-routed/native-routed-codex/scripts/wait-job.sh
+  s_332a6cbd849724::t_448a4cb82b4657 1-80
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_332a6cbd849724::t_1847cf915c7b3c 30,41,43-44,67
+skills/paseo-routed/paseo-routed/scripts/wait-job.sh
+  s_332a6cbd849724::t_900e44b377866c 1-80
+src/native-routed/native-implement-spec-routed/SKILL.md.tmpl
+  s_332a6cbd849724::t_df4d9373368fa8 58
+src/native-routed/native-routed/SKILL.md.tmpl
+  s_332a6cbd849724::t_b8c319523c9a8c 51,67,69-70,89
+src/shared/routed/wait-job.sh
+  s_332a6cbd849724::t_678c65848de571 1-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e2aba109fe095a1f302f6cf3598e3911f3673b0b",
+  "prompts": {},
+  "sessions": {
+    "s_332a6cbd849724": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d1c5a68b-8265-47fe-81b6-b95f6118ac8e",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
