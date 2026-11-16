@@ -8,7 +8,9 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): exploration and research briefs deliver facts only, with no recommended design or plan section, so the orchestrator writes the design itself; before a brief is sent, every literal value in the decided design cites its validating type or rule, and every assumption about input data is run as a query over the real data.
 
-- Paseo routed execution: delivery requires a reviewer verdict on the final HEAD; notes attribute decisions and track created resource IDs; briefs align merge strategy with ancestry checks; cleanup protects the current workspace; counts deduplicate retries by original run ID. Shared routed test discipline reuses unchanged results, preserves check exit codes and verifies timeout units.
+- `paseo-routed`: a new Notes section gathers what `progress.md` holds (decisions tagged by decision-maker, live agent and workspace IDs, reviewed SHA per repository, open gates); finished resources move to `log.md`. Delivery requires a reviewer verdict on the final HEAD, including fixes and merge-conflict resolutions. Briefs get a pre-flight with two checks: contract and integration (merge when acceptance checks commit ancestry). Cleanup archives only `worktree` workspaces this task created; `local` workspaces keep their directory. Counts treat a re-scored copy as the same run and a retry as a new run.
+
+- Shared routed test discipline: reuse a result for the same SHA and command, preserve check exit codes, confirm timeout units.
 
 - Routed review method: two new smells, Swallowed Failure (catches, fallbacks, defaults or retries that hide errors) and Compatibility Shim (old paths nobody needs); findings of these and of Speculative Generality / Middle Man name the code to remove and why; a changed shared function is reviewed against all its callers. Design principles: Boundary Discipline lists the guards to keep and how fallbacks skip it; Subtract Before You Add rules out compatibility for callers that don't exist.
 
