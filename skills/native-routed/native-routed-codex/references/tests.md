@@ -9,7 +9,7 @@ Implementation workers follow this. The orchestrator copies the file into the ru
 3. **Write the failing test first.** Encode the intended behaviour, not the current implementation.
 4. **Run it before changing production code.** Confirm it fails for the intended reason. If it passes, or fails for an unrelated reason, fix the test or the reproduction first.
 5. **Make the smallest change** that satisfies the behaviour and keeps nearby contracts.
-6. **Rerun** the new test, then the affected tests (the changed code's direct tests and the new tests) and the static checks on the changed files, before each commit. Don't run the project's full suite or wait on CI unless the brief asks for it; say in the report that the full suite was not run.
+6. **Verify before each commit.** Run the new test, then the affected tests (the changed code's direct tests and the new tests) and the static checks on the changed files. Reuse a recorded pass or the same documented failure for the same SHA and command; rerun only after the code changes. Don't run the project's full suite or wait on CI unless the brief asks for it; say in the report that the full suite was not run.
 
 ## When a failing test is impractical
 
@@ -21,6 +21,8 @@ When a test would need broad harness setup, brittle mocks, slow end-to-end infra
 - Don't weaken an assertion unless the expected behaviour really changed, and say why.
 - Keep the test on the behaviour in the ticket; no unrelated coverage.
 - Make a flaky case deterministic where possible, and name the signal it locks down.
+- Preserve the check's exit code: write output to a log, capture the exit code immediately, then inspect the tail (for example, `cmd > log 2>&1; result=$?; tail -n 40 log; exit "$result"`), or enable `set -o pipefail` before piping. Without pipefail, a pipeline ending in `tail` or `head` reports that command's exit code, not the check's.
+- Confirm timeout units before setting a limit: host tools often use milliseconds; `wait-job.sh` uses seconds.
 - Run static checks with the project's pinned tool. When it isn't installed, run it through an isolated runner (for Python, `uvx ruff check` and `uvx ruff format --check`) instead of skipping; a check you could not run is reported as not run.
 
 ## Report
