@@ -11,7 +11,7 @@ A change can pass one and fail the other: clean code that builds the wrong thing
 
 ## 1. Pin the diff
 
-Read the change as `git diff <baseline>...<candidate>` (three dots, against the merge base) and list its commits with `git log --oneline <baseline>..<candidate>`. Resolve both refs with `git rev-parse` first. A bad ref or an empty diff is the first thing to report; stop there.
+Read the change as `git diff <baseline>...<candidate>` (three dots, against the merge base) and list its commits with `git log --oneline <baseline>..<candidate>`. Resolve both refs with `git rev-parse` first. A bad ref or an empty diff is the first thing to report; stop there. When the diff changes the signature or behaviour of a shared function, read every caller, including those outside the diff, and review the change against them.
 
 ## 2. Spec source
 
@@ -21,7 +21,7 @@ Use the source in the brief: the spec and tickets, or, without them, the confirm
 
 Every file in the repo that documents how code is written: `AGENTS.md`, `CLAUDE.md`, `CODING_STANDARDS.md` and `CONTRIBUTING.md` when they exist, and any style or architecture docs they point to. Skip what linters and formatters already enforce.
 
-On top of them, apply this smell baseline (Fowler, _Refactoring_, ch. 3). A documented project rule always wins: where it endorses something below, drop the smell. Every smell is a judgement call ("possible Feature Envy"), never a hard violation.
+On top of them, apply this smell baseline (Fowler, _Refactoring_, ch. 3, plus the last two). A documented project rule always wins: where it endorses something below, drop the smell. Every smell is a judgement call ("possible Feature Envy"), never a hard violation.
 
 - **Mysterious Name**: a name that doesn't say what it does or holds. Rename it.
 - **Duplicated Code**: the same logic shape in more than one hunk or file. Extract it.
@@ -35,6 +35,10 @@ On top of them, apply this smell baseline (Fowler, _Refactoring_, ch. 3). A docu
 - **Message Chains**: long `a.b().c().d()` navigation the caller shouldn't depend on. Hide the walk behind one method.
 - **Middle Man**: a class or function that mostly delegates. Call the real target.
 - **Refused Bequest**: a subtype that ignores most of what it inherits. Use composition.
+- **Swallowed Failure**: a broad catch, a fallback chain, a default value or a retry without a known transient cause that turns an error into a normal-looking result; a type guess on data whose type is already established. Let the error surface. Guards on untrusted input, security, permissions, concurrency and data loss are not this smell. When a run shows input that should fail getting a normal result, it is a behaviour finding ranked on that evidence.
+- **Compatibility Shim**: legacy fields, old formats or parallel old and new paths that no current caller or public contract needs and the user didn't ask for. Remove them after checking every caller.
+
+A Speculative Generality, Middle Man, Swallowed Failure or Compatibility Shim finding names the code to delete, inline or replace with an existing helper, and why the current requirement doesn't need it.
 
 Then apply the design principles copy in the notes (`principles.md`) as a second baseline, with the same rules: a documented project rule wins, every finding is a judgement call at P3, and it names the principle and quotes the hunk. A principle never raises a finding above P3; a defect it points to is ranked on its own evidence.
 

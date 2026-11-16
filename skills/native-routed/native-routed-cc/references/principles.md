@@ -16,15 +16,17 @@ Encode the domain in a structure instead of scattered conditionals: a state mach
 
 **When:** wiring validation, error handling, config, external APIs or framework adapters.
 
-Validate and parse at system boundaries (CLI args, config files, network input, external APIs) into domain types. Inside the system, trust the types and don't re-validate. Keep business logic in pure functions that the shell just calls. Don't expose transport, storage or framework types through the public surface. Errors propagate with their cause; never turn an I/O failure into a business result.
+Validate and parse at system boundaries (CLI args, config files, network input, external APIs) into domain types. Inside the system, trust the types and don't re-validate. Keep business logic in pure functions that the shell just calls. Don't expose transport, storage or framework types through the public surface. Errors propagate with their cause; never turn an I/O failure into a business result. Keep the guards that protect against untrusted input, security and permission gaps, concurrency and data loss.
 
 **The test:** is this data crossing a boundary right now? If not, the check is redundant.
+
+**You skipped it when** a broad catch, a fallback chain or a default value turns a failure into a normal-looking result, a retry is added without a known transient cause, or code guesses the type of data whose type is already established.
 
 ## Subtract Before You Add
 
 **When:** sizing a diff, refactoring, or tempted to add a layer, option or guard.
 
-Remove dead weight first, then build on the simpler base. Make the smallest change that solves the problem. Put a repeated decision behind one source of truth. Design for observed use, not speculative edge cases: no validators, parsers, hooks or parameters the requirement doesn't need. When a unit of work repeats across many places, do the first one by hand, then write a script that does the rest and can be rerun to check them.
+Remove dead weight first, then build on the simpler base. Make the smallest change that solves the problem. Put a repeated decision behind one source of truth. Design for observed use, not speculative edge cases: no validators, parsers, hooks or parameters the requirement doesn't need. Don't add compatibility for callers that don't exist: no legacy fields, old formats or parallel old and new paths unless the user asked for them or a current public contract needs them; find every caller before removing an old path. When a unit of work repeats across many places, do the first one by hand, then write a script that does the rest and can be rerun to check them.
 
 ## Minimize Reader Load
 

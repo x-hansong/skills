@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed review method: two new smells, Swallowed Failure (catches, fallbacks, defaults or retries that hide errors) and Compatibility Shim (old paths nobody needs); findings of these and of Speculative Generality / Middle Man name the code to remove and why; a changed shared function is reviewed against all its callers. Design principles: Boundary Discipline lists the guards to keep and how fallbacks skip it; Subtract Before You Add rules out compatibility for callers that don't exist.
+
 - Routed orchestrators: `scope.md` opens with a keyword line; done-conditions name the surface the user checks; `progress.md` stays under 40 lines, is rewritten only by the orchestrator, and lists deferred project gates; agents append to `log.md`. Worktree cleanup copies outputs that a main-checkout tool reads back to the main checkout instead of only to the notes.
 
 ### Added
