@@ -1,0 +1,39 @@
+CHANGELOG.md
+  s_3398949fa9d773::t_774ec53847cefd 9-10
+src/shared/routed/principles.md
+  s_3398949fa9d773::t_005ef88ebcfff7 29
+  s_3398949fa9d773::t_eacc5db8e0d13a 19,23
+  s_3398949fa9d773::t_87fcf6153ebb5a 24
+src/shared/routed/review.md
+  s_3398949fa9d773::t_67181407f7e6f7 38-41
+  s_3398949fa9d773::t_141f0ee21719b0 14
+  s_3398949fa9d773::t_587d5e3cf28c91 24
+skills/native-routed/native-routed-cc/references/principles.md
+  s_3398949fa9d773::t_57da703e0fd67a 19,23-24,29
+skills/native-routed/native-routed-cc/references/review.md
+  s_3398949fa9d773::t_62c7eb1dae0d72 14,24,38-41
+skills/native-routed/native-routed-codex/references/principles.md
+  s_3398949fa9d773::t_aa8a2e9b2ff39c 19,23-24,29
+skills/native-routed/native-routed-codex/references/review.md
+  s_3398949fa9d773::t_47d0d659b3547d 14,24,38-41
+skills/paseo-routed/paseo-routed/references/principles.md
+  s_3398949fa9d773::t_0beb092e4c1840 19,23-24,29
+skills/paseo-routed/paseo-routed/references/review.md
+  s_3398949fa9d773::t_66bbc48efbe8ae 14,24,38-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ce88a48b266a724602407078c35304c365426a62",
+  "prompts": {},
+  "sessions": {
+    "s_3398949fa9d773": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2950b67e-4b8c-462f-aaf1-2d2e91e3a78d",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
