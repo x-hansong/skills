@@ -4,7 +4,13 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ## Unreleased
 
+### Changed
+
+- Routed orchestrators: `scope.md` opens with a keyword line; done-conditions name the surface the user checks; `progress.md` stays under 40 lines, is rewritten only by the orchestrator, and lists deferred project gates; agents append to `log.md`. Worktree cleanup copies outputs that a main-checkout tool reads back to the main checkout instead of only to the notes.
+
 ### Added
+
+- Routed skills ship `scripts/wait-job.sh` for bounded waits on a PID or completion command, with log tails and a retryable exit code while the job is still running.
 
 - Paseo Routed group: `paseo-routed`, `implement-routed`, `implement-spec-routed`, `setup-paseo-routed`, `paseo-routed-guide`.
 - Rosters in `~/.paseo-routed/config.yaml` map the `worker` and `reviewer` roles to Paseo profiles; switch per run with `--roster <name>`.
@@ -18,6 +24,7 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 ### Changed
 
 - Routed acceptance (`paseo-routed`, `native-routed-*`): every count the orchestrator reports comes from a script over the deliverables, not a hand sum of agent reports. Test discipline: when the pinned static-check tool is missing, workers run it through an isolated runner (`uvx ruff ...` for Python) instead of skipping.
+- Routed briefs name an absolute worktree path for every writable repository, including the orchestrator's workspace, and keep main checkouts read-only. Workers start long jobs with logs and call the bundled wait script repeatedly in the same turn until the job finishes.
 - Routed test discipline (`paseo-routed`, `native-routed-*`): workers run the affected tests and the changed files' static checks before each commit, and no longer run the full suite at the end or wait on CI unless the brief asks; the report says the full suite was not run.
 - `setup-paseo-routed` and `native-routed-setup-cc` check the Explore subagent's model. The built-in `Explore` and `Plan` are `model: inherit`, so they skip `CLAUDE_CODE_SUBAGENT_MODEL` and run on the session model. When that variable is set and no override exists, setup offers a read-only `Explore.md` override with the variable's model, backs up any existing file, and can prove the result with one `claude -p` run.
 - Routed skills (`paseo-routed`, `native-routed-*`): every brief states a positive write scope (where the agent may write, what done leaves behind); agents reply done only when the deliverable exists, after their own subagents and background jobs finish; the orchestrator checks the deliverable on each finish. `paseo-routed`'s `paseo-access` notes that MCP agent tools take full agent ids.
@@ -36,6 +43,10 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 - `paseo-routed` and `native-routed-*` ship a shared `principles.md` adapted from pstack: Model the Domain, Boundary Discipline, Subtract Before You Add, Minimize Reader Load, Make Operations Idempotent, Explain the Number. The orchestrator reads it before writing the decided design, the reviewer applies it as a P3 judgement-call baseline next to the smell list, and the report names each principle that changed a decision.
 
 ### Fixed
+
+- Bounded routed waits stop completion-check process groups on timeout and clean up descendants after a check exits, so captured output closes without stopping an observed PID.
+
+- Private-value checks exclude the `.git` pointer file in worktrees, as well as the `.git` directory, so repository metadata is not mistaken for a private value in project files.
 
 - The routed skills no longer depend on other skill sets, only on Paseo for the Paseo group. `implement`, `implement-spec` and `tdd` are manual-only skills a model can't load, so the implement skills stopped or worked around the block. Their flow now lives in the skills themselves, and `paseo-routed` and `native-routed-*` carry `references/tests.md` (test discipline) and `references/review.md` (two-axis review), copied into the run's notes so subagents read them by path. Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT). Setup no longer checks or installs `implement`, `implement-spec`, `tdd` or `code-review`, and `scripts/check.sh` rejects skills that load one of them.
 - `paseo-watch` and `native-watch-*` decide stall state afresh on every tick, so a stalled orchestrator stays listed until it moves instead of dropping out after the first report; facts carry their own time, and a stale one is no longer shown as progress. `paseo-watch` also reports a parent that missed its child's wake-up right away.

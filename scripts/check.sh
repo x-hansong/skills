@@ -49,7 +49,7 @@ patterns=(
   'BEGIN [A-Z ]*PRIVATE KEY'
 )
 for pattern in "${patterns[@]}"; do
-  if matches=$(grep -rEn --exclude-dir=.git --exclude=check.sh -- "$pattern" . 2>/dev/null); then
+  if matches=$(grep -rEn --exclude-dir=.git --exclude=.git --exclude=check.sh -- "$pattern" . 2>/dev/null); then
     fail "forbidden pattern '$pattern':"$'\n'"$matches"
   fi
 done
@@ -63,6 +63,8 @@ fi
 
 # Twin skills are rendered from src/; a hand edit under skills/ would be lost on the next render.
 scripts/render.sh --check || fail "rendered skills differ from src/"
+
+scripts/test-wait-job.sh || fail "wait-job tests failed"
 
 # Routed skills keep the sections other skills and the watch rely on.
 for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
@@ -81,7 +83,7 @@ done
 if [ -n "${CHECK_PRIVATE_TERMS:-}" ] && [ -f "$CHECK_PRIVATE_TERMS" ]; then
   while IFS= read -r term; do
     [ -n "$term" ] || continue
-    if matches=$(grep -rEn --exclude-dir=.git -- "$term" . 2>/dev/null); then
+    if matches=$(grep -rEn --exclude-dir=.git --exclude=.git -- "$term" . 2>/dev/null); then
       fail "private term matched:"$'\n'"$matches"
     fi
   done < "$CHECK_PRIVATE_TERMS"
