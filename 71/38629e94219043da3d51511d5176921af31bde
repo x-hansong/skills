@@ -1,0 +1,34 @@
+skills/native-routed/native-routed-cc/references/tests.md
+  s_c65451cb5223d0::t_95894d83e772fb 12,24-25
+src/shared/routed/tests.md
+  s_c65451cb5223d0::t_37b07961bebea9 12
+  s_c65451cb5223d0::t_5b01bd7f486c5c 24-25
+skills/paseo-routed/paseo-routed/references/tests.md
+  s_c65451cb5223d0::t_95894d83e772fb 12,24-25
+skills/native-routed/native-routed-codex/references/tests.md
+  s_c65451cb5223d0::t_95894d83e772fb 12,24-25
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_c65451cb5223d0::t_bd6b140b7cab0b 37
+  s_c65451cb5223d0::t_78712b659d916c 57
+  s_c65451cb5223d0::t_35a5846dc2fe84 30
+  s_c65451cb5223d0::t_9ad143670b5bc7 67
+  s_c65451cb5223d0::t_d604c32fa70cf4 69
+CHANGELOG.md
+  s_c65451cb5223d0::t_263f067718205d 9-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7138629e94219043da3d51511d5176921af31bde",
+  "prompts": {},
+  "sessions": {
+    "s_c65451cb5223d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e3f66a6-a4bf-4d7f-ae1f-25f4d2d4e295",
+        "model": "group/auto-gpt-6-1-sol"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
