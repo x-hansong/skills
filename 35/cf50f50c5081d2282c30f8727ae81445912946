@@ -1,0 +1,26 @@
+CHANGELOG.md
+  s_c7f673669b4800::t_db383267d5ca44 11-13
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_c7f673669b4800::t_5e2125019e7137 83
+  s_c7f673669b4800::t_2b3737644c3ee3 63
+  s_c7f673669b4800::t_7c793d01a5e8b9 37-43
+  s_c7f673669b4800::t_bc7b21ba5c1cd1 30
+  s_c7f673669b4800::t_e3525a55a594d1 67-76
+  s_c7f673669b4800::t_66de558afe8d94 85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "35cf50f50c5081d2282c30f8727ae81445912946",
+  "prompts": {},
+  "sessions": {
+    "s_c7f673669b4800": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "907fd4d5-3c4b-4f59-a52e-e7dbd5b6536c",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
