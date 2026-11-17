@@ -1,0 +1,21 @@
+CHANGELOG.md
+  s_f4aeb5d7dbfa51::t_dd910ca9007ab2 9-10
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_f4aeb5d7dbfa51::t_b86c0bd1230558 33,35-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c9d4bd2ae1ed061d569df5e5dac4de7c3ca1dd11",
+  "prompts": {},
+  "sessions": {
+    "s_f4aeb5d7dbfa51": {
+      "agent_id": {
+        "tool": "droid",
+        "id": "s_f4aeb5d7dbfa51",
+        "model": "unknown"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
