@@ -1,0 +1,27 @@
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_7aff7d561c6822::t_8ad1c4aded2c0d 89
+CHANGELOG.md
+  s_7aff7d561c6822::t_7ac474b2a565a2 9-10
+src/native-routed/native-routed/SKILL.md.tmpl
+  s_7aff7d561c6822::t_a6cfee32311a86 91-92
+skills/native-routed/native-routed-cc/SKILL.md
+  s_7aff7d561c6822::t_15f45776e207e9 65-66
+skills/native-routed/native-routed-codex/SKILL.md
+  s_7aff7d561c6822::t_87345c25732b59 65-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7b8164deecaa7df4b1a4f2497c3e58324daebdd6",
+  "prompts": {},
+  "sessions": {
+    "s_7aff7d561c6822": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cd894df8-819b-4bc0-aae1-0a09b7e799bc",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
