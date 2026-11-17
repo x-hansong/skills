@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed orchestrators (`paseo-routed`, `native-routed-*`): the brief step starts with `git fetch`, so a baseline SHA read from `origin/<branch>` is the remote's current tip and not a stale local ref.
+
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): exploration and research briefs deliver facts only, with no recommended design or plan section, so the orchestrator writes the design itself; before a brief is sent, every literal value in the decided design cites its validating type or rule, and every assumption about input data is run as a query over the real data.
 
 - `paseo-routed`: a new Notes section gathers what `progress.md` holds (decisions tagged by decision-maker, live agent and workspace IDs, reviewed SHA per repository, open gates); finished resources move to `log.md`. Delivery requires a reviewer verdict on the final HEAD, including fixes and merge-conflict resolutions. Briefs get a pre-flight with two checks: contract and integration (merge when acceptance checks commit ancestry). Cleanup archives only `worktree` workspaces this task created; `local` workspaces keep their directory. Counts treat a re-scored copy as the same run and a retry as a new run.
