@@ -65,6 +65,7 @@ fi
 scripts/render.sh --check || fail "rendered skills differ from src/"
 
 scripts/test-wait-job.sh || fail "wait-job tests failed"
+scripts/test-init-notes.sh || fail "init-notes tests failed"
 
 # Routed skills keep the sections other skills and the watch rely on.
 for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do

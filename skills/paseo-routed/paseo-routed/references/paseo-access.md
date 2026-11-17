@@ -24,6 +24,8 @@ Profiles are launch templates. Read them fresh before each dispatch; never pass 
 | `thinkingOptionId` | `settings.thinkingOptionId` |
 | `featureValues` | `settings.features` |
 
+`create_agent` rejects a bare provider such as `claude`; it must read `provider/model`, for example `codex/gpt-5.4`, both taken from the profile you just read.
+
 Copy only fields that exist. CLI `--provider`, `--mode`, `--thinking` cover the first three. When a feature setting has no CLI flag, check the subcommand help or use MCP to pass it in full, and report the gap.
 
 ## Workspaces and dispatch
@@ -43,7 +45,7 @@ Follow-ups to a running agent go through `paseo send`, which waits for the agent
 
 ## Completion
 
-MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling. MCP agent tools resolve only the full agent id, never a short prefix; record full ids in `progress.md`. CLI `run --no-wait` has no such callback: run `paseo wait <agent-id>` in the background, then read `paseo logs <agent-id>`, its status and its artifacts. A CLI wait process is not an MCP notification.
+MCP dispatch sets `notifyOnFinish`; wait for the notification instead of polling. MCP agent tools resolve only the full agent id, never a short prefix (`Agent not found` is the symptom); record full ids in `progress.md` when the agent is created. Don't poll `list_agents` for state: the finish notification and `progress.md` already say what runs. When you must list, filter: `cwd` for one workspace, `statuses` for running or errored agents, `limit` and `sinceHours` to bound it; background and archived agents appear only with `includeBackground` and `includeArchived`. CLI `run --no-wait` has no such callback: run `paseo wait <agent-id>` in the background, then read `paseo logs <agent-id>`, its status and its artifacts. A CLI wait process is not an MCP notification.
 
 ## Passing methods to agents
 

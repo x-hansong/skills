@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- `paseo-routed`: acceptance no longer has the orchestrator verify by reading source. It checks that the deliverable exists, reruns the commands the brief names, reads the files the agent produced and diffs only through `--stat` (in full when one screen); every other check goes to a read-only verifier on the reviewer profile, given the claims, commands and artifact paths. The stop-condition table gains a row for lint, format and type failures (fix in place and rerun), and a docs-only commit whose diff fits one screen may be delivered without a new review verdict when the orchestrator read it. `paseo-access.md` states that `create_agent` needs `provider/model`, that agent tools take only the full agent id, and which `list_agents` filters to use.
+
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): the brief step starts with `git fetch`, so a baseline SHA read from `origin/<branch>` is the remote's current tip and not a stale local ref.
 
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): exploration and research briefs deliver facts only, with no recommended design or plan section, so the orchestrator writes the design itself; before a brief is sent, every literal value in the decided design cites its validating type or rule, and every assumption about input data is run as a query over the real data.
@@ -19,6 +21,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 - Routed orchestrators: `scope.md` opens with a keyword line; done-conditions name the surface the user checks; `progress.md` stays under 40 lines, is rewritten only by the orchestrator, and lists deferred project gates; agents append to `log.md`. Worktree cleanup copies outputs that a main-checkout tool reads back to the main checkout instead of only to the notes.
 
 ### Added
+
+- `paseo-routed` ships `scripts/init-notes.sh`, which creates the notes directory with `scope.md`, `progress.md` (live resources, reviewed SHA, open gates), `log.md` and the test, review and principles copies, and refuses to overwrite existing notes.
 
 - Routed skills ship `scripts/wait-job.sh` for bounded waits on a PID or completion command, with log tails and a retryable exit code while the job is still running.
 
