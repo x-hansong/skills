@@ -1,0 +1,45 @@
+scripts/test-init-notes.sh
+  s_510c98d97ed5d9::t_efa1aed5989e04 34-35
+  s_510c98d97ed5d9::t_9e4de4effe4fd5 25
+scripts/check.sh
+  s_510c98d97ed5d9::t_efa1aed5989e04 77-79
+  s_510c98d97ed5d9::t_1679bcc871f675 69
+scripts/test-check-brief.sh
+  s_510c98d97ed5d9::t_04f26f850c06f9 1-41
+skills/paseo-routed/paseo-routed/scripts/check-brief.sh
+  s_510c98d97ed5d9::t_50de5b3a8c407c 1-16
+skills/paseo-routed/paseo-routed/scripts/init-notes.sh
+  s_510c98d97ed5d9::t_2f42d6697acc24 33-34,43
+CHANGELOG.md
+  s_df82786d2c1321::t_db77acae2ea195 9-10,29-30
+skills/paseo-routed/paseo-routed/SKILL.md
+  s_df82786d2c1321::t_b986a3ca436b66 30,43-46
+skills/paseo-routed/paseo-routed/references/paseo-access.md
+  s_df82786d2c1321::t_e6f5351bedc39e 59
+skills/paseo-routed/paseo-routed/references/worker-rules.md
+  s_df82786d2c1321::t_30dc52a2fb024b 1-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e04e1cf978bb4d977ffed9db296b5b2f07676f79",
+  "prompts": {},
+  "sessions": {
+    "s_510c98d97ed5d9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e8e7305-650a-44a2-96c7-3e88307175ab",
+        "model": "group/auto-claude-opus-5-5"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    },
+    "s_df82786d2c1321": {
+      "agent_id": {
+        "tool": "droid",
+        "id": "s_df82786d2c1321",
+        "model": "unknown"
+      },
+      "human_author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
