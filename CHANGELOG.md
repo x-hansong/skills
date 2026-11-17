@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed orchestrators (`paseo-routed`, `native-routed-*`): when the deliverable is a set of judgments (scores, verdicts, labels), a summary count is inconclusive; the orchestrator reads the reason and cited material for every item whose judgment changed or disagrees with a reference label, and compares against a labelled reference set when the project keeps one.
+
 - `paseo-routed`: acceptance no longer has the orchestrator verify by reading source. It checks that the deliverable exists, reruns the commands the brief names, reads the files the agent produced and diffs only through `--stat` (in full when one screen); every other check goes to a read-only verifier on the reviewer profile, given the claims, commands and artifact paths. The stop-condition table gains a row for lint, format and type failures (fix in place and rerun), and a docs-only commit whose diff fits one screen may be delivered without a new review verdict when the orchestrator read it. `paseo-access.md` states that `create_agent` needs `provider/model`, that agent tools take only the full agent id, and which `list_agents` filters to use.
 
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): the brief step starts with `git fetch`, so a baseline SHA read from `origin/<branch>` is the remote's current tip and not a stale local ref.
