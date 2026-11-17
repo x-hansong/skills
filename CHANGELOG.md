@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- `paseo-routed`: `paseo-access.md` picks the workspace by the kind of work. Exploration, research, review, diagnosis and tasks with no repository run in the orchestrator's current workspace (`workspaceId` omitted); only implementation in a repository gets a `worktree` workspace. A `local` workspace on the notes directory is ruled out, since Paseo registers any unowned path as a new project.
+
 - `paseo-routed`: acceptance no longer has the orchestrator verify by reading source. It checks that the deliverable exists, reruns the commands the brief names, reads the files the agent produced and diffs only through `--stat` (in full when one screen); every other check goes to a read-only verifier on the reviewer profile, given the claims, commands and artifact paths. The stop-condition table gains a row for lint, format and type failures (fix in place and rerun), and a docs-only commit whose diff fits one screen may be delivered without a new review verdict when the orchestrator read it. `paseo-access.md` states that `create_agent` needs `provider/model`, that agent tools take only the full agent id, and which `list_agents` filters to use.
 
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): the brief step starts with `git fetch`, so a baseline SHA read from `origin/<branch>` is the remote's current tip and not a stale local ref.

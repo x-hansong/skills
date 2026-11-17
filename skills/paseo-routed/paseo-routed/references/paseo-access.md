@@ -30,9 +30,16 @@ Copy only fields that exist. CLI `--provider`, `--mode`, `--thinking` cover the 
 
 ## Workspaces and dispatch
 
-Create or pick workspaces per the `paseo` skill. Independent work units get their own worktree and branch, with the baseline pinned to a full SHA. If the project needs extra registration or restore steps for worktrees, run them on create and on resume.
+Pick the workspace by what the agent does:
 
-MCP: `create_workspace`, then `create_agent` with the same `serverId` and `workspaceId`. CLI:
+| Work | Workspace |
+| --- | --- |
+| Exploration, research, review, diagnosis, or a task with no repository | Your current workspace: omit `workspaceId` in `create_agent` (CLI: omit `--workspace`/`--new-workspace`). |
+| Implementation in a repository | A `worktree` workspace on that repository with its own branch, baseline pinned to a full SHA; independent units each get their own. |
+
+Never call `create_workspace` with `isolation: "local"` on the notes directory or any other path just to give an agent somewhere to run: a path no project owns becomes a new Paseo project and workspace. The notes path goes in the brief, not in the workspace. If the project needs extra registration or restore steps for worktrees, run them on create and on resume.
+
+For a worktree, MCP: `create_workspace`, then `create_agent` with the same `serverId` and `workspaceId`. CLI:
 
 ```bash
 paseo --home "$HOME/.paseo" workspace create --help
