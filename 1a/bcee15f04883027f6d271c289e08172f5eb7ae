@@ -1,0 +1,22 @@
+CHANGELOG.md
+  h_ef638b48795096 11-14,33-34
+scripts/check.sh
+  h_ef638b48795096 69
+scripts/test-set-progress.sh
+  h_ef638b48795096 1-75
+skills/paseo-routed/paseo-routed/SKILL.md
+  h_ef638b48795096 21,37,39-40,47,51,63,72,95-96,105-106,108
+skills/paseo-routed/paseo-routed/scripts/set-progress.sh
+  h_ef638b48795096 1-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1abcee15f04883027f6d271c289e08172f5eb7ae",
+  "prompts": {},
+  "humans": {
+    "h_ef638b48795096": {
+      "author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
