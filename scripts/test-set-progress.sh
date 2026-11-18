@@ -64,6 +64,12 @@ has 'sha with "quotes" and | pipes'
 
 # Errors.
 expect 1 "$script" "$tmp/n" --append Nope x
+# An unknown section lists the valid ones; a label with its colon is unknown, not silently accepted.
+for name in Intent "Current step" "Key files and gotchas" Decisions "Live resources" "Reviewed SHA" "Open gates"; do
+  grep -qF -- "$name" "$tmp/output" || { printf 'FAIL: error output omits section "%s"\n' "$name" >&2; cat "$tmp/output" >&2; exit 1; }
+done
+expect 1 "$script" "$tmp/n" --append "Intent:" x
+grep -qF 'without its colon' "$tmp/output" || { printf 'FAIL: colon hint missing\n' >&2; cat "$tmp/output" >&2; exit 1; }
 expect 1 "$script" "$tmp/missing" --append Decisions x
 expect 2 "$script" "$tmp/n" --bogus Decisions x
 expect 2 "$script" "$tmp/n"

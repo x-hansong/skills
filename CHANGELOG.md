@@ -72,6 +72,7 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Fixed
 
+- `set-progress.sh` lists the sections that exist when the name is not found, and says a label is given without its colon. `init-notes.sh` writes labels such as `Intent:` into `progress.md`, so an agent copying one of them was refused with no hint of the valid names.
 - Bounded routed waits stop completion-check process groups on timeout and clean up descendants after a check exits, so captured output closes without stopping an observed PID.
 
 - Private-value checks exclude the `.git` pointer file in worktrees, as well as the `.git` directory, so repository metadata is not mistaken for a private value in project files.

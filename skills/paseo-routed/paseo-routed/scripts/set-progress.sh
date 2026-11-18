@@ -75,7 +75,17 @@ awk -v section="$section" -v mode="$mode" -v newfile="$new" '
     close_section()
     if (!found) exit 3
   }
-' "$file" > "$out" || { rc=$?; if [ "$rc" -eq 3 ]; then printf 'set-progress.sh: no section "%s" in %s\n' "$section" "$file" >&2; exit 1; fi; exit "$rc"; }
+' "$file" > "$out" || {
+  rc=$?
+  if [ "$rc" -eq 3 ]; then
+    printf 'set-progress.sh: no section "%s" in %s\n' "$section" "$file" >&2
+    # Same boundaries the awk script uses: "## " headings and "Label:" lines. Labels are named without the colon.
+    names=$({ grep -E '^[A-Za-z][A-Za-z ]*:' "$file" | sed 's/:.*//'; sed -n 's/^## //p' "$file"; } | paste -sd '|' - | sed 's/|/, /g')
+    printf 'set-progress.sh: sections in this file: %s (give a label without its colon)\n' "$names" >&2
+    exit 1
+  fi
+  exit "$rc"
+}
 
 if [ "$(wc -l < "$out")" -gt 40 ]; then
   printf 'set-progress.sh: progress.md would be %s lines; keep it under 40 and trim before adding more\n' "$(wc -l < "$out")" >&2
