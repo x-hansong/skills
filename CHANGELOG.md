@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- `paseo-routed`: two gaps seen in an operations run where four workers in a row each stopped on one environment blocker. The brief pre-flight gains a Tools check: the verifier runs the version and `--help` of every CLI subcommand the brief prescribes, including commands a user pasted from their own machine, and reports whether each subcommand and flag is accepted. An agent that stopped on a named stop condition resumes in place, with one message saying what changed, when the scope is unchanged and the blocker was cleared outside it; a changed scope or new directive still goes to a fresh agent.
+
 - `paseo-routed`: `paseo-access.md` picks the workspace by the kind of work. Exploration, research, review, diagnosis and tasks with no repository run in the orchestrator's current workspace (`workspaceId` omitted); only implementation in a repository gets a `worktree` workspace. A `local` workspace on the notes directory is ruled out, since Paseo registers any unowned path as a new project.
 
 - `paseo-routed`: four gaps seen in a long orchestration run. The brief pre-flight (contract and data assumptions) goes to a read-only verifier on the reviewer profile; the Roles table now also bars the orchestrator from opening source to check a brief, which the pre-flight text used to require. Long drivers stop through a stop file checked between cases, and the brief says why freezing or killing the process voids the case in flight. The Report names agents by the title Paseo shows and explains an internal term on first use. Before reporting, conclusions given to the user move into a document the project's entry file routes to, not only the notes.
