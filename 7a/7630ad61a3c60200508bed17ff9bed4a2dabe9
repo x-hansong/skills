@@ -1,0 +1,16 @@
+CHANGELOG.md
+  h_ef638b48795096 9-10
+skills/paseo-routed/paseo-routed/SKILL.md
+  h_ef638b48795096 42,56-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7a7630ad61a3c60200508bed17ff9bed4a2dabe9",
+  "prompts": {},
+  "humans": {
+    "h_ef638b48795096": {
+      "author": "萧恺 <hansong.xhs@antgroup.com>"
+    }
+  }
+}
