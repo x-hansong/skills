@@ -26,6 +26,8 @@ Profiles are launch templates. Read them fresh before each dispatch; never pass 
 
 `create_agent` rejects a bare provider such as `claude`; it must read `provider/model`, for example `codex/gpt-5.4`, both taken from the profile you just read.
 
+Leave `background` out of `create_agent`, for workers and reviewers alike. The user finds running agents in the tab list, and `background: true` removes an agent from it and from default listings. Set it only when the user asks for an agent they don't need to watch.
+
 Copy only fields that exist. CLI `--provider`, `--mode`, `--thinking` cover the first three. When a feature setting has no CLI flag, check the subcommand help or use MCP to pass it in full, and report the gap.
 
 ## Workspaces and dispatch
