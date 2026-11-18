@@ -68,12 +68,28 @@ scripts/test-wait-job.sh || fail "wait-job tests failed"
 scripts/test-init-notes.sh || fail "init-notes tests failed"
 scripts/test-set-progress.sh || fail "set-progress tests failed"
 
-# Routed skills keep the sections other skills and the watch rely on.
+# Routed skills keep the sections other skills and the watch rely on. Rule text lives in the shared
+# references (src/shared/routed/); a skill must point at each of them, and each must exist.
 for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
-  for required in '| Network or transport error' '## Acceptance' '## Report' 'rerun its command yourself' '**inconclusive**' 'progress.md' 'Retry a failed agent by cause' 'consolidated brief' 'the decided design' 'references/principles.md'; do
+  for required in '## Acceptance' '## Report' 'rerun its command yourself' 'progress.md' 'Retry a failed agent by cause' 'references/principles.md' 'references/brief.md' 'references/acceptance.md' 'references/report.md' 'references/reviewer-use.md'; do
     grep -qF -- "$required" "$skill_md" || fail "$skill_md: missing '$required'"
   done
+  for ref in brief acceptance report reviewer-use review tests principles; do
+    [ -f "$(dirname "$skill_md")/references/$ref.md" ] || fail "$(dirname "$skill_md")/references/$ref.md is missing"
+  done
 done
+# A routed SKILL.md carries host steps and pointers. Rule text belongs in src/shared/routed/, so a new
+# rule is written once and every host gets it; this cap makes the next rule go there.
+skill_md_word_limit=1700
+for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
+  words=$(wc -w < "$skill_md")
+  [ "$words" -le "$skill_md_word_limit" ] || fail "$skill_md: $words words (max $skill_md_word_limit); move rule text to src/shared/routed/ and run scripts/render.sh"
+done
+# Every shared rule file the SKILL.md files point at must keep its anchors.
+grep -qF '| Case | The reviewer does |' src/shared/routed/reviewer-use.md || fail "reviewer-use.md: missing the case table"
+grep -qF '| Network or transport error' src/shared/routed/brief.md || fail "brief.md: missing the stop-condition table"
+grep -qF '**inconclusive**' src/shared/routed/acceptance.md || fail "acceptance.md: missing the verdict definitions"
+grep -qF 'consolidated brief' src/shared/routed/brief.md || fail "brief.md: missing the consolidated-brief rule"
 for skill_md in skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
   grep -qF 'session.json' "$skill_md" || fail "$skill_md: missing 'session.json'"
 done

@@ -15,6 +15,8 @@ Skills live in `skills/<group>/<skill>/SKILL.md`. A group directory never has it
 
 The `-cc` and `-codex` twins under `skills/native-routed/`, and the shared `review.md`, `tests.md`, `principles.md` and `explore-model.md` references, are rendered from `src/`. Edit `src/`, then run `scripts/render.sh`. In a template, `{host}` becomes `cc` or `codex`, and lines between `%% cc` (or `%% codex`) and `%% end` go to that host only. Keep host-specific blocks small; shared prose stays outside them.
 
+Orchestration rules that don't depend on the host (briefs, acceptance, reports, when the reviewer runs, test, review and design methods) live in `src/shared/routed/`, one file per topic, and `render.sh` copies each into `paseo-routed` and both `native-routed-*` skills. A new rule goes there, never into a `SKILL.md`: `scripts/check.sh` caps the three routed `SKILL.md` files at a word limit, and a skill reaches a shared file through a pointer. Add a new shared file to `SHARED` in `scripts/render.sh`.
+
 ## Checks
 
 Run `scripts/check.sh` before committing. CI runs the same script.
