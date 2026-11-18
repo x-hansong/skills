@@ -1,6 +1,7 @@
 ---
 name: native-routed-guide-cc
 description: "Guide to the native-routed skill set for Claude Code (no Paseo): which of native-routed-cc, native-implement-routed-cc, native-implement-spec-routed-cc or native-watch-cc fits a situation, which models play worker, reviewer and committee and how to change them, and a guided first run. Use when the user asks how to use routed or delegated execution in Claude Code without Paseo, which native-routed skill to pick, or is getting started."
+disable-model-invocation: true
 license: MIT
 compatibility: "Claude Code only. Uses native-routed-setup-cc for its readiness check."
 metadata:

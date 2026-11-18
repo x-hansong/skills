@@ -1,6 +1,7 @@
 ---
 name: native-routed-guide-codex
 description: "Guide to the native-routed skill set for Codex (no Paseo): which of native-routed-codex, native-implement-routed-codex, native-implement-spec-routed-codex or native-watch-codex fits a situation, which models play worker, reviewer and committee and how to change them, and a guided first run. Use when the user asks how to use routed or delegated execution in Codex without Paseo, which native-routed skill to pick, or is getting started."
+disable-model-invocation: true
 license: MIT
 compatibility: "Codex only. Uses native-routed-setup-codex for its readiness check."
 metadata:
