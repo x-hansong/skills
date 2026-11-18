@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- `paseo-routed`: four gaps seen in a long orchestration run. The brief pre-flight (contract and data assumptions) goes to a read-only verifier on the reviewer profile; the Roles table now also bars the orchestrator from opening source to check a brief, which the pre-flight text used to require. Long drivers stop through a stop file checked between cases, and the brief says why freezing or killing the process voids the case in flight. The Report names agents by the title Paseo shows and explains an internal term on first use. Before reporting, conclusions given to the user move into a document the project's entry file routes to, not only the notes.
+
 - `paseo-routed`: three gaps seen in two long orchestration runs. A baseline is re-fetched before a build, install, upgrade, publish or push, and integrated first when the remote moved. The stop-condition table gains a row for a long job already doomed (failed upload before verification, stalled download) or running on a stale baseline: stop waiting, report the evidence, and do not kill an external-service run without the user's say; a killed run's exit file can read 0. Worker reports open with a verdict block of at most 15 lines so the orchestrator reads that and drills down only where disputed. Reports state the scope a conclusion covers, and text is checked for U+FFFD with a pattern that works under a UTF-8 locale.
 
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): when the deliverable is a set of judgments (scores, verdicts, labels), a summary count is inconclusive; the orchestrator reads the reason and cited material for every item whose judgment changed or disagrees with a reference label, and compares against a labelled reference set when the project keeps one.
@@ -25,6 +27,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 - Routed orchestrators: `scope.md` opens with a keyword line; done-conditions name the surface the user checks; `progress.md` stays under 40 lines, is rewritten only by the orchestrator, and lists deferred project gates; agents append to `log.md`. Worktree cleanup copies outputs that a main-checkout tool reads back to the main checkout instead of only to the notes.
 
 ### Added
+
+- `paseo-routed` ships `scripts/set-progress.sh`, which appends to or replaces one section of `progress.md` (a heading section or a label such as `Current step`), reads lines from standard input when none are given, and refuses a result over 40 lines. Its tests run in `scripts/check.sh`.
 
 - `paseo-routed` ships `scripts/init-notes.sh`, which creates the notes directory with `scope.md`, `progress.md` (live resources, reviewed SHA, open gates), `log.md` and the test, review and principles copies, and refuses to overwrite existing notes.
 
