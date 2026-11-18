@@ -40,6 +40,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Added
 
+- `paseo-routed` ships `scripts/live-agents.sh`, which prints the status of every agent under live resources in `progress.md` with one `paseo ls` call and exits 3 when one is idle, error, closed or missing. The orchestrator runs it at the start of every turn and before saying an agent is still running, so a finish notification that arrived mid-turn and went unanswered has a second trigger. The Waiting and Resume sections and `references/paseo-access.md` carry the rule.
+
 - `paseo-routed` ships `scripts/set-progress.sh`, which appends to or replaces one section of `progress.md` (a heading section or a label such as `Current step`), reads lines from standard input when none are given, and refuses a result over 40 lines. Its tests run in `scripts/check.sh`.
 
 - `paseo-routed` ships `scripts/init-notes.sh`, which creates the notes directory with `scope.md`, `progress.md` (live resources, reviewed SHA, open gates), `log.md` and the test, review and principles copies, and refuses to overwrite existing notes.

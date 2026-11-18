@@ -67,6 +67,7 @@ scripts/render.sh --check || fail "rendered skills differ from src/"
 scripts/test-wait-job.sh || fail "wait-job tests failed"
 scripts/test-init-notes.sh || fail "init-notes tests failed"
 scripts/test-set-progress.sh || fail "set-progress tests failed"
+scripts/test-live-agents.sh || fail "live-agents tests failed"
 
 # Routed skills keep the sections other skills and the watch rely on. Rule text lives in the shared
 # references (src/shared/routed/); a skill must point at each of them, and each must exist.
