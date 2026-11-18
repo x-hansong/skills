@@ -6,7 +6,7 @@ Agent skills by [x-hansong](https://github.com/x-hansong), for Claude Code and C
 
 ## Paseo Routed
 
-Keep design and orchestration in your session, and let [Paseo](https://paseo.sh) agents do the work: a **worker** explores, researches, implements and merges; a separate **reviewer** reviews and diagnoses. Which Paseo profiles play those roles comes from a **roster** you can switch per run, so trying another model or harness is a config change, not a new skill.
+Keep design and orchestration in your session, and let [Paseo](https://paseo.sh) agents do the work: a **worker** explores, researches, implements and merges; a separate **reviewer** reviews, diagnoses and checks briefs and disputed conclusions, only in the cases [`reviewer-use.md`](src/shared/routed/reviewer-use.md) lists. Which Paseo profiles play those roles comes from a **roster** you can switch per run, so trying another model or harness is a config change, not a new skill.
 
 | Skill | Invoke | Use it for |
 | --- | --- | --- |

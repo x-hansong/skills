@@ -21,7 +21,7 @@ The input is a spec, its tickets and how they are tracked. Without a ticket grap
 
 | Step | Who |
 | --- | --- |
-| Orchestrator | This session schedules the frontier and checks real diffs, test evidence and each ticket's acceptance checks |
+| Orchestrator | This session schedules the frontier and checks each ticket's deliverable and test evidence as `native-routed-cc` accepts them |
 | Exploration | Read-only worker on demand; notes go to the notes directory outside the repo |
 | Implementation | A fresh worker per ticket, started with `isolation: "worktree"` |
 | Merge | Another worker, merging and verifying per the project's integration rules |
@@ -34,6 +34,8 @@ The input is a spec, its tickets and how they are tracked. Without a ticket grap
 The tickets are not a list of steps but a task graph with blocking edges, so there is always a frontier of tickets ready to start. Start every ticket's worker as soon as it is on the frontier, in the background where the host allows, and start the next ones whenever a merge moves the frontier.
 
 Every agent starts with a fresh context. Keep messages to and from agents short: pass pointers to the spec, the tickets, the notes and earlier commits instead of restating them.
+
+The `native-routed-cc` rule that takes the first of several similar units through review before dispatching the rest does not apply here. Tickets on the frontier start as soon as they are ready, and the review runs once over the integration branch.
 
 ## Tickets, baseline and parallelism
 
@@ -48,6 +50,6 @@ On every continue or resume, read the notes, then check each worktree's `git log
 
 ## Acceptance
 
-Check each ticket's commits, acceptance checks, diff and test log exit code. Use the project's receipt mechanism when it has one; otherwise keep reproducible test commands, logs and exit codes.
+Accept each ticket as `native-routed-cc` does: its commits exist, its acceptance checks and the test log's exit code come from a rerun or a file the agent produced, and a diff is read only through `--stat`. Use the project's receipt mechanism when it has one; otherwise keep reproducible test commands, logs and exit codes.
 
 Handle draft PRs, ticket closing, branch merges, pushes and worktree cleanup per the project's rules, within the user's existing authorization. Report actual results, deviations and anything unverified.

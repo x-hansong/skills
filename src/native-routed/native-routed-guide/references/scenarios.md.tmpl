@@ -28,7 +28,7 @@ A typical path for a feature: grill or discuss the idea → `to-spec` → `to-ti
 
 - **This session** designs and orchestrates. It never explores, researches or implements the task itself, and never hands the design to another agent.
 - **worker** explores, researches, implements, merges and fixes review findings.
-- **reviewer** reviews read-only and diagnoses hard failures. It never reviews work it wrote.
+- **reviewer** reviews read-only and diagnoses hard failures. It never reviews work it wrote. It runs in five cases only: an implementation commit about to be delivered, a brief's pre-flight (literal values, data assumptions, CLI commands), a changed skill that performs writes, a failure that happened twice, and a conclusion you or two reports dispute or ask it to check. Exploration and research reports are accepted by this session from their evidence; ask for a check when you want one.
 - **committee**: read-only subagents called when the same failure happens twice, one per entry in the `committee` list (two by default); they alternate between digging for the root cause and challenging the approach.
 
 %% cc

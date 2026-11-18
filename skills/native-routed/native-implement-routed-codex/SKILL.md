@@ -39,4 +39,4 @@ A single unit, or units sharing files, run serially. Each worker commits to its 
 
 Read the repo's `AGENTS.md` (or `CLAUDE.md`) and its development, testing, parallel-work and handoff conventions, and check `git status` first. Use the baseline checks, test selection, build, receipt and doc-update mechanisms the project actually has.
 
-Acceptance checks real commits, the diff, the acceptance checks and test results. Branching, committing, merging, pushing and cleanup follow the project's rules and the user's authorization; this skill prescribes no project script, main branch or default push flow.
+Acceptance follows `native-routed-codex`: the deliverable exists, the commands in the brief pass, and the reviewer's verdict covers the head to be pushed. Branching, committing, merging, pushing and cleanup follow the project's rules and the user's authorization; this skill prescribes no project script, main branch or default push flow.

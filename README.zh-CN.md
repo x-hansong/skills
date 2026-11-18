@@ -6,7 +6,7 @@
 
 ## Paseo Routed
 
-方案设计和编排留在你的主会话里，具体工作交给 [Paseo](https://paseo.sh) 代理：**worker** 负责探索、调研、实现和合并，另一个 **reviewer** 负责审查和诊断。两个角色分别用哪个 Paseo profile，由 **roster** 决定，每次运行都可以换。想试别的模型或外壳，改配置就行，不用新写技能。
+方案设计和编排留在你的主会话里，具体工作交给 [Paseo](https://paseo.sh) 代理：**worker** 负责探索、调研、实现和合并，另一个 **reviewer** 负责审查、诊断，以及核对简报和有争议的结论，只在 [`reviewer-use.md`](src/shared/routed/reviewer-use.md) 列出的情况下出场。两个角色分别用哪个 Paseo profile，由 **roster** 决定，每次运行都可以换。想试别的模型或外壳，改配置就行，不用新写技能。
 
 | 技能 | 谁来调用 | 用途 |
 | --- | --- | --- |
