@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- `paseo-routed`: judgment acceptance, from a judge-repair run where two prompt rewordings failed. A judgment that cites nothing (an absent verdict) is checked against the judge's full input. Each wrong judgment is attributed to the judge or to the item's own wording (a prohibition or "not required" clause listed as a required element), and a flawed item is fixed instead of rewording the judge prompt.
+
 - `paseo-routed`: two gaps seen in an operations run where four workers in a row each stopped on one environment blocker. The brief pre-flight gains a Tools check: the verifier runs the version and `--help` of every CLI subcommand the brief prescribes, including commands a user pasted from their own machine, and reports whether each subcommand and flag is accepted. An agent that stopped on a named stop condition resumes in place, with one message saying what changed, when the scope is unchanged and the blocker was cleared outside it; a changed scope or new directive still goes to a fresh agent.
 
 - `paseo-routed`: `paseo-access.md` picks the workspace by the kind of work. Exploration, research, review, diagnosis and tasks with no repository run in the orchestrator's current workspace (`workspaceId` omitted); only implementation in a repository gets a `worktree` workspace. A `local` workspace on the notes directory is ruled out, since Paseo registers any unowned path as a new project.
