@@ -6,6 +6,8 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed orchestrators (`paseo-routed`, `native-routed-*`): each `SKILL.md` now says when to read a reference instead of leaving the orchestrator to read them all after loading the skill. `acceptance.md` is read when the first agent returns, `report.md` when wrapping up, `reviewer-use.md` the first time the reviewer is considered, `dispatch.md` before the first dispatch. `tests.md` and `review.md` are copied into the notes and not read by the orchestrator, because workers and the reviewer follow the copies. In one recorded `paseo-routed` session the orchestrator read all nine references in six turns, about 6400 words, before it had dispatched anything.
+
 - `paseo-routed`: `paseo-access.md` tells the orchestrator to leave `background` out of `create_agent`. `background: true` hides an agent from the tab list and default listings, so the user could not see the workers and reviewers a run had started. Two orchestration runs set it after a context compaction.
 
 - `paseo-routed-guide`, `native-routed-guide-cc` and `native-routed-guide-codex` are manual-only (`disable-model-invocation: true`, `allow_implicit_invocation: false`), so their descriptions no longer take context in every session. Run them as `/paseo-routed-guide` or `$native-routed-guide-<host>`. The three orchestrators stay model-invocable because `implement-*` loads them by name.
