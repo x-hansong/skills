@@ -35,6 +35,9 @@ SHARED=(
   "routed/reviewer-use.md skills/paseo-routed/paseo-routed/references/reviewer-use.md"
   "routed/reviewer-use.md skills/native-routed/native-routed-cc/references/reviewer-use.md"
   "routed/reviewer-use.md skills/native-routed/native-routed-codex/references/reviewer-use.md"
+  "routed/compaction.md skills/paseo-routed/paseo-routed/references/compaction.md"
+  "routed/compaction.md skills/native-routed/native-routed-cc/references/compaction.md"
+  "routed/compaction.md skills/native-routed/native-routed-codex/references/compaction.md"
   "claude/explore-model.md skills/paseo-routed/setup-paseo-routed/references/explore-model.md"
   "claude/explore-model.md skills/native-routed/native-routed-setup-cc/references/explore-model.md"
 )

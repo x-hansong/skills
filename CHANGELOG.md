@@ -6,6 +6,12 @@ All notable changes to this repository. Versions follow [Semantic Versioning](ht
 
 ### Changed
 
+- Routed orchestrators: an exploration report is now capped at 8000 characters, with the detail in a `<report>.detail.md` beside it, one `##` heading per claim. The orchestrator checks the size with `wc -c` and opens a detail file by heading, instead of reading the whole report. In one recorded `paseo-routed` session three exploration reports of 23k to 25k characters were read whole (72k characters), and after the compaction that followed the orchestrator read them again in two parts. The earlier "under ~400 lines" limit was the orchestrator's own wording, and the lines were long.
+
+- Routed orchestrators: new `references/compaction.md`, read at Resume after a context compaction. It tells the orchestrator to name the next step from the summary and `progress.md` and to read only what that step names, by heading. In the same session the first compaction was followed by 165k characters of re-reads, 90k tokens of context in under a minute, among them skill text and an ADR the compaction had already put back. `scripts/check.sh` checks that each routed `SKILL.md` points at it.
+
+- `implement-routed` and `implement-spec-routed` (both `paseo-routed` and `native-routed-*`): the line that loaded the routed skill said to apply its "test discipline and review method", which sent the orchestrator to read `tests.md` and `review.md` that `b93820c` had told it to leave alone. It now says to read each reference when the step that names it comes up.
+
 - Routed orchestrators (`paseo-routed`, `native-routed-*`): each `SKILL.md` now says when to read a reference instead of leaving the orchestrator to read them all after loading the skill. `acceptance.md` is read when the first agent returns, `report.md` when wrapping up, `reviewer-use.md` the first time the reviewer is considered, `dispatch.md` before the first dispatch. `tests.md` and `review.md` are copied into the notes and not read by the orchestrator, because workers and the reviewer follow the copies. In one recorded `paseo-routed` session the orchestrator read all nine references in six turns, about 6400 words, before it had dispatched anything.
 
 - `paseo-routed`: `paseo-access.md` tells the orchestrator to leave `background` out of `create_agent`. `background: true` hides an agent from the tab list and default listings, so the user could not see the workers and reviewers a run had started. Two orchestration runs set it after a context compaction.

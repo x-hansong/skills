@@ -13,7 +13,7 @@ metadata:
 
 **Task:** $ARGUMENTS
 
-Load the `native-routed-codex` skill and apply its model resolution, dispatch, recovery, acceptance and report rules, test discipline and review method to this run. Pass `--worker`, `--reviewer` and `--budget` through to model resolution. Reply in the user's language.
+Load the `native-routed-codex` skill and apply its model resolution, dispatch, recovery, acceptance and report rules to this run. Read each of its references when the step that names it comes up. Pass `--worker`, `--reviewer` and `--budget` through to model resolution. Reply in the user's language.
 
 ## Input and scope
 

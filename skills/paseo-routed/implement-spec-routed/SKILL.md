@@ -13,7 +13,7 @@ metadata:
 
 **Spec:** $ARGUMENTS
 
-Load the `paseo-routed` skill and apply its roster resolution, dispatch, recovery, acceptance and report rules, test discipline and review method to this run. Pass `--roster` through to roster resolution. Reply in the user's language.
+Load the `paseo-routed` skill and apply its roster resolution, dispatch, recovery, acceptance and report rules to this run. Read each of its references when the step that names it comes up. Pass `--roster` through to roster resolution. Reply in the user's language.
 
 The input is a spec, its tickets and how they are tracked. Without a ticket graph, when the user just wants a task or plan carried out, use `implement-routed`. When tickets really must be closed, first settle where they live and how they are closed.
 

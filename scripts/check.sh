@@ -91,6 +91,11 @@ grep -qF '| Case | The reviewer does |' src/shared/routed/reviewer-use.md || fai
 grep -qF '| Network or transport error' src/shared/routed/brief.md || fail "brief.md: missing the stop-condition table"
 grep -qF '**inconclusive**' src/shared/routed/acceptance.md || fail "acceptance.md: missing the verdict definitions"
 grep -qF 'consolidated brief' src/shared/routed/brief.md || fail "brief.md: missing the consolidated-brief rule"
+grep -qF '.detail.md' src/shared/routed/brief.md || fail "brief.md: missing the report size limit and detail file"
+grep -qF '.detail.md' src/shared/routed/acceptance.md || fail "acceptance.md: missing the detail-file reading rule"
+for skill_md in skills/paseo-routed/paseo-routed/SKILL.md skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
+  grep -qF 'references/compaction.md' "$skill_md" || fail "$skill_md: does not point at compaction.md"
+done
 for skill_md in skills/native-routed/native-routed-{cc,codex}/SKILL.md; do
   grep -qF 'session.json' "$skill_md" || fail "$skill_md: missing 'session.json'"
 done
