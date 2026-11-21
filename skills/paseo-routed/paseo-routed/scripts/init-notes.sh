@@ -30,7 +30,7 @@ case "$target" in "~"/*) target="$HOME/${target#\~/}" ;; esac
 
 here=$(cd "$(dirname "$0")" && pwd)
 refs="$here/../references"
-for file in tests.md review.md principles.md; do
+for file in tests.md review.md principles.md deliverable-clause.md; do
   [ -f "$refs/$file" ] || { printf 'init-notes.sh: missing %s\n' "$refs/$file" >&2; exit 1; }
 done
 
@@ -40,7 +40,7 @@ if [ -e "$target/scope.md" ] || [ -e "$target/progress.md" ]; then
 fi
 
 mkdir -p -- "$target"
-cp -- "$refs/tests.md" "$refs/review.md" "$refs/principles.md" "$target/"
+cp -- "$refs/tests.md" "$refs/review.md" "$refs/principles.md" "$refs/deliverable-clause.md" "$target/"
 : >> "$target/log.md"
 
 cat > "$target/scope.md" <<EOF
